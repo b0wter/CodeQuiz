@@ -16,9 +16,9 @@ namespace TestRunner.Models
         public bool RunSuccessful { get; }
         public bool OutputMatches { get; private set; }
         public string FailReason { get; private set; }
-        public TimeSpan Duration { get; private set; }
+        public int Duration { get; private set; }
 
-        public TestResult(IEnumerable<string> input, IEnumerable<string> output, IEnumerable<string> expectedOutput, bool runSuccessful, TimeSpan duration)
+        public TestResult(IEnumerable<string> input, IEnumerable<string> output, IEnumerable<string> expectedOutput, bool runSuccessful, int duration)
         {
             Input = input;
             Output = output;
@@ -49,7 +49,7 @@ namespace TestRunner.Models
                 return;
             }
 
-            for(int i = 0; i < Output.Count(); ++i)
+            for(int i = 0; i < cleanedExpectedOutput.Count(); ++i)
             {
                 if(string.Equals(cleanedOutput.ElementAt(i), cleanedExpectedOutput.ElementAt(i)) == false)
                 {

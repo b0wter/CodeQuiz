@@ -46,7 +46,7 @@ namespace WpfFrontend.Viewmodels
             _fileSelector = fileSelector;
             _messageDialog = messageDialog;
 
-            StartTestcasesCommand = new RelayCommand<object>((nullArgument) => StartTestCases(), (nullArgument) => CanStartTestCases());
+            StartTestcasesCommand = new RelayCommand<object>((nullArgument) => StartTestCases().ConfigureAwait(false));
             LoadTestcasesCommand = new RelayCommand<object>((nullArgument) => LoadTestCases());
         }
 
@@ -84,9 +84,21 @@ namespace WpfFrontend.Viewmodels
                 TestCases.Add(test);
         }
 
-        private void StartTestCases()
+        private async Task StartTestCases()
         {
+            var runner = new ProcessTestRunner(Command, Argument);
+            foreach (var test in TestCases)
+            {
+                try
+                {
+                    var result = await test.Run(runner);
+                }
+                catch(Exception ex)
+                {
+                    _messageDialog.ShowMessage(ex.ToString(), "CodeRunner", MessageDialogIcons.Error);
+                }
 
+            }
         }
 
         private bool CanStartTestCases()

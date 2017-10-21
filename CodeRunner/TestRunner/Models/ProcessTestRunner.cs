@@ -11,51 +11,54 @@ namespace TestRunner.Models
 {
     public class ProcessTestRunner : ITestRunner, INotifyPropertyChanged
     {
+        // Constants
+        //
+        private const int InputDelay = 100;
+
         // Members
         //
         private string _command;
         private string _argument;
-        private ObservableCollection<string> _output;
-        private int _timeout;
 
         // Properties
         //
-        public ObservableCollection<string> Output { get { return _output; } set { _output = value; NotifyPropertyChanged(); NotifyPropertyChanged(nameof(OutputAsLine)); } }
+        public ObservableCollection<string> Output { get; } = new ObservableCollection<string>();//{ get { return _output; } set { _output = value; NotifyPropertyChanged(); NotifyPropertyChanged(nameof(OutputAsLine)); } }
         public string OutputAsLine => string.Join(Environment.NewLine, Output);
         public string Command => _command;
         public string Argument => _argument;
-        public int Timeout => _timeout;
 
         // Events
         //
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ProcessTestRunner(string command, string argument)
-            : this(command, argument, 10000)
-        {
-            //
-        }
-
-        public ProcessTestRunner(string command, string argument, int timeout)
         {
             _command = command;
             _argument = argument;
-            _timeout = timeout;
         }
 
-        public async Task<TestResult> Run(List<string> input, List<string> expectedOutput)
+        public async Task<TestResult> Run(List<string> input, List<string> expectedOutput, int timeout)
         {
             var process = CreateProcess();
-            var startTick = Environment.TickCount;
             process.Start();
             process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            var result = await WaitForProcessExit(process, _timeout);
+            await FeedInputToProcess(process, input);
+            var startTick = Environment.TickCount;
+            var result = await WaitForProcessExit(process, timeout);
             var endTick = Environment.TickCount;
-            return CreateTestResultFromCurrentState(input, expectedOutput, result, TimeSpan.FromTicks(endTick - startTick));
+            return CreateTestResultFromCurrentState(input, expectedOutput, result, (endTick - startTick));
         }
 
-        private TestResult CreateTestResultFromCurrentState(List<string> input, List<string> expectedOutput, bool result, TimeSpan duration)
+        private async Task FeedInputToProcess(Process process, List<string> input)
+        {
+            foreach (var line in input)
+            {
+                await Task.Delay(InputDelay);
+                process.StandardInput.WriteLine(line);
+            }
+        }
+
+        private TestResult CreateTestResultFromCurrentState(List<string> input, List<string> expectedOutput, bool result, int duration)
         {
             var testResult = new TestResult(input, Output, expectedOutput, result, duration);
             return testResult;
@@ -86,7 +89,6 @@ namespace TestRunner.Models
             {
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
-                RedirectStandardError = true,
                 CreateNoWindow = true,
                 UseShellExecute = false
             };
@@ -98,14 +100,8 @@ namespace TestRunner.Models
             };
 
             process.OutputDataReceived += Process_OutputDataReceived;
-            process.ErrorDataReceived += Process_ErrorDataReceived;
 
             return process;
-        }
-
-        private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            Output.Add($">>ERROR:{Environment.NewLine}{e.Data}");
         }
 
         private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)

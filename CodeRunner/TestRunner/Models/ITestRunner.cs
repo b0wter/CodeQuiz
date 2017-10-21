@@ -7,6 +7,13 @@ namespace TestRunner.Models
 {
     public interface ITestRunner
     {
-        Task<TestResult> Run(List<string> input, List<string> expectedOutput);
+        /// <summary>
+        /// Startet einen Testlauf mit den Parametern. Timeout ist in Millisekunden.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="expectedOutput"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        Task<TestResult> Run(List<string> input, List<string> expectedOutput, int timeout);
     }
 }
