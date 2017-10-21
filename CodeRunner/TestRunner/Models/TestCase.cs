@@ -9,8 +9,22 @@ namespace TestRunner.Models
     /// </summary>
     public class TestCase
     {
+        /// <summary>
+        /// Zeilenweise Eingaben in das Programm.
+        /// </summary>
         public List<string> Input { get; set; }
+
+        /// <summary>
+        /// Ausgabe welche das zu testende Programm ausgeben sollte.
+        /// </summary>
         public List<string> ExpectedOutput { get; set; }
+
+        /// <summary>
+        /// Maximale Dauer des Tests in Sekunden.
+        /// </summary>
+        public int Timeout { get; set; } = 5;
+
+        public TestResult Result { get; private set; }
 
         public TestResult Run(ITestRunner runner)
         {

@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfFrontend.Helpers;
 
 namespace Startup
 {
@@ -30,7 +31,8 @@ namespace Startup
 
         private void InitKernel()
         {
-            
+            _kernel.Bind<ISelectFileDialog>().To<Win32SelectFileDialog>();
+            _kernel.Bind<IMessageDialog>().To<Win32MessageDialog>();
         }
 
         private void StartWpfFrontEnd()

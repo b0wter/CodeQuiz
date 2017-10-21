@@ -4,7 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfFrontend"
+        xmlns:vm="clr-namespace:WpfFrontend.Viewmodels"
+        xmlns:helpers="clr-namespace:WpfFrontend.Helpers"
         mc:Ignorable="d"
+        DataContext="{Binding Source={x:Static helpers:WpfDesignHelpers.FakeMainViewModel}}"
         Title="MainWindow" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,7 +18,9 @@
 
         <ToolBarTray Grid.Row="0">
             <ToolBar>
-                <Button Content="Start"/>
+                <Button Content="💾 Testfälle laden" Command="{Binding LoadTestcasesCommand}"/>
+                <Separator />
+                <Button Content="▶ Testfälle starten" Command="{Binding StartTestcasesCommand}"/>
             </ToolBar>
         </ToolBarTray>
 
@@ -25,12 +30,33 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="1" Content="Befehl" Margin="5" Padding="0"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Command}" Margin="0,0,5,0"/>
+                <Button Grid.Column="2" Grid.Row="1" Content="..." Width="50" Margin="0,0,5,0"/>
+
+                <Label Grid.Column="0" Grid.Row="3" Content="Argument" Margin="5" Padding="0"/>
+                <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Argument}" Margin="0,0,5,0"/>
+
+                <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Content="Ausgabe" Margin="5,10,5,5" Padding="0"/>
+                <TextBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" AcceptsReturn="True" AcceptsTab="True" IsReadOnly="True" Margin="5"/>
             </Grid>
         </Grid>
 
         <StatusBar Grid.Row="2">
-            <StatusBarItem Content="" />
+            <StatusBarItem Content="Geladene Testfälle: " HorizontalAlignment="Left"/>
+            <StatusBarItem Content="{Binding TestCases.Count, UpdateSourceTrigger=PropertyChanged}" Width="35" HorizontalAlignment="Left"/>
         </StatusBar>
 
         <!-- Overlay -->
