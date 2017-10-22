@@ -87,6 +87,7 @@ namespace WpfFrontend.Viewmodels
 
         private async Task StartTestCases()
         {
+            IsBusy = true;
             foreach (var test in TestCases)
             {
                 try
@@ -99,6 +100,7 @@ namespace WpfFrontend.Viewmodels
                 }
 
             }
+            IsBusy = false;
         }
 
         private bool CanStartTestCases()

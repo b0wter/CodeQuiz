@@ -17,14 +17,16 @@ namespace TestRunner.Models
         public bool OutputMatches { get; private set; }
         public string FailReason { get; private set; }
         public int Duration { get; private set; }
+        public Exception Exception { get; private set; }
 
-        public TestResult(IEnumerable<string> input, IEnumerable<string> output, IEnumerable<string> expectedOutput, bool runSuccessful, int duration)
+        public TestResult(IEnumerable<string> input, IEnumerable<string> output, IEnumerable<string> expectedOutput, bool runSuccessful, int duration, Exception ex)
         {
             Input = input;
             Output = output;
             ExpectedOutput = expectedOutput;
             RunSuccessful = runSuccessful;
             Duration = duration;
+            Exception = ex;
             ValidateOutput();
         }
 

@@ -42,27 +42,21 @@ namespace TestRunner.Models
         /// </summary>
         public TestResult Result { get { return _testResult; } set { _testResult = value; NotifyPropertyChanged(); } }
 
-        private Exception _exception;
+        private DateTime? _lastRun;
         /// <summary>
-        /// Enthaelt eine eventuell geworfene Exception waehrend des Testlaufs.
+        /// Zeitpunkt zu dem der Test das letzte Mal gestartet wurde.
         /// </summary>
-        public Exception Exception { get { return _exception; } set { _exception = value; NotifyPropertyChanged(); } }
+        public DateTime? LastRun { get { return _lastRun; } set { _lastRun = value; NotifyPropertyChanged(); } }
+            
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public async Task<TestResult> Run(ITestRunner runner, string command, string argument)
         {
             TestResult result = null;
+            LastRun = DateTime.Now;
             WasRun = true;
-            try
-            {
-                result = await runner.Run(command, argument, Input, ExpectedOutput, Timeout);
-                Result = result;
-            }
-            catch(Exception ex)
-            {
-                Exception = ex;
-            }
+            Result = await runner.Run(command, argument, Input, ExpectedOutput, Timeout);
             return result;
         }
 

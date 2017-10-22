@@ -7,9 +7,14 @@
         xmlns:vm="clr-namespace:WpfFrontend.Viewmodels"
         xmlns:helpers="clr-namespace:WpfFrontend.Helpers"
         xmlns:tmodels="clr-namespace:TestRunner.Models;assembly=TestRunner"
+        xmlns:converters="clr-namespace:WpfFrontend.Converters"
         mc:Ignorable="d"
         DataContext="{Binding Source={x:Static helpers:WpfDesignHelpers.FakeMainViewModel}}"
         Title="MainWindow" Height="600" Width="800">
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter TrueValue="Visible" FalseValue="Collapsed" x:Key="trueToVisibilityConverter"/>
+        <converters:BoolToVisibilityConverter TrueValue="Collapsed" FalseValue="Visible" x:Key="falseToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -44,40 +49,63 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0" Grid.Row="1" Content="Befehl" Margin="5" Padding="0"/>
-                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Command, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Command, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" VerticalContentAlignment="Center"/>
                 <Button Grid.Column="2" Grid.Row="1" Content="..." Width="50" Margin="0,0,5,0"/>
 
                 <Label Grid.Column="0" Grid.Row="3" Content="Argument" Margin="5" Padding="0"/>
-                <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Argument, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
+                <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Argument, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" VerticalContentAlignment="Center"/>
 
                 <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Content="Ausgabe" Margin="5,10,5,5" Padding="0"/>
                 <ListView Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" Margin="5" ItemsSource="{Binding TestCases}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate DataType="{x:Type tmodels:TestCase}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                            <Border Padding="10" Margin="0">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Result.RunSuccessful}" Value="True">
+                                                <Setter Property="Background" Value="LightGreen"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Result.RunSuccessful}" Value="False">
+                                                <Setter Property="Background" Value="#FFA3A3"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="15"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                <Label Grid.Row="0" Grid.Column="0" Content="Getestet"/>
-                                <Label Grid.Row="0" Grid.Column="1" Content="{Binding WasRun}"/>
-                                <Label Grid.Row="1" Grid.Column="0" Content="Erfolgreich"/>
-                                <Label Grid.Row="1" Grid.Column="1" Content="{Binding Result.RunSuccessful}"/>
-                                <Label Grid.Row="2" Grid.Column="0" Content="Dauer"/>
-                                <Label Grid.Row="2" Grid.Column="1" Content="{Binding Result.Duration}"/>
-                                <Label Grid.Row="3" Grid.Column="0" Content="Ausnahme"/>
-                                <Label Grid.Row="3" Grid.Column="1" Content="{Binding Exception}"/>
-                                <Label Grid.Row="4" Grid.Column="0" Content="Grund"/>
-                                <Label Grid.Row="4" Grid.Column="1" Content="{Binding Result.FailReason}"/>
-                            </Grid>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Getestet" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding WasRun}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Erfolgreich" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Result.RunSuccessful}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Dauer" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Result.Duration}"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Ausnahme" FontWeight="Bold" Visibility="{Binding Result.RunSuccessful, Converter={StaticResource falseToVisibilityConverter}}"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Result.Exception}" Visibility="{Binding Result.RunSuccessful, Converter={StaticResource falseToVisibilityConverter}}"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Grund" FontWeight="Bold" Visibility="{Binding Result.RunSuccessful, Converter={StaticResource falseToVisibilityConverter}}"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Result.FailReason}" Visibility="{Binding Result.RunSuccessful, Converter={StaticResource falseToVisibilityConverter}}"/>
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Lezter Lauf" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding LastRun.TimeOfDay}"/>
+                                </Grid>
+                            </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
@@ -90,7 +118,7 @@
         </StatusBar>
 
         <!-- Overlay -->
-        <Grid Grid.RowSpan="3">
+        <Grid Grid.RowSpan="3" Visibility="{Binding IsBusy, Converter={StaticResource trueToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
@@ -101,6 +129,21 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Rectangle Fill="DarkGray" Opacity="0.33" Grid.Row="0" Grid.Column="0"/>
+            <Rectangle Fill="DarkGray" Opacity="0.33" Grid.Row="0" Grid.Column="1"/>
+            <Rectangle Fill="DarkGray" Opacity="0.33" Grid.Row="0" Grid.Column="2"/>
+            <Rectangle Fill="DarkGray" Opacity="0.33" Grid.Row="1" Grid.Column="0"/>
+            <Rectangle Fill="DarkGray" Opacity="0.33" Grid.Row="1" Grid.Column="2"/>
+            <Rectangle Fill="DarkGray" Opacity="0.33" Grid.Row="2" Grid.Column="0"/>
+            <Rectangle Fill="DarkGray" Opacity="0.33" Grid.Row="2" Grid.Column="1"/>
+            <Rectangle Fill="DarkGray" Opacity="0.33" Grid.Row="2" Grid.Column="2"/>
+
+            <Border Background="White" Opacity="1" Grid.Row="1" Grid.Column="1" Width="400" BorderBrush="Black" BorderThickness="1">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="In Arbeit..." FontWeight="Bold" FontSize="18" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="10,20,10,10" FontFamily="Segoe UI"/>
+                    <ProgressBar HorizontalAlignment="Stretch" Margin="10,0,10,20" IsIndeterminate="True"/>
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Window>

@@ -27,13 +27,30 @@ namespace TestRunner.Models
         public async Task<TestResult> Run(string command, string argument, List<string> input, List<string> expectedOutput, int timeout)
         {
             var process = CreateProcess(command, argument);
-            process.Start();
+            try
+            {
+                process.Start();
+            }
+            catch(Exception ex)
+            {
+                return CreateTestResultFromCurrentState(input, expectedOutput, false, 0, ex);
+            }
+
             process.BeginOutputReadLine();
             await FeedInputToProcess(process, input);
+            Exception exception = null;
             var startTick = Environment.TickCount;
-            var result = await WaitForProcessExit(process, timeout);
+            bool runSuccessful = false;
+            try
+            {
+                runSuccessful = await WaitForProcessExit(process, timeout);
+            }
+            catch(Exception ex)
+            {
+                exception = ex;
+            }
             var endTick = Environment.TickCount;
-            return CreateTestResultFromCurrentState(input, expectedOutput, result, (endTick - startTick));
+            return CreateTestResultFromCurrentState(input, expectedOutput, runSuccessful, (endTick - startTick), exception);
         }
 
         private async Task FeedInputToProcess(Process process, List<string> input)
@@ -45,9 +62,9 @@ namespace TestRunner.Models
             }
         }
 
-        private TestResult CreateTestResultFromCurrentState(IEnumerable<string> input, List<string> expectedOutput, bool result, int duration)
+        private TestResult CreateTestResultFromCurrentState(IEnumerable<string> input, List<string> expectedOutput, bool result, int duration, Exception ex)
         {
-            var testResult = new TestResult(input, Output, expectedOutput, result, duration);
+            var testResult = new TestResult(input, Output, expectedOutput, result, duration, ex);
             return testResult;
         }
 
