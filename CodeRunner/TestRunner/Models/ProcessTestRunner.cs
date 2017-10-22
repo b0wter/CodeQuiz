@@ -17,8 +17,8 @@ namespace TestRunner.Models
 
         // Members
         //
-        private string _command;
-        private string _argument;
+        private readonly string _command;
+        private readonly string _argument;
 
         // Properties
         //
@@ -58,7 +58,7 @@ namespace TestRunner.Models
             }
         }
 
-        private TestResult CreateTestResultFromCurrentState(List<string> input, List<string> expectedOutput, bool result, int duration)
+        private TestResult CreateTestResultFromCurrentState(IEnumerable<string> input, List<string> expectedOutput, bool result, int duration)
         {
             var testResult = new TestResult(input, Output, expectedOutput, result, duration);
             return testResult;
