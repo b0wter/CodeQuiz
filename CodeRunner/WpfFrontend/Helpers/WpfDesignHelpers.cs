@@ -12,6 +12,6 @@ namespace WpfFrontend.Helpers
         /// <summary>
         /// Gibt ein unvollständig befülltest Viewmodel zurück, damit der WPF Designer Intellisense im XAML anbieten kann.
         /// </summary>
-        public static MainViewModel FakeMainViewModel = new MainViewModel(null, null);
+        public static MainViewModel FakeMainViewModel = new MainViewModel(null, null, null);
     }
 }

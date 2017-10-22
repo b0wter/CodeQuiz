@@ -50,13 +50,13 @@ namespace TestRunner.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public async Task<TestResult> Run(ITestRunner runner)
+        public async Task<TestResult> Run(ITestRunner runner, string command, string argument)
         {
             TestResult result = null;
             WasRun = true;
             try
             {
-                result = await runner.Run(Input, ExpectedOutput, Timeout);
+                result = await runner.Run(command, argument, Input, ExpectedOutput, Timeout);
                 Result = result;
             }
             catch(Exception ex)

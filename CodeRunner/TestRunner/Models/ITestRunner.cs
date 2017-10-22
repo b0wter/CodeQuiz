@@ -14,6 +14,6 @@ namespace TestRunner.Models
         /// <param name="expectedOutput"></param>
         /// <param name="timeout"></param>
         /// <returns></returns>
-        Task<TestResult> Run(List<string> input, List<string> expectedOutput, int timeout);
+        Task<TestResult> Run(string command, string argument, List<string> input, List<string> expectedOutput, int timeout);
     }
 }

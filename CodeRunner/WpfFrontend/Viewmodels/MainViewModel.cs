@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,11 +39,13 @@ namespace WpfFrontend.Viewmodels
         private ISelectFileDialog _fileSelector;
         private IMessageDialog _messageDialog;
 
-        [Inject]
-        public MainViewModel(ISelectFileDialog fileSelector, IMessageDialog messageDialog)
+        private ITestRunner _runner;
+
+        public MainViewModel(ISelectFileDialog fileSelector, IMessageDialog messageDialog, ITestRunner runner)
         {
             _fileSelector = fileSelector;
             _messageDialog = messageDialog;
+            _runner = runner;
 
             StartTestcasesCommand = new RelayCommand<object>((nullArgument) => StartTestCases().ConfigureAwait(false));
             LoadTestcasesCommand = new RelayCommand<object>((nullArgument) => LoadTestCases());
@@ -86,12 +87,11 @@ namespace WpfFrontend.Viewmodels
 
         private async Task StartTestCases()
         {
-            var runner = new ProcessTestRunner(Command, Argument);
             foreach (var test in TestCases)
             {
                 try
                 {
-                    var result = await test.Run(runner);
+                    var result = await test.Run(_runner, Command, Argument);
                 }
                 catch(Exception ex)
                 {

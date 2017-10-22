@@ -34,6 +34,7 @@ namespace Startup
         {
             _kernel.Bind<ISelectFileDialog>().To<Win32SelectFileDialog>();
             _kernel.Bind<IMessageDialog>()   .To<Win32MessageDialog>();
+            _kernel.Bind<ITestRunner>()      .To<ProcessTestRunner>();
         }
 
         private void StartWpfFrontEnd()

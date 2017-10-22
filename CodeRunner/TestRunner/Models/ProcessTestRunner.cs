@@ -15,31 +15,18 @@ namespace TestRunner.Models
         //
         private const int InputDelay = 100;
 
-        // Members
-        //
-        private readonly string _command;
-        private readonly string _argument;
-
         // Properties
         //
         public ObservableCollection<string> Output { get; } = new ObservableCollection<string>();//{ get { return _output; } set { _output = value; NotifyPropertyChanged(); NotifyPropertyChanged(nameof(OutputAsLine)); } }
         public string OutputAsLine => string.Join(Environment.NewLine, Output);
-        public string Command => _command;
-        public string Argument => _argument;
 
         // Events
         //
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ProcessTestRunner(string command, string argument)
+        public async Task<TestResult> Run(string command, string argument, List<string> input, List<string> expectedOutput, int timeout)
         {
-            _command = command;
-            _argument = argument;
-        }
-
-        public async Task<TestResult> Run(List<string> input, List<string> expectedOutput, int timeout)
-        {
-            var process = CreateProcess();
+            var process = CreateProcess(command, argument);
             process.Start();
             process.BeginOutputReadLine();
             await FeedInputToProcess(process, input);
@@ -83,9 +70,9 @@ namespace TestRunner.Models
             }
         }
 
-        private Process CreateProcess()
+        private Process CreateProcess(string command, string argument)
         {
-            var startInfo = new ProcessStartInfo(_command, _argument)
+            var startInfo = new ProcessStartInfo(command, argument)
             {
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
