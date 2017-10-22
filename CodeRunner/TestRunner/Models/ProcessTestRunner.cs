@@ -55,6 +55,9 @@ namespace TestRunner.Models
 
         private async Task FeedInputToProcess(Process process, List<string> input)
         {
+            if (input == null || input.Count == 0)
+                return;
+
             foreach (var line in input)
             {
                 await Task.Delay(InputDelay);
