@@ -21,6 +21,15 @@ let keyValuePairToTuple (input: seq<KeyValuePair<char, int>>) =
     input |> Seq.map (fun x -> (x.Key, x.Value))
 
 /// <summary>
+/// Einfacher Weg den Median zu berechnen. Weniger performant, aber besser lesbar.
+/// </summary
+let simpleMedian xs =
+    let length = Seq.length xs
+    let sortedList = xs |> Seq.sort |> Seq.toArray
+    // bei Arrays mit gerade Zahl ist uns egal ob wir Floor oder Ceiling nehmen
+    sortedList.[length/2]
+
+/// <summary>
 /// Berechnet den Median einer Liste. Liefert ein Tuple zurück, dessen Durchschnitt der Meridian ist.
 /// </summary>
 let median xs =
