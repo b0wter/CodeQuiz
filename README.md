@@ -6,4 +6,6 @@ Diese Ordner enthalten jeweils eine Beschreibungsdatei und eine Datei mit einem,
 
 Lösungen werden per Pull-Request eingereicht und sollten in einem Ordner mit dem eigenen Namen in dem jeweiligen Wochenordner erstellt werden.
 
+Die Binaries werden als Submodule gehandhabt und sollen an folgendes Repository gepusht werden: https://github.com/b0wter/CodeQuizBinaries
+
 Download des Testrunner unter: https://github.com/b0wter/CodeQuiz/releases
