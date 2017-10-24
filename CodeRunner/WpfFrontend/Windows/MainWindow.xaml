@@ -68,10 +68,10 @@
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Result.RunSuccessful}" Value="True">
+                                            <DataTrigger Binding="{Binding Result.OutputMatches}" Value="True">
                                                 <Setter Property="Background" Value="LightGreen"/>
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding Result.RunSuccessful}" Value="False">
+                                            <DataTrigger Binding="{Binding Result.OutputMatches}" Value="False">
                                                 <Setter Property="Background" Value="#FFA3A3"/>
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -95,13 +95,13 @@
                                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Getestet" FontWeight="Bold"/>
                                     <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding WasRun}"/>
                                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Erfolgreich" FontWeight="Bold"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Result.RunSuccessful}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Result.OutputMatches}"/>
                                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Dauer" FontWeight="Bold"/>
                                     <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Result.Duration}"/>
-                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Ausnahme" FontWeight="Bold" Visibility="{Binding Result.RunSuccessful, Converter={StaticResource falseToVisibilityConverter}}"/>
-                                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Result.Exception}" Visibility="{Binding Result.RunSuccessful, Converter={StaticResource falseToVisibilityConverter}}"/>
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Grund" FontWeight="Bold" Visibility="{Binding Result.RunSuccessful, Converter={StaticResource falseToVisibilityConverter}}"/>
-                                    <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Result.FailReason}" Visibility="{Binding Result.RunSuccessful, Converter={StaticResource falseToVisibilityConverter}}"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Ausnahme" FontWeight="Bold" Visibility="{Binding Result.OutputMatches, Converter={StaticResource falseToVisibilityConverter}}"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Result.Exception}" Visibility="{Binding Result.OutputMatches, Converter={StaticResource falseToVisibilityConverter}}"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Grund" FontWeight="Bold" Visibility="{Binding Result.OutputMatches, Converter={StaticResource falseToVisibilityConverter}}"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Result.FailReason}" Visibility="{Binding Result.OutputMatches, Converter={StaticResource falseToVisibilityConverter}}"/>
                                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Lezter Lauf" FontWeight="Bold"/>
                                     <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding LastRun.TimeOfDay}"/>
                                 </Grid>
