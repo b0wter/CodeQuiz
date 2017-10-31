@@ -149,11 +149,11 @@ Monopoly::Fields Card::moveTo(Monopoly::Fields field) const
             else
                 return Monopoly::Suedbahnhof;
         } else if(mField == Monopoly::NaechstesWerk) {
-            if(field == Monopoly::Ereignisfeld2
+            if(field == Monopoly::Ereignisfeld1
                     || field == Monopoly::Ereignisfeld3)
-                return Monopoly::Wasserwerk;
-            else
                 return Monopoly::Elektrizitaetswerk;
+            else
+                return Monopoly::Wasserwerk;
         } else if(mField == Monopoly::DreiZurueck) {
             if(field == Monopoly::Ereignisfeld1)
                 return Monopoly::Einkommensteuer;
