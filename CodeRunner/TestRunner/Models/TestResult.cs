@@ -40,13 +40,13 @@ namespace TestRunner.Models
             }
 
             var cleanedOutput = Output.Where(x => string.IsNullOrWhiteSpace(x) == false);
-            var cleanedExpectedOutput = Output.Where(x => string.IsNullOrWhiteSpace(x) == false);
+            var cleanedExpectedOutput = ExpectedOutput.Where(x => string.IsNullOrWhiteSpace(x) == false);
             int lineDifference = cleanedExpectedOutput.Count() - cleanedOutput.Count();
             if(lineDifference != 0)
             {
                 string linePlural = (Math.Abs(lineDifference) == 1 ? "" : "n");
-                string difference = (lineDifference < 0 ? "wenig" : "viel");
-                FailReason = $"Die Ausgabe hat {lineDifference} Zeile{linePlural} zu {difference}.";
+                string difference = (lineDifference > 0 ? "wenig" : "viel");
+                FailReason = $"Die Ausgabe hat {Math.Abs(lineDifference)} Zeile{linePlural} zu {difference}.";
                 OutputMatches = false;
                 return;
             }
