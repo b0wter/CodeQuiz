@@ -7,17 +7,17 @@ Gegeben ist ein übliches Monopolyspiel. Es wird, anstelle eines sechseitigen W�
 
 Die Felder des Spielfelds sind folgendermaßen definiert:
 
- GO  | A1  | CC1 | A2  | T1  | R1  | B1  | CH1 | B2  | B3  | JAIL
- H2  |                                                     | C1
- T2  |                                                     | U1
- H1  |                                                     | C2
- CH3 |                                                     | C3
- R4  |                                                     | R2
- G3  |                                                     | D1
- CC3 |                                                     | CC2
- G2  |                                                     | D2
- G1  |                                                     | D3
- G2J | F3  | U2  | F2  | F1  | R3  | E3  | E2  | CH2 | E1  | FP
+	 GO  | A1  | CC1 | A2  | T1  | R1  | B1  | CH1 | B2  | B3  | JAIL
+	 H2  |                                                     | C1
+	 T2  |                                                     | U1
+	 H1  |                                                     | C2
+	 CH3 |                                                     | C3
+	 R4  |                                                     | R2
+	 G3  |                                                     | D1
+	 CC3 |                                                     | CC2
+	 G2  |                                                     | D2
+	 G1  |                                                     | D3
+	 G2J | F3  | U2  | F2  | F1  | R3  | E3  | E2  | CH2 | E1  | FP
 
 Ziel ist es zu ermitteln welches die drei meistbesuchten Felder sind. Die Wahrscheinlichkeiten der Felder sind nicht gleichverteilt weil:
  * Das G2J-Feld (go to jail) sorgt dafür, dass die Spielfigur auf das JAIL-Feld verlegt wird.

@@ -26,6 +26,7 @@ namespace TestRunner.Models
 
         public async Task<TestResult> Run(string command, string argument, List<string> input, List<string> expectedOutput, int timeout)
         {
+            Output.Clear();
             var process = CreateProcess(command, argument);
             try
             {

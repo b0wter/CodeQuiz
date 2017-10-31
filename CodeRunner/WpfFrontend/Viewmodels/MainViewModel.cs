@@ -33,6 +33,7 @@ namespace WpfFrontend.Viewmodels
 
         public ICommand StartTestcasesCommand { get; }
         public ICommand LoadTestcasesCommand { get; }
+        public RelayCommand<TestCase> ShowTestDetailsCommand { get; }
 
         public ObservableCollection<TestCase> TestCases { get; } = new ObservableCollection<TestCase>();
 
@@ -49,6 +50,7 @@ namespace WpfFrontend.Viewmodels
 
             StartTestcasesCommand = new RelayCommand<object>((nullArgument) => StartTestCases().ConfigureAwait(false));
             LoadTestcasesCommand = new RelayCommand<object>((nullArgument) => LoadTestCases());
+            ShowTestDetailsCommand = new RelayCommand<TestCase>((testCase) => _messageDialog.ShowMessage($"Erwartet:{Environment.NewLine}{string.Join(Environment.NewLine, testCase.Result.ExpectedOutput)}{Environment.NewLine}{Environment.NewLine}Ausgegeben:{Environment.NewLine}{string.Join(Environment.NewLine, testCase.Result.Output)}", "CodeRunner", MessageDialogIcons.Info));
         }
 
         private void LoadTestCases()
