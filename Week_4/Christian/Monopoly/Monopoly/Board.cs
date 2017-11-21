@@ -13,23 +13,20 @@ namespace Monopoly
         private Dictionary<Fields, int> recorder;
         private CardSet<EreignissKarte> _ereignissKarten;
         private CardSet<Zufallskarte> _zufallsKarten;
-        private int _numberOfTurns;
-        private Random _r;
+        private int _numberOfTurns;       
 
         public Board(
             DiceSet diceSet,
             Player player,
             CardSet<EreignissKarte> ereignissKarten,
-            CardSet<Zufallskarte> zufallsKarten,
-            Random r)
+            CardSet<Zufallskarte> zufallsKarten)
         {
             recorder = new Dictionary<Fields, int>();
 
             _diceSet = diceSet;
             _player = player;
             _zufallsKarten = zufallsKarten;
-            _ereignissKarten = ereignissKarten;
-            _r = r;
+            _ereignissKarten = ereignissKarten;           
         }
 
         public void Play(int numberOfTurns)

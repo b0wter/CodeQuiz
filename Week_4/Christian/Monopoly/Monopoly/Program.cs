@@ -26,7 +26,7 @@ namespace Monopoly
             Random r = new Random();
             DiceSet diceSet = InitializeDiceSet(numberOfDice, maxNumberOnDice, r); //Initialisieren der Würfel. Anzahl der Würfel, die Augenzahl pro Würfel und die (pseudo) Random Funktion. Diese wird nur einmal initialisiert, da ansonsten die Random Werte sich wiederholen können
             Player player = new Player(); //der Spieler. 
-            Board board = new Board(diceSet, player, InitializeEreignissKarten(r), InitializeZufallsKarten(r), r); //Initialisierung des Spielfeldes
+            Board board = new Board(diceSet, player, InitializeEreignissKarten(r), InitializeZufallsKarten(r)); //Initialisierung des Spielfeldes
             board.Play(numberOfTurns); //Start des Spieles
 
             //Ausgabe der Statistiken
