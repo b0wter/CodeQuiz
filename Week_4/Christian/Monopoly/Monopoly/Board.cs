@@ -14,12 +14,14 @@ namespace Monopoly
         private CardSet<EreignissKarte> _ereignissKarten;
         private CardSet<Zufallskarte> _zufallsKarten;
         private int _numberOfTurns;
+        private Random _r;
 
         public Board(
             DiceSet diceSet,
             Player player,
             CardSet<EreignissKarte> ereignissKarten,
-            CardSet<Zufallskarte> zufallsKarten)
+            CardSet<Zufallskarte> zufallsKarten,
+            Random r)
         {
             recorder = new Dictionary<Fields, int>();
 
@@ -27,6 +29,7 @@ namespace Monopoly
             _player = player;
             _zufallsKarten = zufallsKarten;
             _ereignissKarten = ereignissKarten;
+            _r = r;
         }
 
         public void Play(int numberOfTurns)
@@ -35,30 +38,32 @@ namespace Monopoly
 
             for (int x = 0; x < numberOfTurns; x++)
             {
-                ExecuteTurn(0);
+                ExecuteTurn(new DiceSetResult());
             }
         }
 
 
-        public void ExecuteTurn(int sameOfAKind)
+        public void ExecuteTurn(DiceSetResult resultSet)
         {
-            DiceSetResult diceRes = _player.RollDice(_diceSet);
+            resultSet = _player.RollDice(_diceSet, resultSet);
 
-            if (sameOfAKind == 2 && diceRes.XOfAKind) //3 x Pasch -> ab ins Gefängniss
+            if (resultSet.GetTotalNumberXOfAKind() == 3) //3 x Pasch -> ab ins Gefängniss
             {
                 _player.SetPosition(Fields.JAIL);
                 RecordPosition(); //Erfasse Endposition
                 return;
             }
 
-            MovePlayer(diceRes.Result); //Bewegen
-            CheckForSpecialEvents(); //Ereignisfeld / Zufallskarten Feld?
-
-            RecordPosition(); //Erfasse Endposition
-
-            if (diceRes.XOfAKind)
+            if (!resultSet.LastDiceSet.SameOfAKind)
             {
-                ExecuteTurn(sameOfAKind+1);
+                MovePlayer(resultSet.GetTotal()); //Bewegen
+                CheckForSpecialEvents(); //Ereignisfeld / Zufallskarten Feld?
+
+                RecordPosition(); //Erfasse Endposition
+            }
+            else
+            {
+                ExecuteTurn(resultSet);
             }
         }
 
@@ -69,7 +74,12 @@ namespace Monopoly
         public string GetThreeMostVisitedFields()
         {
             List<Fields> fields = OrderByMostProbable();
-            return string.Format("Die drei meistbesuchten Felder sind: {0}{1}{2}", fields.First(), fields.Skip(1).Take(1).First(), fields.Skip(2).Take(1).First());
+
+            Fields firstField = fields.First();
+            Fields secondField = fields.Skip(1).Take(1).First();
+            Fields thirdField = fields.Skip(2).Take(1).First();
+
+            return string.Format("Die drei meistbesuchten Felder sind: {0} ({1}), {2} ({3}), {4} ({5})", firstField, (int)firstField, secondField, (int)secondField, thirdField, (int)thirdField);
         }
 
         public string GetProbability()
