@@ -8,7 +8,7 @@ namespace Monopoly
 {
     public class CardSet<T> where T : Card
     {
-        private IOrderedEnumerable<T> _cardSet;
+        private List<T> _cardSet;
         private int currentPosition;
         public CardSet(List<T> cards, Random r)
         {
@@ -16,14 +16,14 @@ namespace Monopoly
             currentPosition = 0;
         }
 
-        public IOrderedEnumerable<T> Shuffle (List<T> setOfCards, Random r)
+        public List<T> Shuffle (List<T> setOfCards, Random r)
         {
-            return setOfCards.OrderBy(item => r.Next());
+            return setOfCards.OrderBy(item => r.Next()).ToList();
         }
 
         public T GetNextCardFromSet()
         {
-            T card = _cardSet.Skip(currentPosition).Take(1).First();
+            T card = _cardSet.ElementAt(currentPosition);
             currentPosition++;
 
             if (currentPosition == _cardSet.Count())

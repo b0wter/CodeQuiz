@@ -12,7 +12,7 @@ namespace Monopoly
         {
             int numberOfDice = 2;
             int maxNumberOnDice = 4;
-            int numberOfTurns = 10000;
+            int numberOfTurns = 200000;
          
             if (args.Length == 3)
             {
@@ -54,11 +54,11 @@ namespace Monopoly
             List<EreignissKarte> ereignissKarten = new List<EreignissKarte>();
             for (int x=0; x<14; x++)
             {
-                ereignissKarten.Add(new EreignissKarte() { GotoField = Fields.None });
+                ereignissKarten.Add(new EreignissKarte() { GotoField = Fields.None, Counter = x + 1 });
             }
     
-            ereignissKarten.Add(new EreignissKarte() { GotoField = Fields.JAIL });
-            ereignissKarten.Add(new EreignissKarte() { GotoField = Fields.GO });
+            ereignissKarten.Add(new EreignissKarte() { GotoField = Fields.JAIL, Counter = 15 });
+            ereignissKarten.Add(new EreignissKarte() { GotoField = Fields.GO, Counter = 16 });
 
             return new CardSet<EreignissKarte>(ereignissKarten, r);
 
@@ -69,19 +69,19 @@ namespace Monopoly
             List<Zufallskarte> zufallsKarten = new List<Zufallskarte>();
             for (int x = 0; x < 6; x++)
             {
-                zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.None, SpecialAction = SpecialAction.None });
+                zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.None, SpecialAction = SpecialAction.None, Counter = x+1 });
             }
 
-            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.JAIL, SpecialAction = SpecialAction.None });
-            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.GO, SpecialAction = SpecialAction.None });
-            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.C1, SpecialAction = SpecialAction.None });
-            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.E3, SpecialAction = SpecialAction.None });
-            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.H2, SpecialAction = SpecialAction.None });
-            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.R1, SpecialAction = SpecialAction.None });
-            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.None, SpecialAction = SpecialAction.MoveToNextR });
-            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.None, SpecialAction = SpecialAction.MoveToNextR });
-            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.None, SpecialAction = SpecialAction.MoveToNextU });
-            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.None, SpecialAction = SpecialAction.MoveThreeFieldsBack });
+            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.JAIL, SpecialAction = SpecialAction.None, Counter = 7 });
+            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.GO, SpecialAction = SpecialAction.None, Counter = 8 });
+            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.C1, SpecialAction = SpecialAction.None, Counter = 9 });
+            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.E3, SpecialAction = SpecialAction.None, Counter = 10 });
+            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.H2, SpecialAction = SpecialAction.None, Counter = 11 });
+            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.R1, SpecialAction = SpecialAction.None, Counter = 12 });
+            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.None, SpecialAction = SpecialAction.MoveToNextR, Counter = 13 });
+            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.None, SpecialAction = SpecialAction.MoveToNextR, Counter = 14 });
+            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.None, SpecialAction = SpecialAction.MoveToNextU, Counter = 15 });
+            zufallsKarten.Add(new Zufallskarte() { GotoField = Fields.None, SpecialAction = SpecialAction.MoveThreeFieldsBack, Counter = 16 });
 
             return new CardSet<Zufallskarte>(zufallsKarten, r);
 

@@ -8,14 +8,39 @@ namespace Monopoly
 {
     public class DiceSetResult
     {
-        public DiceSetResult(int result, bool xOfAKind)
-        {
-            XOfAKind = xOfAKind;
-            Result = result;
+        private int _totalResult;
+        private int _totalNumberXofAKind;
+
+
+        public DiceSetResult()
+        {         
         }
 
-        public bool XOfAKind { get; set; }
-        public int Result { get; set; }
+        public DiceSet LastDiceSet { get; set; }
+
+        public void AddDiceSetToResult(DiceSet diceSet)
+        {
+            _totalResult += diceSet.Result;
+
+            if (diceSet.SameOfAKind)
+            {
+                _totalNumberXofAKind++;
+            }
+
+            LastDiceSet = diceSet;
+        }
+
+        public int GetTotal()
+        {
+            return _totalResult;
+        }
+
+        public int GetTotalNumberXOfAKind()
+        {
+            return _totalNumberXofAKind;
+        }
+
+        
 
     }
 }

@@ -9,5 +9,6 @@ namespace Monopoly
     public abstract class Card
     {
         public Fields GotoField { get; set; }
+        public int Counter { get; set; } //Zum Debuggen
     }
 }

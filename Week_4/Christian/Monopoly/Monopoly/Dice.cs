@@ -18,7 +18,7 @@ namespace Monopoly
 
         public int RollDice()
         {
-            return _random.Next(1, _number);
+            return _random.Next(1, _number+1);
         }
     }
 }

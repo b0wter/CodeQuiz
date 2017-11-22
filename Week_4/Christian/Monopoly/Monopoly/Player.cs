@@ -26,23 +26,11 @@ namespace Monopoly
             return _currentPosition;
         }
 
-        public DiceSetResult RollDice(DiceSet diceSet)
+        public DiceSetResult RollDice(DiceSet diceSet, DiceSetResult resultSet)
         {
-            int diceRollResultNew = 0;
-            int diceRollResultOld = 0;
-            int result = 0;
-            bool xOfAKind = false;
-
-            foreach(Dice d in diceSet.DiceSetList)
-            {
-                diceRollResultNew = d.RollDice();
-                result += diceRollResultNew;
-                xOfAKind = (diceRollResultOld > 0 && diceRollResultNew == diceRollResultOld) ? true : false;
-              
-                diceRollResultOld = diceRollResultNew;
-            }
-
-            return new DiceSetResult(result, xOfAKind);
+            diceSet.RollDiceSet();
+            resultSet.AddDiceSetToResult(diceSet);
+            return resultSet;
         }
     }
 }
