@@ -172,13 +172,13 @@ void solveByBacktracking(int n, Feld sudokus[50][9][9])
 	}
 }
 
-int solve(Feld sudokus[50][9][9], bool outputrGird = false)
+int solve(Feld sudokus[50][9][9], bool printGrid = false)
 {
     int lsg = 0;
     for(int i = 0; i < 50; i++) {
         std::cout << "Solving Sudoku : " << (i + 1) << std::endl;
         solveByBacktracking(i, sudokus);
-        if(outputGrid)
+        if(printGrid)
             outputGrid(i, sudokus);
         lsg += sudokus[i][0][0].zahl;
         lsg += sudokus[i][1][0].zahl;
