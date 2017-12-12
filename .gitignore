@@ -281,6 +281,10 @@ paket-files/
 # CodeRush
 .cr/
 
+# Haskell objects
+*.o
+*.hi
+
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc

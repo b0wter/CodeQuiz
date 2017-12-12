@@ -13,18 +13,6 @@ def main(s):
     result = valid(s)
     return result and "JA" or "NEIN"
 
-def test():
-    import json
-    with open("../strings.jsonTest") as fp:
-        tests = json.load(fp)
-
-    for i,T in enumerate(tests):
-        inp = T['Input'][0]
-        out = T['ExpectedOutput'][0]
-        r = main(inp)
-        assert (r == out), "Test {} failed. Expected {}, got {}.".format(i+1, out, r)
-
-
 if __name__ == "__main__":
     print(main(input()))
 
