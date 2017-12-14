@@ -8,6 +8,7 @@ Ziel der Aufgabe ist es einen funktionsfähigen Client zu programmieren, welcher
 	* Der Client sollte die Möglichkeit bieten von der API alle Datentypen abzurufen.
 	* Eine Ausgabe der Daten kann unformatiert über die Konsole erfolgen.
 	* Der Client sollte in der Lage sein auch große Mengen an Daten abzurufen, d.h. 500+ Anfragen.
+	* Am Ende sollen für jeden Typ alle Einträge mit allen Details ausgegeben werden. Dabei müssen die Children natürlich an die passenden Parents gehängt werden.
 
 Es können folgende Daten von der Api abgerufen werden:
 
@@ -47,19 +48,19 @@ Es können folgende Daten von der Api abgerufen werden:
 Die Daten können folgendermaßen von der API abgerufen werden:
 
 **Foos:**
-	http://cqbsapiquiz.azurewebsites.net/Foo/$ID 	// einzelne elemente
-	http://cqbsapiquiz.azurewebsites.net/Foo/All 	// alle elemente
+	http://cqbsapiquiz.azurewebsites.net/api/values/Foo/$ID 	// einzelne elemente
+	http://cqbsapiquiz.azurewebsites.net/api/values/Foo/All 	// alle Elemente (aber gekürzt)
 
 **AEntity:**
-	http://cqbsapiquiz.azurewebsites.net/AEntity/$ID 	// einzelne elemente
-	http://cqbsapiquiz.azurewebsites.net/AEntity/All 	// alle elemente
+	http://cqbsapiquiz.azurewebsites.net/api/values/AEntity/$ID 	// einzelne elemente
+	http://cqbsapiquiz.azurewebsites.net/api/values/AEntity/All 	// alle Elemente (aber gekürzt)
 
 **BEntity:**
-	http://cqbsapiquiz.azurewebsites.net/BEntity/$ID 	// einzelne elemente
-	http://cqbsapiquiz.azurewebsites.net/BEntity/All 	// alle elemente
+	http://cqbsapiquiz.azurewebsites.net/api/values/BEntity/$ID 	// einzelne elemente
+	http://cqbsapiquiz.azurewebsites.net/api/values/BEntity/All 	// alle Elemente (aber gekürzt)
 
 **CEntity:**
-	http://cqbsapiquiz.azurewebsites.net/$ID/CEntity	// einzelne Elemente
+	http://cqbsapiquiz.azurewebsites.net/api/values/$ID/CEntity	// einzelne Elemente
 
 Wenn etwas nicht abgerufen werden konnte, oder ein interner Fehler auftritt liefert der Server Fehler in der folgenden Form zurück:
 
