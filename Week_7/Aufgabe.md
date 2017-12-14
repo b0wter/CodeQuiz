@@ -72,6 +72,8 @@ Wenn etwas nicht abgerufen werden konnte, oder ein interner Fehler auftritt lief
 
 Die Antworten werden immer als JSON geliefert.
 
+Wenn man das Programm startet soll es dem Nutzer die Möglichkeit bieten entweder alle AEntities (inklusive aller Details!), alle BEntities oder alle Foos in jeweils eigene Dateien zu speichern (als serialisiertes JSON, so wie es ankommt).
+
 Hinweis
 =======
 Wie eingangs erwähnt arbeitet die API (gewollt) nicht in allen Fällen fehlerfrei. Ziel der Übung ist den Umgang mit einer unvollständigen/schlecht implementierten API.
