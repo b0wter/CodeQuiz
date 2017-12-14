@@ -1,7 +1,7 @@
 Aufgabe
 =======
 Es gilt eine Reihe an Sudokus zu lösen. Die Sudokus kommen aus einer Datei (sudokus.txt). Die einzelnen Sudokus sind durch eine Zeile mit dem Inhalt "Grid 01" bis "Grid 50" getrennt. Die Rätsel sind alle **eindeutig** lösbar.
-Die Lösung besteht aus der Summe der ersten Zellen der obersten drei Spalten. In folgendem Bild mit x markiert (anstatt 0):
+Die Lösung besteht aus der Summe der ersten Zellen der obersten drei Zeilen. In folgendem Bild mit x markiert (anstatt 0):
 
     x00000000
     x00000000

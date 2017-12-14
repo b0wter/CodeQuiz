@@ -4,11 +4,11 @@ Diese Woche gilt es eine Web-API abzufragen. Leider hat war der Entwickler der A
 
 Ziel der Aufgabe ist es einen funktionsfähigen Client zu programmieren, welcher folgende Kriterien erfüllt:
 
-	* Unter keinen Umständen sollte der Client abstürzen.
-	* Der Client sollte die Möglichkeit bieten von der API alle Datentypen abzurufen.
-	* Eine Ausgabe der Daten kann unformatiert über die Konsole erfolgen.
-	* Der Client sollte in der Lage sein auch große Mengen an Daten abzurufen, d.h. 500+ Anfragen.
-	* Am Ende sollen für jeden Typ alle Einträge mit allen Details ausgegeben werden. Dabei müssen die Children natürlich an die passenden Parents gehängt werden.
+ * Unter keinen Umständen sollte der Client abstürzen.
+ * Der Client sollte die Möglichkeit bieten von der API alle Datentypen abzurufen.
+ * Eine Ausgabe der Daten kann unformatiert über die Konsole erfolgen.
+ * Der Client sollte in der Lage sein auch große Mengen an Daten abzurufen, d.h. 500+ Anfragen.
+ * Am Ende sollen für jeden Typ alle Einträge mit allen Details ausgegeben werden. Dabei müssen die Children natürlich an die passenden Parents gehängt werden.
 
 Es können folgende Daten von der Api abgerufen werden:
 
@@ -71,3 +71,7 @@ Wenn etwas nicht abgerufen werden konnte, oder ein interner Fehler auftritt lief
 	}
 
 Die Antworten werden immer als JSON geliefert.
+
+Hinweis
+=======
+Wie eingangs erwähnt arbeitet die API (gewollt) nicht in allen Fällen fehlerfrei. Ziel der Übung ist den Umgang mit einer unvollständigen/schlecht implementierten API.
