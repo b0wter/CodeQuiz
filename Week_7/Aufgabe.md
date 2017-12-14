@@ -1,6 +1,6 @@
 Aufgabe: API Client
 ===================
-Diese Woche gilt es eine Web-API abzufragen. Leider hat war der Entwickler der API ein Schülerpraktikant und hatte kaum vorherige Erfahrung. Daher ist es durchaus möglich, dass die API an einigen Stellen nicht konsequent und fehlerfrei ist.
+Diese Woche gilt es eine Web-API abzufragen. Leider war der Entwickler der API ein Schülerpraktikant und hatte kaum Erfahrung. Daher ist es durchaus möglich, dass die API an einigen Stellen nicht konsequent und fehlerfrei ist. Ziel ist es trotzdem alle Daten abzurufen.
 
 Ziel der Aufgabe ist es einen funktionsfähigen Client zu programmieren, welcher folgende Kriterien erfüllt:
 
