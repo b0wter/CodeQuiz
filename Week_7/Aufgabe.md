@@ -49,15 +49,15 @@ Die Daten können folgendermaßen von der API abgerufen werden:
 
 **Foos:**
 	http://cqbsapiquiz.azurewebsites.net/api/values/Foo/$ID 	// einzelne elemente
-	http://cqbsapiquiz.azurewebsites.net/api/values/Foo/All 	// alle Elemente (aber gekürzt)
+	http://cqbsapiquiz.azurewebsites.net/api/values/Foo/		// alle Elemente (aber gekürzt)
 
 **AEntity:**
 	http://cqbsapiquiz.azurewebsites.net/api/values/AEntity/$ID 	// einzelne elemente
-	http://cqbsapiquiz.azurewebsites.net/api/values/AEntity/All 	// alle Elemente (aber gekürzt)
+	http://cqbsapiquiz.azurewebsites.net/api/values/AEntity/	// alle Elemente (aber gekürzt)
 
 **BEntity:**
 	http://cqbsapiquiz.azurewebsites.net/api/values/BEntity/$ID 	// einzelne elemente
-	http://cqbsapiquiz.azurewebsites.net/api/values/BEntity/All 	// alle Elemente (aber gekürzt)
+	http://cqbsapiquiz.azurewebsites.net/api/values/BEntity/ 	// alle Elemente (aber gekürzt)
 
 **CEntity:**
 	http://cqbsapiquiz.azurewebsites.net/api/values/$ID/CEntity	// einzelne Elemente
@@ -77,3 +77,4 @@ Wenn man das Programm startet soll es dem Nutzer die Möglichkeit bieten entwede
 Hinweis
 =======
 Wie eingangs erwähnt arbeitet die API (gewollt) nicht in allen Fällen fehlerfrei. Ziel der Übung ist den Umgang mit einer unvollständigen/schlecht implementierten API.
+
