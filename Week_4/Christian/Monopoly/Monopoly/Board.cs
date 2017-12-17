@@ -72,9 +72,9 @@ namespace Monopoly
         {
             List<Fields> fields = OrderByMostProbable();
 
-            Fields firstField = fields.First();
-            Fields secondField = fields.Skip(1).Take(1).First();
-            Fields thirdField = fields.Skip(2).Take(1).First();
+            Fields firstField = fields.ElementAt(0);
+            Fields secondField = fields.ElementAt(1);
+            Fields thirdField = fields.ElementAt(2);
 
             return string.Format("Die drei meistbesuchten Felder sind: {0} ({1}), {2} ({3}), {4} ({5})", firstField, (int)firstField, secondField, (int)secondField, thirdField, (int)thirdField);
         }
