@@ -91,8 +91,7 @@ namespace Sudoku
 
             if (yPosition == 3)
             {
-                System.Diagnostics.Debug.WriteLine("GetAllPossibleSquares return");
-                System.Diagnostics.Debug.WriteLine($"listOfSquares.Count: { listOfSquares.Count} ");
+                System.Diagnostics.Debug.WriteLine("GetAllPossibleSquares return");                
 
                 Dictionary<string, SmallSquare> newList = new Dictionary<string, SmallSquare>();
 
@@ -131,11 +130,10 @@ namespace Sudoku
                     }
                 }
 
-                if (newList.Count == 0)
+                if (!newList.Any())
                 {
                     System.Diagnostics.Debug.WriteLine("no results");
-                }
-                System.Diagnostics.Debug.WriteLine($"newList.Count: { newList.Count} ");
+                }             
 
                 return newList.Select(val => val.Value).ToList();
             }
