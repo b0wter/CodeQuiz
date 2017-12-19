@@ -78,3 +78,12 @@ Hinweis
 =======
 Wie eingangs erwähnt arbeitet die API (gewollt) nicht in allen Fällen fehlerfrei. Ziel der Übung ist den Umgang mit einer unvollständigen/schlecht implementierten API.
 
+Im die Korrektheit des Client zu prüfen hier folgender Hinweis:
+Wenn man die Gesamtmenge aller Entities als Json serialisiert (in exakt der Form wie sie von der Api kommen, d.h. ohne Leerzeichen und mit eventuell ungültigen/leeren Feldern) erhält man folgende Anzahl Zeichen:
+
+AEntities:	4176 Zeichen
+BEntities:	3594 Zeichen
+CEntities:	9996 Zeichen
+Foos:		5913 Zeichen
+
+Nicht berücksichtigt werden dabei in A/BEntities die CEntities, es werden nur die Ids gezählt!
