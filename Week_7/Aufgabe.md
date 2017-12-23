@@ -17,7 +17,7 @@ Es können folgende Daten von der Api abgerufen werden:
 		uint Id;		
 		string Name;
 		bool IsClosed;
-		List<Id> Children;		// Liste mit den Ids der Kindelemnte (entweder A- oder BEntity)
+		List<Id> ChildIds;		// Liste mit den Ids der Kindelemnte (entweder A- oder BEntity)
 		CEntity Details;
 	}
 
