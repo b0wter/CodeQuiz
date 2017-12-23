@@ -81,10 +81,10 @@ Wie eingangs erwähnt arbeitet die API (gewollt) nicht in allen Fällen fehlerfr
 Im die Korrektheit des Client zu prüfen hier folgender Hinweis:
 Wenn man die Gesamtmenge aller Entities als Json serialisiert (in exakt der Form wie sie von der Api kommen, d.h. ohne Leerzeichen und mit eventuell ungültigen/leeren Feldern) erhält man folgende Anzahl Zeichen:
 
-AEntities:	 4096 Zeichen
-BEntities:	 3591 Zeichen
-CEntities:	10019 Zeichen
-Foos:		 5953 Zeichen
+	AEntities:	 4096 Zeichen
+	BEntities:	 3591 Zeichen
+	CEntities:	10019 Zeichen
+	Foos:		 5953 Zeichen
 
-Die Zeichenzahlen sind beziehen sich auf serialisiertes JSON (ohne Leerzeichen und/oder Carriage Return (o.ä.). Für A- und BEntities wird auch nur die ID der CEntity gezählt, nicht deren komplette Form.
+Die Zeichenzahlen sind beziehen sich auf serialisiertes JSON (ohne Leerzeichen und/oder Carriage Return (o.ä.). Für A- und BEntities wird auch nur die ID der CEntity gezählt, nicht deren komplette Form. Es werden alle Zeichen des **zurückgelieferten** JSON gezählt.
 
