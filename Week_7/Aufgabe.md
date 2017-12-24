@@ -17,7 +17,7 @@ Es können folgende Daten von der Api abgerufen werden:
 		uint Id;		
 		string Name;
 		bool IsClosed;
-		List<Id> Children;		// Liste mit den Ids der Kindelemnte (entweder A- oder BEntity)
+		List<Id> ChildIds;		// Liste mit den Ids der Kindelemnte (entweder A- oder BEntity)
 		CEntity Details;
 	}
 
@@ -81,9 +81,10 @@ Wie eingangs erwähnt arbeitet die API (gewollt) nicht in allen Fällen fehlerfr
 Im die Korrektheit des Client zu prüfen hier folgender Hinweis:
 Wenn man die Gesamtmenge aller Entities als Json serialisiert (in exakt der Form wie sie von der Api kommen, d.h. ohne Leerzeichen und mit eventuell ungültigen/leeren Feldern) erhält man folgende Anzahl Zeichen:
 
-AEntities:	4176 Zeichen
-BEntities:	3594 Zeichen
-CEntities:	9996 Zeichen
-Foos:		5913 Zeichen
+	AEntities:	 4096 Zeichen
+	BEntities:	 3591 Zeichen
+	CEntities:	10019 Zeichen
+	Foos:		 5953 Zeichen
 
-Nicht berücksichtigt werden dabei in A/BEntities die CEntities, es werden nur die Ids gezählt!
+Die Zeichenzahlen sind beziehen sich auf serialisiertes JSON (ohne Leerzeichen und/oder Carriage Return (o.ä.). Für A- und BEntities wird auch nur die ID der CEntity gezählt, nicht deren komplette Form. Es werden alle Zeichen des **zurückgelieferten** JSON gezählt.
+
