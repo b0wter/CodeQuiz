@@ -18,24 +18,28 @@ Die Felder des Spielfelds sind folgendermaßen definiert:
 	 G2  |                                                     | D2
 	 G1  |                                                     | D3
 	 G2J | F3  | U2  | F2  | F1  | R3  | E3  | E2  | CH2 | E1  | FP
-
-Ziel ist es zu ermitteln welches die drei meistbesuchten Felder sind. Die Wahrscheinlichkeiten der Felder sind nicht gleichverteilt weil:
- * Das G2J-Feld (go to jail) sorgt dafür, dass die Spielfigur auf das JAIL-Feld verlegt wird.
- * Wenn der Spieler drei Pasche hintereinander würfelt bewegt er sich nicht die Gesamtaugenzahl nach vorn, sondern direkt ins Gefängnis.
- * Wenn das CC Feld betreten wird ist eine Gemeinschaftskarte zu ziehen. Der Stapel beinhaltet 16 Karten von denen zwei Relevanz haben:
-   * Rücke vor zum Start.
-   * Gehe ins Gefängnis.
- * Wenn das CH-Feld betreten wird ist eine Zufallskarte zu ziehen. Der Stapel beinhaltet 16 Karten von denen 10 Relevanz haben:
-   * Rüke vor zum Start.
-   * Gehe ins Gefängnis.
-   * Gehe nach C1.
-   * Gehe nach E3.
-   * Gehe nach H2.
-   * Gehe nach R1.
+	 
+	 
+	 
+	Jail - G2J-Feld, 3 Pasche, CC Karte, CH Karte
+	Ziel - CC Karte, CH Karte
+	C1 - CH Karte
+	E3 - CH Karte
+	H2 - CH Karte
+	R1 - CH Karte
+	
+	CH Effekte :
    * Gehe zum nächsten R (Bahnhof).
    * Gehe zum nächsten R.
    * Gehe zum nächsten U.
    * Gehe drei Felder zurück.
+
+   CC 2/16
+   CH 10/16
+
+Ziel ist es zu ermitteln welches die drei meistbesuchten Felder sind. Die Wahrscheinlichkeiten der Felder sind nicht gleichverteilt weil:
+
+ * Wenn das CH-Feld betreten wird ist eine Zufallskarte zu ziehen. Der Stapel beinhaltet 16 Karten von denen 10 Relevanz haben:
 
 Die Felder können von 0 bis 39 nummeriert werden. Ausgegeben werden sollen die Indizes der drei meistbesuchten Felder, ohne Trennzeichen. Z.B.: Jail, E3, Go => 102400.
 
