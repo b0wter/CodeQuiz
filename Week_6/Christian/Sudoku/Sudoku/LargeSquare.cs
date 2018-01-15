@@ -65,13 +65,13 @@ namespace Sudoku
 
         public void SetFixedValue(int x, int y, int value)
         {
-            Field field = new Field() { FieldValue = value, IsFixed = true };
+            Field field = new Field(value, true);
             SetField(field, x, y);
         }
 
         public void SetValue(int x, int y, int value)
         {
-            Field field = new Field() { FieldValue = value, IsFixed = false };
+            Field field = new Field(value, false);
             SetField(field, x, y);
         }
 
