@@ -285,6 +285,9 @@ paket-files/
 *.o
 *.hi
 
+# Vim Swap files
+.*.swp
+
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
