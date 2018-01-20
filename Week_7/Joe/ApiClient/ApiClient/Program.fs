@@ -41,7 +41,7 @@ let serializerSettings =
 let jsonConvert<'a> (content:Option<string>) =
     match content with
     | None -> 
-        failwith "Cannot deserialize none."
+        failwith "Cannot deserialize 'None'."
     | Some content -> 
         JsonConvert.DeserializeObject<'a>(content, serializerSettings)
 
@@ -68,7 +68,6 @@ let endpointsToUrlPart (e:Endpoints) =
 /// wird erneut versucht den Inhalt herunterzuladen.
 ///
 let fromUrl (retries:uint32) url =
-    //log ("Downloading from " + url)
     let rec retryIfEmpty (currentTry:uint32) : Option<string> =
         match currentTry with
         | _ when currentTry = retries -> 
@@ -118,15 +117,19 @@ let entitiesFromUrl = createEntityUrl >> fromUrlWithDefaults
 ///**Description**
 /// Einfacher Konsolenlogger.
 ///
-let writeLine s =
-    Console.WriteLine (s.ToString())
+let writeLine s = Console.WriteLine (s.ToString())
 
 [<EntryPoint>]
 let main _ = 
+
+    writeLine "Lade Daten vom Endpunkt herunter."
+    
     // Lädt zuerst die Übersicht über die A/B/Foos herunter.
     let rawA    = entitiesFromUrl (A  , All) |> jsonConvert<AEntity list> 
     let rawB    = entitiesFromUrl (B  , All) |> jsonConvert<BEntity list>
     let rawFoo  = entitiesFromUrl (Foo, All) |> jsonConvert<FooEntity list>
+    
+    writeLine "Basisdaten heruntergeladen, lade Folgedaten herunter."
 
     // Mit Hilfe der Liste werden die Detailsinformationen heruntergeladen.
     let fullA   = rawA   |> List.map (fun a -> (A, Id a.id)) |> List.map entitiesFromUrl |> List.map jsonConvert<AEntity>
@@ -135,12 +138,16 @@ let main _ =
         let cReferences = Set.union (fullA |> List.map (fun a -> a.cEntityId) |> Set.ofList) (fullB |> List.map (fun b -> b.cEntityId) |> Set.ofList) |> Set.toList
         cReferences |> List.map (fun id -> (C, Id id)) |> List.map entitiesFromUrl |> List.map jsonConvert<CEntity>
     let fullFoo = rawFoo |> List.map (fun foo -> (Foo, Id foo.id)) |> List.map entitiesFromUrl |> List.map jsonConvert<FooEntity>
+    
+    writeLine "Vollständige Daten heruntergeladen. Beginne mit dem Mapping."
 
+    // Am Ende muss das Mapping hergestellt werden.
     let mappedA   = fullA   |> List.map (fun a -> {a with details = (fullC |> List.tryFind (fun c -> c.id = a.cEntityId))})
-    let mappedB   = fullA   |> List.map (fun a -> {a with details = (fullC |> List.tryFind (fun c -> c.id = a.cEntityId))})
+    let mappedB   = fullB   |> List.map (fun b -> {b with details = (fullC |> List.tryFind (fun c -> c.id = b.cEntityId))})
     let mappedFoo = fullFoo |> List.map (fun f -> 
-                let aChildren = f.childIds |> List.map (fun childId -> fullA |> List.tryFind (fun x -> childId = x.id)) |> List.choose id
-                let bChildren = f.childIds |> List.map (fun childId -> fullB |> List.tryFind (fun x -> childId = x.id)) |> List.choose id
+                let aChildren = f.childIds |> List.map (fun childId -> mappedA |> List.tryFind (fun x -> childId = x.id)) |> List.choose id
+                let bChildren = f.childIds |> List.map (fun childId -> mappedB |> List.tryFind (fun x -> childId = x.id)) |> List.choose id
                 { f with a = Some aChildren; b = Some bChildren } )
-
+    
+    writeLine "Mapping abgeschlossen."
     0 // return an integer exit code

@@ -8,8 +8,8 @@ Die API soll die Daten der CSV Datei bereitstellen. Dazu soll ein Endpunkt berei
 
 	* county
 	* month
-	* party affiliation
-	* active_status
+	* party affiliation (soll die Spalten löschen welche die anderen Parteien referenzieren)
+	* active_status (soll die Spalten löschen welche inactive referenzieren)
 	* limit (als obere Grenze für die Zahl der zurückgelieferten Ergebnisse)
 
 Das Ergebnis soll im JSON Format zurückgeliefert werden, und der Service soll stateless sein. Es müssen nur GET-Requests implementiert werden.
