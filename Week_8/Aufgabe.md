@@ -14,4 +14,43 @@ Die API soll die Daten der CSV Datei bereitstellen. Dazu soll ein Endpunkt berei
 
 Das Ergebnis soll im JSON Format zurückgeliefert werden, und der Service soll stateless sein. Es müssen nur GET-Requests implementiert werden.
 
+Beispiel für eine Anfrage welche keinerlei Parameter hat:
+
+	{
+		"Other - Active": 8,
+		"Democrat - Active": 1041,
+		"Republican - Active": 1906,
+		"Libertarian - Inactive": 0,
+		"No Party - Active": 2032,
+		"Republican - Inactive": 61,
+		"Libertarian - Active": 0,
+		"County": "Adair",
+		"Date": "2015-03-01 00:00:00",
+		"No Party - Inactive": 157,
+		"Other - Inactive": 0,
+		"Democrat - Inactive": 66,
+		"Grand Total": "5271"
+	},
+	...
+
+Beispiel einer Anfrage mit Parametern:
+
+	http://localhost:8080/get_voters_where?county=Clayton&party=no_party&status=active
+
+Beispielergebnis:
+
+	{
+		"No Party - Active": 4784,
+		"County": "Clayton",
+		"Date": "2015-03-01 00:00:00",
+		"Grand Total": "11858"
+	},
+	{
+		"No Party - Active": 4777,
+		"County": "Clayton",
+		"Date": "2015-02-01 00:00:00",
+		"Grand Total": "11882"
+	},
+	...
+
 Als Bonus: neue Einträge sollten per POST hinzufügbar sein.
