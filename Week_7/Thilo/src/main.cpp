@@ -11,12 +11,12 @@ using json = nlohmann::json;
 
 std::once_flag curl_init_flag;
 
-int requests = 0;
+long requests = 0;
 
 size_t callback(char* buf, size_t size, size_t nmemb, void* user_data) {
 	if (user_data) {
 		auto data = static_cast<std::string*>(user_data);
-		for (int i = 0; i < size * nmemb; i++) {
+		for (long i = 0; i < size * nmemb; i++) {
 			data->push_back(buf[i]);
 		}
 
@@ -77,7 +77,7 @@ json read_collection(const std::string url, const std::string postfix) {
 	return j;
 }
 
-json read_detail(const std::string url, const int id, const std::string prefix,
+json read_detail(const std::string url, const long id, const std::string prefix,
                  const std::string postfix = "") {
 	bool status_ok = false;
 	json res;
@@ -122,8 +122,8 @@ void save_to_file(std::string filename, std::string content) {
 	}
 }
 
-// Helper: Dump map<int, json> to single json object
-json pack_map(const std::map<int, json>& input) {
+// Helper: Dump map<long, json> to single json object
+json pack_map(const std::map<long, json>& input) {
 	json j;
 
 	for (const auto& e : input) {
@@ -170,14 +170,14 @@ int main() {
 
 	j = read_collection(url, "AEntity/");
 
-	std::map<int, json> all_a;
+	std::map<long, json> all_a;
 	for (auto& e : j) {
 		auto detail = read_detail(url, e.at("Id"), "AEntity/");
 
 		if (detail.count("id") + detail.count("name") + detail.count("max") +
 		        detail.count("min") + detail.count("cEntityId") ==
 		    5) {
-			all_a.insert(std::pair<int, json>(detail["id"], detail));
+			all_a.insert(std::pair<long, json>(detail["id"], detail));
 		} else {
 			std::cerr << "Wrong data format" << std::endl;
 			std::cerr << detail << std::endl;
@@ -190,14 +190,14 @@ int main() {
 
 	j = read_collection(url, "BEntity/");
 
-	std::map<int, json> all_b;
+	std::map<long, json> all_b;
 	for (auto& e : j) {
 		auto detail = read_detail(url, e.at("Id"), "BEntity/");
 		if (detail.count("id") + detail.count("isAwesome") +
 		        detail.count("isTehSuck") + detail.count("cEntityId") +
 		        detail.count("name") ==
 		    5) {
-			all_b.insert(std::pair<int, json>(detail["id"], detail));
+			all_b.insert(std::pair<long, json>(detail["id"], detail));
 		} else {
 			std::cerr << "Wrong data format" << std::endl;
 			std::cerr << detail << std::endl;
@@ -207,29 +207,29 @@ int main() {
 	save_to_file("bentity.json", pack_map(all_b).dump());
 
 	// Build a list of all CEntity that ocurr in A and B
-	std::set<int> all_c_ids;
+	std::set<long> all_c_ids;
 
 	for (auto a : all_a) {
 		if (a.second["cEntityId"].is_number_integer()) {
-			all_c_ids.insert(a.second["cEntityId"].get<int>());
+			all_c_ids.insert(a.second["cEntityId"].get<long>());
 		}
 	}
 
 	for (auto a : all_b) {
 		if (a.second["cEntityId"].is_number_integer()) {
-			all_c_ids.insert(a.second["cEntityId"].get<int>());
+			all_c_ids.insert(a.second["cEntityId"].get<long>());
 		}
 	}
 
 	std::cout << "READ ENTITY C" << std::endl;
 
-	std::map<int, json> all_c;
+	std::map<long, json> all_c;
 	for (auto& e : all_c_ids) {
 		auto detail = read_detail(url, e, "", "/CEntity");
 		if (detail.count("id") + detail.count("description") +
 		        detail.count("hint") ==
 		    3) {
-			all_c.insert(std::pair<int, json>(detail["id"], detail));
+			all_c.insert(std::pair<long, json>(detail["id"], detail));
 		} else {
 			std::cerr << "Wrong data format:" << std::endl;
 			std::cerr << detail << std::endl;
@@ -241,7 +241,7 @@ int main() {
 	// Merge cEntities into aEntities
 	for (auto& e : all_a) {
 		if (e.second["cEntityId"].is_number_integer()) {
-			auto a = all_c.find(e.second["cEntityId"].get<int>());
+			auto a = all_c.find(e.second["cEntityId"].get<long>());
 			if (a != all_c.cend()) {
 				e.second["cEntityId"] = (*a).second;
 			}
@@ -252,7 +252,7 @@ int main() {
 	// Merge cEntities into bEntities
 	for (auto& e : all_b) {
 		if (e.second["cEntityId"].is_number_integer()) {
-			auto a = all_c.find(e.second["cEntityId"].get<int>());
+			auto a = all_c.find(e.second["cEntityId"].get<long>());
 			if (a != all_c.cend()) {
 				e.second["cEntityId"] = (*a).second;
 			}
@@ -267,13 +267,13 @@ int main() {
 	for (auto& f : all_foo) {
 		for (auto& e : f["childIds"]) {
 			if (e.is_number_integer()) {
-				auto a = all_a.find(e.get<int>());
+				auto a = all_a.find(e.get<long>());
 				if (a != all_a.cend()) {
 					e = (*a).second;
 				}
 			}
 			if (e.is_number_integer()) {
-				auto b = all_b.find(e.get<int>());
+				auto b = all_b.find(e.get<long>());
 				if (b != all_b.cend()) {
 					e = (*b).second;
 				}
