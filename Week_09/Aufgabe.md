@@ -10,7 +10,8 @@ Das Ergebnis in diesem Fall sollte:
 
 lauten. Da diese Aufgabe recht einfach ist gibt es eine Reihe an Bonuszielen:
 
- * Ermögliche es die Größe einzugeben nach der abgeleitet werden soll.
+ * Ermögliche es die Variable einzugeben nach der abgeleitet werden soll.
  * Baue Klammersetzung ein.
  * Berücksichtige Produkt/Quotienten/Kettenregel.
  * Erlaube es einfache Funktionen einzubauen (z.B. sin(x)).
+ * Berücksichtige negative Exponenten.
