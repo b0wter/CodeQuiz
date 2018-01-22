@@ -47,7 +47,7 @@ Aufgabe
 -------
 Nachdem man eine laufende Simulation hat sind folgende Fragen zu beantworten:
 
- 1. Bild über alle Körper die Summe gesamten kinetischen Energie (`1/2 * $Masse * $Geschwindigkeit`). Was sagt diese Größe aus und warum ist sie bei den verschiedenen Verfahren unterschiedlich? Wie sollte sie ideal aussehen? _Hinweis: Größe über längere Zeitraum plotten!_
+ 1. Bild über alle Körper die Summe gesamten kinetischen Energie (`1/2 * $Masse * $Geschwindigkeit^2`). Was sagt diese Größe aus und warum ist sie bei den verschiedenen Verfahren unterschiedlich? Wie sollte sie ideal aussehen? _Hinweis: Größe über längere Zeitraum plotten!_
  2. Lass die Simulation in der Zeit vorwärts laufen und drehe danach die Zeit um und messe wie weit du bei "Zeitschritt null" von den ursprünglichen Werten entfernt bist. Für welche Methode ist dieser Wert am besten?
  3. Berechne neben der kinetischen Energie auch die Gesamtenergie des Systems und plotte sie.
  4. Wird die Simulation immer genauer, je kleiner die Zeitschritte werden? Warum?
