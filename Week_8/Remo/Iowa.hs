@@ -2,8 +2,8 @@
 
 module Iowa where
 
-import CsvHelper
 import CustomFields
+import Filter (Accessor(..), FilterList)
 
 import Data.Maybe
 import Data.Text.Lazy (Text)
@@ -36,12 +36,13 @@ data VoterRegistration = VoterRegistration {
                             grandTotal :: Int,
                             primaryLatDec :: Double,
                             primaryLongDec :: Double,
-                            primaryCountyCoordinates :: !Text
+                            primaryCountyCoordinates :: Text
                          } deriving (Show, Generic)
 
 
 instance ToJSON VoterRegistration
 
+-- CSV parser instance
 instance FromNamedRecord VoterRegistration where
     parseNamedRecord m = VoterRegistration
                       <$> m .: "Date"
@@ -65,12 +66,40 @@ instance FromNamedRecord VoterRegistration where
                       <*> m .: "Primary County Coordinates"
 
 
+-- List of filterable fields
+filterables :: FilterList VoterRegistration
+filterables = [("fips", AccessText fips), 
+               ("county", AccessText county),
+               ("grandTotal", AccessInt grandTotal),
+               ("democratActive", AccessMaybeInt democratActive),
+               ("republicanActive", AccessMaybeInt republicanActive),
+               ("libertarianActive", AccessMaybeInt libertarianActive),
+               ("noPartyActive", AccessMaybeInt noPartyActive),
+               ("otherActive", AccessMaybeInt otherActive),
+               ("totalActive", AccessMaybeInt totalActive),
+               ("democratInactive", AccessMaybeInt democratInactive),
+               ("republicanInactive", AccessMaybeInt republicanInactive),
+               ("libertarianInactive", AccessMaybeInt libertarianInactive),
+               ("noPartyInactive", AccessMaybeInt noPartyInactive),
+               ("otherInactive", AccessMaybeInt otherInactive),
+               ("totalInactive", AccessMaybeInt totalInactive),
+               ("month", AccessMonth date),
+               ("year", AccessYear date)
+              ]
+
 iowaFilePath = "data/State_of_Iowa_-_Monthly_Voter_Registration_Totals_by_County.csv"
 
-testLoadIowa numRows s = V.toList . fromJust $ V.take numRows <$> (justRecords . decodeIowa $ s)
+testLoadIowa numRows s = V.toList . fromJust $ V.take numRows <$> justRecords s
 testLoadIowaFile numRows fp = testLoadIowa numRows <$> L8.readFile fp
 
-decodeIowa :: L8.ByteString -> Either String (Header, V.Vector VoterRegistration)
-decodeIowa = decodeByNameWith decodeOptions
+justRecords :: L8.ByteString -> Maybe (V.Vector VoterRegistration) 
+justRecords s = snd <$> (maybeRight . decodeVoterReg $ s)
+
+decodeVoterReg :: L8.ByteString -> Either String (Header, V.Vector VoterRegistration)
+decodeVoterReg = decodeByNameWith decodeOptions
 
 decodeOptions = defaultDecodeOptions
+
+maybeRight :: Either a b -> Maybe b
+maybeRight (Left  _) = Nothing
+maybeRight (Right r) = Just r
