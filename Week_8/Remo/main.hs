@@ -19,4 +19,3 @@ main = do
             tm <- liftIO getCurrentTime
             let results = limit pm . filterRecords filterables pm $ records
             json $ mkResponse tm results
-

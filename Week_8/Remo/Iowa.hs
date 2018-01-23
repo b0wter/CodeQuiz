@@ -3,7 +3,7 @@
 module Iowa where
 
 import CustomFields
-import Filter (Accessor(..), FilterList)
+import Filter (Accessor(..), FilterMap)
 
 import Data.Maybe
 import Data.Text.Lazy (Text)
@@ -67,7 +67,7 @@ instance FromNamedRecord VoterRegistration where
 
 
 -- List of filterable fields
-filterables :: FilterList VoterRegistration
+filterables :: FilterMap VoterRegistration
 filterables = [("fips", AccessText fips), 
                ("county", AccessText county),
                ("grandTotal", AccessInt grandTotal),
