@@ -8,7 +8,13 @@ Lösungen werden per Pull-Request eingereicht und sollten in einem Ordner mit de
 
 Die Binaries werden als Submodule gehandhabt und sollen an folgendes Repository gepusht werden: https://github.com/b0wter/CodeQuizBinaries
 
-Download des Testrunner unter: https://github.com/b0wter/CodeQuiz/releases . Der Testrunner läuft mit GUI unter Windows, und im Terminal unter Linux/Mac/Win (.net core benötigt).
+Download des Testrunner unter: https://github.com/b0wter/CodeQuiz/releases . Den Testrunner gibt es in verschiedenen Versionen:
+
+ * GUI Anwendung für Windows
+ * Plattformunabhängige .net core Version
+ * Linux Terminal Standalone Version
+ * OSX Terminal Standalone Version
+ * Windows Terminal Standalone Version
 
 Der Konsolenclient kann auf zwei Arten verwendet werden:
 
