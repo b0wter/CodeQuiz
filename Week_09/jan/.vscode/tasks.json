@@ -2,45 +2,34 @@
   // See https://go.microsoft.com/fwlink/?LinkId=733558
   // for the documentation about the tasks.json format
   "version": "2.0.0",
-  "tasks": [
-      {
-          "label": "build",
-          "type": "shell",
-          "group": {
-              "kind": "build",
-              "isDefault": true
-          },
-          "presentation": {
-              "echo": true,
-              "reveal": "always",
-              "focus": false,
-              "panel": "shared"
-          },
-          "windows": {
-              "command": "${workspaceRoot}/build.cmd",
-              "args": [
-                  "<Path/To/MinGW/Cygwin/Bin/Folder>",    // Path to the bin folder containing g++ to compile
-                  "polyparser.exe"                               // Output executable name
-              ]
-          },
-          "linux": {
-              "command": "g++",
-              "args": [
-                  "-g",
-                  "-Wall",
-                  "*.cpp",
-                  "--std=c++14",
-                  "-o",
-                  "polyparser.out"
-              ]
-          }
-      },
-
-      {
+"tasks": [
+    {
+        "label": "cmake",
+        "command": "cmake",
+        "args": [
+            "-DCMAKE_BUILD_TYPE=Debug"
+        ],
+        "problemMatcher": []
+    },
+    {
+        "label": "make",
+        "command": "make",
+        "args": [
+            ""
+        ],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        },
+        "problemMatcher": [
+            "$gcc"
+        ]
+    },
+    {
         "label": "test",
         "type": "shell",
         "group": {
-            "kind": "test",
+            "kind": "build",
             "isDefault": true
         },
         "presentation": {
@@ -52,8 +41,8 @@
         "windows": {
             "command": "${workspaceRoot}/build.cmd",
             "args": [
-                "<Path/To/MinGW/Cygwin/Bin/Folder>",    // Path to the bin folder containing g++ to compile
-                "polyparser.exe"                               // Output executable name
+                "<Path/To/MinGW/Cygwin/Bin/Folder>",
+                "polyparser.exe"
             ]
         },
         "linux": {
@@ -63,11 +52,12 @@
                 "-Wall",
                 "test/*.cpp",
                 "--std=c++14",
-                "-I /media/jan/C2D45DBAD45DB201/Users/Jan/Dropbox/polynomes/googletest/googletest/include",
+                "-I",
+                "/media/jan/C2D45DBAD45DB201/Users/Jan/Dropbox/polynomes/googletest/googletest/include",
                 "-o",
                 "polyparser_test.out"
             ]
         }
     }
-  ]
+]
 }

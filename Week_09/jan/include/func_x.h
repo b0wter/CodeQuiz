@@ -5,16 +5,13 @@
 
 namespace Function {
 
-  class Constant : public Derivable {
+  class X : public Derivable {
   public:
-    Constant(std::string const&);
-    virtual ~Constant() = default;
+    X(std::string const&);
+    virtual ~X() = default;
 
     double eval(double) const override;
     std::string derive() const override;
     std::string print() const override;
-
-  private:
-    double value;
   };
 }
