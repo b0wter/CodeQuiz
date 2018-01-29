@@ -4,12 +4,10 @@
 #include <time.h>
 #include <string.h>
 
-int main(int argc, char **argv)
-{
+#include "include/factory.h"
+#include <gtest/gtest.h>
 
-  for (int i = 0; i < 100; ++i)
-    std::cout << "Well done." << std::endl;
-
-
-    return 1;
+int main(int argc, char **argv) {
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
