@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include "derivable.h"
 
 namespace Function {
@@ -13,8 +12,11 @@ namespace Function {
     double eval(double) const override;
     std::string derive() const override;
     std::string print() const override;
+    std::string print_debug() const override;
 
   private:
     double value;
   };
+  //typedef std::unique_ptr<(.+)> .+_ptr;
+typedef Constant* Constant_ptr; 
 }

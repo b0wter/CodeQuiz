@@ -5,7 +5,7 @@
 
 namespace Function {
 
-  Monom::Monom(std::string str, std::unique_ptr<Derivable>&& inner_function) {
+  Monom::Monom(std::string str, Derivable_ptr&& inner_function) {
     size_t const token_pos = str.rfind('^');
     if (inner_function == nullptr)
       throw std::runtime_error("Incorrect usage of Function:Monom. Inner function is required.");
@@ -37,6 +37,10 @@ namespace Function {
   
   std::string Monom::print() const {
     return inner->print() + "^" + num2str(power);
+  }
+
+  std::string Monom::print_debug() const {
+    return "_monom_( " + print() +  " )";
   }
 
 }

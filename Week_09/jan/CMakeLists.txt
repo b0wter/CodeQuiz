@@ -18,11 +18,16 @@ add_executable(
     src/func_constant.cpp
     src/func_x.cpp
     src/func_monom.cpp
+    src/func_sum.cpp
+    src/func_prod.cpp
+
     src/factory.cpp
 
     tests/func_constant.cpp
     tests/func_x.cpp
     tests/func_monom.cpp
+    tests/func_sum.cpp
+    tests/factory.cpp
 )
 
 target_link_libraries(polyparser ${GTEST_LIBRARIES} pthread)

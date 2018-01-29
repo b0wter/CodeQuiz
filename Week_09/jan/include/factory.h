@@ -1,3 +1,8 @@
-#pragma once
+#include <memory>
+#include "derivable.h"
 
-#include "func_constant.h"
+namespace Function {
+  namespace Factory {
+    Derivable_ptr parse(std::string const& str);
+  }
+}

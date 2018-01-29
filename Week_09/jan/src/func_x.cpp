@@ -20,4 +20,8 @@ namespace Function {
     return "x";
   }
 
+  std::string X::print_debug() const {
+    return "_x_( " + print() +  " )";
+  }
+
 }

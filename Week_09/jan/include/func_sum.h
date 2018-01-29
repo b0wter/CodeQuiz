@@ -2,16 +2,18 @@
 
 #include <memory>
 #include <string>
+#include <list>
 #include "derivable.h"
 
 namespace Function {
 
-  class Monom : public Derivable {
+  class Sum : public Derivable {
   public:
 
-    Monom(std::string const&) = delete;
-    Monom(std::string, Derivable_ptr&&);
-    virtual ~Monom() = default;
+    Sum(std::string const&) = delete;
+    Sum(Derivable_ptr&&, Derivable_ptr&&);
+    Sum(std::list<Derivable_ptr>);
+    virtual ~Sum() = default;
 
     double eval(double) const override;
     std::string derive() const override;
@@ -19,10 +21,9 @@ namespace Function {
     std::string print_debug() const override;
 
   private:
-
-    double power;
-    Derivable_ptr inner;
+    std::list<Derivable_ptr> summands;
+    void append(std::string&, std::string const&) const;
   };
   //typedef std::unique_ptr<(.+)> .+_ptr;
-typedef Monom* Monom_ptr;
+  typedef Sum* Sum_ptr;
 }

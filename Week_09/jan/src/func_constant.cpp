@@ -3,7 +3,11 @@
 namespace Function {
 
   Constant::Constant(std::string const& str) {
-    value = stod(str);
+    if (str.empty()) {
+      value = 0;
+    } else {
+      value = stod(str);
+    }
   }
 
   double Constant::eval(double) const {
@@ -15,7 +19,11 @@ namespace Function {
   }
   
   std::string Constant::print() const {
-    return num2str(value);
+    return value ? num2str(value) : "";
+  }
+
+  std::string Constant::print_debug() const {
+    return "_constant_( " + print() +  " )";
   }
 
 }

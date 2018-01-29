@@ -13,5 +13,8 @@ namespace Function {
     double eval(double) const override;
     std::string derive() const override;
     std::string print() const override;
+    std::string print_debug() const override;
   };
+  //typedef std::unique_ptr<(.+)> .+_ptr;
+typedef X* X_ptr;
 }

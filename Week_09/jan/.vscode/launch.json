@@ -3,14 +3,14 @@
   "configurations": [
       {
           "name": "(gdb) Launch",
-          "preLaunchTask": "build",
+          "preLaunchTask": "make",
           "type": "cppdbg",
           "request": "launch",
           "args": [],
           "stopAtEntry": true,
           "cwd": "${workspaceRoot}",
           "environment": [],
-          "externalConsole": true,
+          "externalConsole": false,
           "setupCommands": [
               {
                   "description": "Enable pretty-printing for gdb",
@@ -28,12 +28,9 @@
               "miDebuggerPath": "<Path/To/GDB>" // Path to gdb on windows
           },
           "linux": {
-              "program": "${workspaceRoot}/polyparser.out",
-              "MIMode": "gdb"
-          },
-          "osx": {
-              "program": "${workspaceRoot}/polyparser.out",
-              "MIMode": "lldb"
+              "program": "${workspaceRoot}/polyparser",
+              "MIMode": "gdb",
+              "miDebuggerPath": "/usr/bin/gdb"
           }
       }
   ]
