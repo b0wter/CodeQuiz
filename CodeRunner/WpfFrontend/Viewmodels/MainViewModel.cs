@@ -115,7 +115,7 @@ namespace WpfFrontend.Viewmodels
             {
                 try
                 {
-                    var result = await test.Run(_runner, Command, Argument);
+                   await test.Run(_runner, Command, Argument);
                 }
                 catch(Exception ex)
                 {

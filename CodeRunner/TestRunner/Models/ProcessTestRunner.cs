@@ -68,7 +68,7 @@ namespace TestRunner.Models
 
         private TestResult CreateTestResultFromCurrentState(IEnumerable<string> input, List<string> expectedOutput, bool result, int duration, Exception ex)
         {
-            var testResult = new TestResult(input, Output, expectedOutput, result, duration, ex);
+            var testResult = new TestResult(input, new List<string>(Output), expectedOutput, result, duration, ex);
             return testResult;
         }
 
