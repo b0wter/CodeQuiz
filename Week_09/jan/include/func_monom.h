@@ -13,13 +13,14 @@ namespace Function {
     Monom(std::string, Derivable_ptr&&);
     virtual ~Monom() = default;
 
-    double eval(double) const override;
-    std::string derive() const override;
     std::string print() const override;
+    std::string derive() const override;
     std::string print_debug() const override;
 
+  protected:
+    double eval(double) const override;
+  
   private:
-
     double power;
     Derivable_ptr inner;
   };

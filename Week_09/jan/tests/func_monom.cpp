@@ -9,9 +9,9 @@ TEST(Func_Monom, Monom_of_Constant) {
   Function::Constant_ptr c_ptr(new Function::Constant("5"));
   Function::Monom m("5^2", std::move(c_ptr));
 
-  ASSERT_EQ(25, m.eval(0));
-  ASSERT_EQ(25, m.eval(1));
-  ASSERT_EQ(25, m.eval(100));
+  ASSERT_EQ(25, m(0));
+  ASSERT_EQ(25, m(1));
+  ASSERT_EQ(25, m(100));
 
   ASSERT_EQ("0", m.derive());
 
@@ -29,11 +29,11 @@ TEST(Func_Monom, Monom_of_X) {
   Function::X_ptr x_ptr(new Function::X("x"));
   Function::Monom m("x^2", std::move(x_ptr));
 
-  ASSERT_EQ(0, m.eval(0));
-  ASSERT_EQ(1, m.eval(1));
-  ASSERT_EQ(25, m.eval(5));
+  ASSERT_EQ(0, m(0));
+  ASSERT_EQ(1, m(1));
+  ASSERT_EQ(25, m(5));
 
-  ASSERT_EQ("2*x", m.derive());
+  ASSERT_EQ("2x", m.derive());
 
   ASSERT_EQ("x^2", m.print());
 }
@@ -42,11 +42,11 @@ TEST(Func_Monom, Monom_of_X_high_order) {
   Function::X_ptr x_ptr(new Function::X("x"));
   Function::Monom m("x^8", std::move(x_ptr));
 
-  ASSERT_EQ(0, m.eval(0));
-  ASSERT_EQ(1, m.eval(1));
-  ASSERT_EQ(390625, m.eval(5));
+  ASSERT_EQ(0, m(0));
+  ASSERT_EQ(1, m(1));
+  ASSERT_EQ(390625, m(5));
 
-  ASSERT_EQ("8*x^7", m.derive());
+  ASSERT_EQ("8x^7", m.derive());
 
   ASSERT_EQ("x^8", m.print());
 }
@@ -55,12 +55,12 @@ TEST(Func_Monom, Monom_of_X_sqrt) {
   Function::X_ptr x_ptr(new Function::X("x"));
   Function::Monom m("x^-0.5", std::move(x_ptr));
 
-  ASSERT_EQ(std::numeric_limits<double>::infinity(), m.eval(0));
-  ASSERT_EQ(1, m.eval(1));
-  ASSERT_EQ(0.25, m.eval(16));
-  ASSERT_EQ(2, m.eval(0.25));
+  ASSERT_EQ(std::numeric_limits<double>::infinity(), m(0));
+  ASSERT_EQ(1, m(1));
+  ASSERT_EQ(0.25, m(16));
+  ASSERT_EQ(2, m(0.25));
 
-  ASSERT_EQ("-0.5*x^-1.5", m.derive());
+  ASSERT_EQ("-0.5x^-1.5", m.derive());
 
   ASSERT_EQ("x^-0.5", m.print());
 }

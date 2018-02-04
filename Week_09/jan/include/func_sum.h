@@ -15,10 +15,12 @@ namespace Function {
     Sum(std::list<Derivable_ptr>);
     virtual ~Sum() = default;
 
-    double eval(double) const override;
-    std::string derive() const override;
     std::string print() const override;
+    std::string derive() const override;
     std::string print_debug() const override;
+
+  protected:
+    double eval(double) const override;
 
   private:
     std::list<Derivable_ptr> summands;

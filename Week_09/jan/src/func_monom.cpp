@@ -17,7 +17,7 @@ namespace Function {
   }
 
   double Monom::eval(double num) const {
-    return pow(inner->eval(num), power);
+    return pow((*inner)(num), power);
   }
   
   std::string Monom::derive() const {
@@ -25,7 +25,12 @@ namespace Function {
     if (result == "0") {
       return "0";
     } else if (result == "1") {
-      result = num2str(power) + "*" + inner->print();
+      auto const inner_fn = inner->print();
+      if (inner_fn == "x") {
+        result = num2str(power) + inner_fn;
+      } else {
+        result = num2str(power) + "*" + inner_fn;
+      }
     } else {
       result = inner->print();
     }

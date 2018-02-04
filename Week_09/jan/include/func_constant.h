@@ -9,11 +9,13 @@ namespace Function {
     Constant(std::string const&);
     virtual ~Constant() = default;
 
-    double eval(double) const override;
-    std::string derive() const override;
     std::string print() const override;
+    std::string derive() const override;
     std::string print_debug() const override;
 
+  protected:
+    double eval(double) const override;
+    
   private:
     double value;
   };

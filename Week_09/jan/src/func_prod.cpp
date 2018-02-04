@@ -17,7 +17,7 @@ namespace Function {
   double Product::eval(double num) const {
     double result = 1;
     for (auto const& factor : factors) {
-      result *= factor->eval(num);
+      result *= (*factor)(num);
     }
     return result;
   }

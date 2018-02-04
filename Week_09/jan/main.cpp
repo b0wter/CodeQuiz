@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
             case 'd': {
                 try {
                     auto const fn = Function::Factory::parse(argv[2]);
-                    std::cout << fn->print();
+                    std::cout << fn;
                     std::cout << std::endl;
                     std::cout << fn->derive();
                 } catch (...) {

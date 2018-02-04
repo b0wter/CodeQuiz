@@ -6,9 +6,9 @@
 TEST(Func_Constant, Integer) {
   Function::Constant c("5");
 
-  ASSERT_EQ(5, c.eval(0));
-  ASSERT_EQ(5, c.eval(1));
-  ASSERT_EQ(5, c.eval(100));
+  ASSERT_EQ(5, c(0));
+  ASSERT_EQ(5, c(1));
+  ASSERT_EQ(5, c(100));
 
   ASSERT_EQ("0", c.derive());
 
@@ -18,9 +18,9 @@ TEST(Func_Constant, Integer) {
 TEST(Func_Constant, Double) {
   Function::Constant c("3.14");
 
-  ASSERT_EQ(3.14, c.eval(0));
-  ASSERT_EQ(3.14, c.eval(1));
-  ASSERT_EQ(3.14, c.eval(100));
+  ASSERT_EQ(3.14, c(0));
+  ASSERT_EQ(3.14, c(1));
+  ASSERT_EQ(3.14, c(100));
 
   ASSERT_EQ("0", c.derive());
 
@@ -30,9 +30,9 @@ TEST(Func_Constant, Double) {
 TEST(Func_Constant, NegativeDouble) {
   Function::Constant c("-42.001");
 
-  ASSERT_EQ(-42.001, c.eval(0));
-  ASSERT_EQ(-42.001, c.eval(1));
-  ASSERT_EQ(-42.001, c.eval(100));
+  ASSERT_EQ(-42.001, c(0));
+  ASSERT_EQ(-42.001, c(1));
+  ASSERT_EQ(-42.001, c(100));
 
   ASSERT_EQ("0", c.derive());
 

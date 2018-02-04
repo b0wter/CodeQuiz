@@ -15,7 +15,7 @@ namespace Function {
   double Sum::eval(double num) const {
     double result = 0;
     for (auto const& summand : summands) {
-      result += summand->eval(num);
+      result += (*summand)(num);
     }
     return result ;
   }

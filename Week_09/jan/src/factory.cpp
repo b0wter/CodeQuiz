@@ -25,14 +25,16 @@ namespace Function {
 
       size_t const pos = find_next_token(str);
       if (pos == std::string::npos) {
-        size_t const token_monom = str.find('^', pos);
+        size_t const token_monom = str.find('^');
         if (token_monom == std::string::npos) {
 
           if (str == "x") {
             result = new Function::X("x");
           } else
           if (str.back() == 'x') {
-            auto factor = parse(str.substr(0,str.length() -1));
+            auto remaining = str.substr(0,str.length() -1);
+            if (remaining.back() == '*') remaining.erase(remaining.length()-1);
+            auto factor = parse(remaining);
             auto x = new Function::X("x");
             result = new Function::Product(std::move(factor), std::move(x));
           } else {
@@ -40,23 +42,32 @@ namespace Function {
           }
 
         } else {
-          result = new Function::Monom(str.substr(pos +1), parse(str.substr(0, token_monom -1)));
+          auto const remaining = str.substr(0, token_monom);
+          auto const power = "x" + str.substr(token_monom);
+          result = new Function::Monom(power, parse(remaining));
         }
       } else
       switch (str[pos]) {
-        case '+':
-          result = new Function::Sum(parse(str.substr(0, pos)), parse(str.substr(pos + 1)));
+        case '+': {
+          auto const summand1 = str.substr(0, pos);
+          auto const summand2 = str.substr(pos + 1);
+          result = new Function::Sum(parse(summand1), parse(summand2));
+        }
         break;
-        case '-':
-          result = new Function::Sum(parse(str.substr(0, pos -1)), parse(str.substr(pos)));
+        case '-': {
+          auto const summand1 = str.substr(0, pos -1);
+          auto const summand2 = str.substr(pos + 1);
+          result = new Function::Sum(parse(summand1), parse(summand2));
+        }
         break;
-        case '(':
-
+        case '(': {
           size_t const token_close = str.find(')', pos);
           if (token_close == std::string::npos) {
             throw std::runtime_error("Incorrect usage of Factory. Missing token ')'.");
           }
-          result = parse(str.substr(1, token_close -1));
+          auto const remaining = str.substr(1, token_close -1);
+          result = parse(remaining);
+        }
             
         break;
       }
