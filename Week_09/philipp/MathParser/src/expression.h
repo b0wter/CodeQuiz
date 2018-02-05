@@ -6,6 +6,11 @@
 #include <ostream>
 #include <cmath>
 #include <stdexcept>
+#include <limits>
+#include <iomanip>
+
+typedef std::numeric_limits<double> dbl;
+
 
 // Abstract base class of all expressions
 class ExprNode 
@@ -36,7 +41,7 @@ public:
     }
 
     virtual void print(std::ostream &os, unsigned int depth) const {
-        os << "C(" << _value << ")";
+        os << /*std::setprecision(dbl::max_digits10) <<*/ "C(" << _value << ")";
     }
 };
 
@@ -50,6 +55,18 @@ public:
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "P(" << _value << ")";
     }
+};
+
+class VariableExpr : public ExprNode
+{
+    std::string _value;
+public:
+    explicit VariableExpr(std::string value)
+        : ExprNode(), _value(value) {}
+
+    virtual void print(std::ostream &os, unsigned int depth) const {
+        os << "V(" << _value << ")";
+    } 
 };
 
 class NegateExpr : public ExprNode
@@ -179,14 +196,109 @@ public:
     }
 };
 
+class SinFunc : public ExprNode
+{
+    ExprNode *_arg;
+public:
+    explicit SinFunc(ExprNode *arg)
+        : ExprNode(), _arg(arg) {}
+
+    virtual ~SinFunc() {
+        delete _arg;
+    }
+
+    virtual void print(std::ostream &os, unsigned int depth) const {
+        os << "SIN(";
+        _arg->print(os, depth + 1);
+        os << ")";
+    }
+};
+
+class CosFunc : public ExprNode
+{
+    ExprNode *_arg;
+public:
+    explicit CosFunc(ExprNode *arg)
+        : ExprNode(), _arg(arg) {}
+
+    virtual ~CosFunc() {
+        delete _arg;
+    }
+
+    virtual void print(std::ostream &os, unsigned int depth) const {
+        os << "COS(";
+        _arg->print(os, depth + 1);
+        os << ")";
+    }
+};
+
+class TanFunc : public ExprNode
+{
+    ExprNode *_arg;
+public:
+    explicit TanFunc(ExprNode *arg)
+        : ExprNode(), _arg(arg) {}
+
+    virtual ~TanFunc() {
+        delete _arg;
+    }
+
+    virtual void print(std::ostream &os, unsigned int depth) const {
+        os << "TAN(";
+        _arg->print(os, depth + 1);
+        os << ")";
+    }
+};
+
+class ExpFunc : public ExprNode
+{
+    ExprNode *_arg;
+public:
+    explicit ExpFunc(ExprNode *arg)
+        : ExprNode(), _arg(arg) {}
+
+    virtual ~ExpFunc() {
+        delete _arg;
+    }
+
+    virtual void print(std::ostream &os, unsigned int depth) const {
+        os << "EXP(";
+        _arg->print(os, depth + 1);
+        os << ")";
+    }
+};
+
+class SqrtFunc : public ExprNode
+{
+    ExprNode *_arg;
+public:
+    explicit SqrtFunc(ExprNode *arg)
+        : ExprNode(), _arg(arg) {}
+
+    virtual ~SqrtFunc() {
+        delete _arg;
+    }
+
+    virtual void print(std::ostream &os, unsigned int depth) const {
+        os << "SQRT(";
+        _arg->print(os, depth + 1);
+        os << ")";
+    }
+};
+
 class ExprContext
 {
 public:
-    typedef std::map<std::string, double> variableMapType;
+    typedef std::map<std::string, double> parameterMapType;
 
-    variableMapType variables;
+    parameterMapType parameters;
+
+    std::string variable;
 
     std::vector<ExprNode*> expressions;
+
+    ExprContext()
+        : variable("x") {}
 
     ~ExprContext()
     {
@@ -201,18 +313,28 @@ public:
 	    expressions.clear();
     }
         
-    bool existsVariable(const std::string &varname) const
+    bool existsParameter(const std::string &pname) const
     {
-	    return variables.find(varname) != variables.end();
+	    return parameters.find(pname) != parameters.end();
     }
 
-    double getVariable(const std::string &varname) const
+    bool isVariable(const std::string &vname) const 
     {
-	    variableMapType::const_iterator vi = variables.find(varname);
-	    if (vi == variables.end())
+        return (variable.compare(vname) == 0);
+    }
+
+    double getParameter(const std::string &pname) const
+    {
+	    parameterMapType::const_iterator vi = parameters.find(pname);
+	    if (vi == parameters.end())
 	        throw(std::runtime_error("Unknown variable."));
 	    else
 	        return vi->second;
+    }
+
+    std::string getVariable() const
+    {
+        return variable;
     }
 };
 

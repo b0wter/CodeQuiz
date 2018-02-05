@@ -65,11 +65,6 @@ constant [A-Za-z]+
     return token::DOUBLE;
 }
 
-{constant} {
-    yylval->stringVal = new std::string(yytext, yyleng);
-    return token::STRING;
-}
-
 "+" { return token::PLUS; }
 "-" { return token::MINUS; }
 "*" { return token::TIMES; }
@@ -77,6 +72,19 @@ constant [A-Za-z]+
 "^" { return token::POWER; }
 "(" { return token::LPARENT; }
 ")" { return token::RPARENT; }
+
+"d/d" { return token::DERIVATIVE; }
+
+"sin" { return token::SINFUNC; }
+"cos" { return token::COSFUNC; }
+"tan" { return token::TANFUNC; }
+"exp" { return token::EXPFUNC; }
+"sqrt" { return token::SQRTFUNC; }
+
+{constant} {
+    yylval->stringVal = new std::string(yytext, yyleng);
+    return token::STRING;
+}
 
 [ \t\r]+ {
     yylloc->step();

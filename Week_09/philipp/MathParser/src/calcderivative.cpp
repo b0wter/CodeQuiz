@@ -47,7 +47,7 @@ int main(int argc, char **argv)
     std::cout << "Reading expressions from stdin" << std::endl;
 
     std::string line;
-    while(std::cout << "input: " && std::getline(std::cin, line) && !line.empty()) {
+    while(std::cout << "$ " && std::getline(std::cin, line) && !line.empty()) {
 	    context.clearExpressions();
 	    bool result = driver.parseString(line, "input");
 

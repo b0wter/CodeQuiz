@@ -23,7 +23,7 @@ protected:
         
     }
 
-    void testParseString_EQ(char * input, char* expectedOutput)
+    void testParseString_EQ(char* input, char* expectedOutput)
     {                     
         std::ostringstream os;                      
         context.clearExpressions();                 
@@ -32,7 +32,7 @@ protected:
         EXPECT_EQ(os.str(), expectedOutput);
     }
 
-    void testParseString_NE(char * input, char* expectedOutput)
+    void testParseString_NE(char* input, char* expectedOutput)
     {                     
         std::ostringstream os;                      
         context.clearExpressions();                 
@@ -47,6 +47,9 @@ protected:
 
 TEST_F(ParserFixture, ConstantExpr) {
     testParseString_EQ("3", "C(3)");
+    testParseString_EQ("3.0", "C(3)");
+    testParseString_EQ("3.2", "C(3.2)");
+    testParseString_EQ("0.5", "C(0.5)");
 }
 
 TEST_F(ParserFixture, AddExpr) {
@@ -77,4 +80,28 @@ TEST_F(ParserFixture, DivideExpr) {
 
 TEST_F(ParserFixture, PowerExpr) {
     testParseString_EQ("4 ^ 5", "POW(C(4), C(5))");
+}
+
+TEST_F(ParserFixture, SinFunc) {
+    testParseString_EQ("sin(4+5)", "SIN(ADD(C(4), C(5)))");
+}
+
+TEST_F(ParserFixture, CosFunc) {
+    testParseString_EQ("cos(10+11)", "COS(ADD(C(10), C(11)))");
+}
+
+TEST_F(ParserFixture, TanFunc) {
+    testParseString_EQ("tan(19+25)", "TAN(ADD(C(19), C(25)))");
+}
+
+TEST_F(ParserFixture, ExpFunc) {
+    testParseString_EQ("exp(-1+8)", "EXP(ADD((-)C(1), C(8)))");
+}
+
+TEST_F(ParserFixture, SqrtFunc) {
+    testParseString_EQ("sqrt(9+10)", "SQRT(ADD(C(9), C(10)))");
+}
+
+TEST_F(ParserFixture, Expressions) {
+    testParseString_EQ("2.3*exp(2 * a)", "MUL(C(2.3), EXP(MUL(C(2), P(a))))");
 }

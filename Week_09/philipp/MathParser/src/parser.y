@@ -51,7 +51,7 @@
 
 %union {
     int             integerVal;
-    int             doubleVal;
+    double          doubleVal;
     std::string*    stringVal;
     class ExprNode* exprNode;
 }
@@ -61,6 +61,8 @@
 %token <integerVal>     INTEGER "integer"
 %token <doubleVal>      DOUBLE  "double"
 %token <stringVal>      STRING  "string"
+%token                  DERIVATIVE
+%token                  SINFUNC COSFUNC TANFUNC EXPFUNC SQRTFUNC
 %token                  PLUS MINUS TIMES DIVIDE POWER
 %token                  LPARENT RPARENT
 
@@ -94,59 +96,70 @@
 /***** Begin Grammar Rule Definitions *****/
 
 constant:
-        INTEGER                     { $$ = new ConstantExpr($1); }
-      | DOUBLE                      { $$ = new ConstantExpr($1); }
-
+        DOUBLE                      { $$ = new ConstantExpr($1); }
+      | INTEGER                     { $$ = new ConstantExpr($1); }
+;
 variable:
         STRING                      {
-                                        if(!driver.context.existsVariable(*$1)) {
+                                        if(driver.context.isVariable(*$1)) {
+                                            $$ = new VariableExpr(*$1);
+                                        } else if(!driver.context.existsParameter(*$1)) {
                                             $$ = new ParameterExpr(*$1);
                                             //error(yyloc, std::string("Unknown variable \"") + *$1 + "\"");
                                             //delete $1;
                                             //YYERROR;
                                         } else {
-                                            $$ = new ConstantExpr(driver.context.getVariable(*$1));
+                                            $$ = new ConstantExpr(driver.context.getParameter(*$1));
                                         }
                                     }
-
+;
 atomExpr:
         constant                    { $$ = $1; }
-      | variable                    { $$ = $1; }
       | LPARENT Expr RPARENT        { $$ = $2; }
-
+      | SINFUNC LPARENT Expr RPARENT   { $$ = new SinFunc($3); }
+      | COSFUNC LPARENT Expr RPARENT   { $$ = new CosFunc($3); }
+      | TANFUNC LPARENT Expr RPARENT   { $$ = new TanFunc($3); }
+      | EXPFUNC LPARENT Expr RPARENT   { $$ = new ExpFunc($3); }
+      | SQRTFUNC LPARENT Expr RPARENT  { $$ = new SqrtFunc($3); }
+      | variable                    { $$ = $1; }
+;
 powExpr:
         atomExpr                    { $$ = $1; }
       | atomExpr POWER powExpr      { $$ = new PowerExpr($1, $3); }
       | atomExpr POWER MINUS powExpr    { $$ = new PowerExpr($1, new NegateExpr($4)); }
-
+;
 unaryExpr: 
         powExpr                     { $$ = $1; }
       | PLUS powExpr                { $$ = $2; }
       | MINUS powExpr               { $$ = new NegateExpr($2); }
-          
+;          
 mulExpr:
         unaryExpr                   { $$ = $1; }
       | mulExpr TIMES unaryExpr     { $$ = new MultiplyExpr($1, $3); }
       | mulExpr DIVIDE unaryExpr    { $$ = new DivideExpr($1, $3); }
-
+;
 addExpr:
         mulExpr                     { $$ = $1; }
       | addExpr PLUS mulExpr        { $$ = new AddExpr($1, $3); }
       | addExpr MINUS mulExpr       { $$ = new SubtractExpr($1, $3); }
-
+;
 Expr:
       addExpr                       { $$ = $1; }
-
-assignment:
-      STRING '=' constant           {
-                                        driver.context.variables[*$1] = $3->evaluate();
-                                        std::cout << "Setting variable " << *$1
-                                                  << " = " << driver.context.variables[*$1] << "\n";
+;
+  assignment:
+      DERIVATIVE STRING             { 
+                                        driver.context.variable = *$2;
+                                        std::cout << "Setting Variable :" << *$2 << std::endl;
+                                        delete $2;
+                                    }
+      | STRING '=' constant         {
+                                        driver.context.parameters[*$1] = $3->evaluate();
+                                        std::cout << "Setting Parameter " << *$1
+                                                  << " = " << driver.context.parameters[*$1] << "\n";
                                         delete $1;
                                         delete $3;
                                     }
-
-//    | 'd/d' STRING '=' Expr
+;
 //    | f(x) = Expr
 
 start:
@@ -159,7 +172,7 @@ start:
       | start Expr ';'              { driver.context.expressions.push_back($2); }
       | start Expr EOL              { driver.context.expressions.push_back($2); }
       | start Expr END              { driver.context.expressions.push_back($2); }
-
+;
 
 /***** End Grammar Rule Definitions *****/
 
