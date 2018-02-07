@@ -79,6 +79,7 @@ constant [A-Za-z]+
 "cos" { return token::COSFUNC; }
 "tan" { return token::TANFUNC; }
 "exp" { return token::EXPFUNC; }
+"ln" { return token::LNFUNC; }
 "sqrt" { return token::SQRTFUNC; }
 
 {constant} {

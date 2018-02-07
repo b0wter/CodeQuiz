@@ -62,7 +62,7 @@
 %token <doubleVal>      DOUBLE  "double"
 %token <stringVal>      STRING  "string"
 %token                  DERIVATIVE
-%token                  SINFUNC COSFUNC TANFUNC EXPFUNC SQRTFUNC
+%token                  SINFUNC COSFUNC TANFUNC EXPFUNC LNFUNC SQRTFUNC
 %token                  PLUS MINUS TIMES DIVIDE POWER
 %token                  LPARENT RPARENT
 
@@ -120,6 +120,7 @@ atomExpr:
       | COSFUNC LPARENT Expr RPARENT   { $$ = new CosFunc($3); }
       | TANFUNC LPARENT Expr RPARENT   { $$ = new TanFunc($3); }
       | EXPFUNC LPARENT Expr RPARENT   { $$ = new ExpFunc($3); }
+      | LNFUNC LPARENT Expr RPARENT   { $$ = new LnFunc($3); }
       | SQRTFUNC LPARENT Expr RPARENT  { $$ = new SqrtFunc($3); }
       | variable                    { $$ = $1; }
 ;

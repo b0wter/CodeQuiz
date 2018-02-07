@@ -33,6 +33,9 @@
     <ClCompile Include="..\src\gen_scanner.flex.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\expression.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\driver.h">

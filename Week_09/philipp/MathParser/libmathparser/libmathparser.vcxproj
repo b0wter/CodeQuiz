@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\driver.cpp" />
+    <ClCompile Include="..\src\expression.cpp" />
     <ClCompile Include="..\src\gen_parser.tab.cpp" />
     <ClCompile Include="..\src\gen_scanner.flex.cpp" />
   </ItemGroup>

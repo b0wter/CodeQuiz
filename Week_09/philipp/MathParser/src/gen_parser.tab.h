@@ -97,14 +97,15 @@ namespace derivative {
      COSFUNC = 264,
      TANFUNC = 265,
      EXPFUNC = 266,
-     SQRTFUNC = 267,
-     PLUS = 268,
-     MINUS = 269,
-     TIMES = 270,
-     DIVIDE = 271,
-     POWER = 272,
-     LPARENT = 273,
-     RPARENT = 274
+     LNFUNC = 267,
+     SQRTFUNC = 268,
+     PLUS = 269,
+     MINUS = 270,
+     TIMES = 271,
+     DIVIDE = 272,
+     POWER = 273,
+     LPARENT = 274,
+     RPARENT = 275
    };
 
     };
@@ -282,7 +283,7 @@ namespace derivative {
 
 } // derivative
 /* Line 33 of lalr1.cc  */
-#line 286 "gen_parser.tab.h"
+#line 287 "gen_parser.tab.h"
 
 
 

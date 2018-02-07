@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <limits>
 #include <iomanip>
+#include <string>
 
 /*
 TODO: Evaluate für die Funktionen nachrüsten. 
@@ -16,8 +17,10 @@ TODO: Evaluate für die Funktionen nachrüsten.
 TODO: Simplify
 TODO: Unit-Tests erweitern / Test-Cases trennen => Expr-Funktionen splitten
 TODO: shared_ptr verwenden! derivative NodeExprPtr einführen als shared_ptr type
-TODO: test für copies
 TODO: Zeiger Zählen ->siehe shared_ptr
+TODO: Die Rückgabe von einer neuen NullExpr kann unterlassen werden, wenn bereits
+        eine NullExpr durch Ableitung entstanden ist. Diese müsste dann auch nicht
+        gelöscht werden.
 */
 
 enum class NodeTypes
@@ -39,23 +42,29 @@ enum class NodeTypes
     CosFunc,
     TanFunc,
     ExpFunc,
+    LnFunc,
     SqrtFunc
 };
-
-typedef NodeTypes NT;
 
 typedef std::numeric_limits<double> dbl;
 
 // Abstract base class of all expressions
 class ExprNode 
 {
+    const NodeTypes _type;
 public:
+    ExprNode(const NodeTypes type)
+        : _type(type) {}
+
     virtual ~ExprNode() {}
 
-    virtual void print(std::ostream &os, unsigned int depth = 0) const = 0;
-    virtual ExprNode* derivative() const = 0;
-    virtual NodeTypes type() const = 0;
+    virtual NodeTypes type() const final {
+        return _type;
+    }
+
     virtual ExprNode* copy() const = 0;
+    virtual ExprNode* derivative() const = 0;
+    virtual void print(std::ostream &os, unsigned int depth = 0) const = 0;
 
     virtual double evaluate() {
         return DBL_MAX;
@@ -72,16 +81,12 @@ protected:
     ExprNode *_left;
     ExprNode *_right;
 public:
-    BinaryExpr(ExprNode *left, ExprNode *right)
-        : ExprNode(), _left(left), _right(right) {}
+    BinaryExpr(const NodeTypes type, ExprNode *left, ExprNode *right)
+        : ExprNode(type), _left(left), _right(right) {}
 
     virtual ~BinaryExpr() {
         delete _left;
         delete _right;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::BinaryExpr;
     }
 
     inline ExprNode* leftNode() {
@@ -98,15 +103,11 @@ class FuncExpr : public ExprNode
 protected:
     ExprNode *_argNode;
 public:
-    FuncExpr(ExprNode *arg)
-        : ExprNode(),_argNode(arg) {}
+    FuncExpr(const NodeTypes type, ExprNode *arg)
+        : ExprNode(type), _argNode(arg) {}
 
     virtual ~FuncExpr() {
         delete _argNode;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::FuncExpr;
     }
 
     ExprNode* innerNode() {
@@ -118,17 +119,15 @@ class NullExpr : public ExprNode
 {
 public:
     explicit NullExpr()
-        : ExprNode() {}
+        : ExprNode(NodeTypes::NullExpr) {}
 
-    virtual ExprNode* derivative() const {
-        return nullptr;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::NullExpr;
-    }
+    virtual ~NullExpr() {}
 
     virtual ExprNode* copy() const {
+        return new NullExpr();
+    }
+
+    virtual ExprNode* derivative() const {
         return new NullExpr();
     }
 
@@ -142,26 +141,24 @@ class ConstantExpr : public ExprNode
     double _value;
 public:
     explicit ConstantExpr(double value)
-        : ExprNode(), _value(value) {}
+        : ExprNode(NodeTypes::ConstantExpr), _value(value) {}
     
-    virtual ExprNode* derivative() const {
-        return new NullExpr();
-    }
-
-    virtual NodeTypes type() const {
-        return NT::ConstantExpr;
-    }
+    virtual ~ConstantExpr() {}
 
     virtual ExprNode* copy() const {
         return new ConstantExpr(_value);
     }
 
-    virtual double evaluate() {
-        return _value;
+    virtual ExprNode* derivative() const {
+        return new NullExpr();
     }
 
     virtual void print(std::ostream &os, unsigned int depth) const {
-        os << /*std::setprecision(dbl::max_digits10) <<*/ "C(" << _value << ")";
+        os << "C(" << _value << ")";
+    }
+
+    virtual double evaluate() {
+        return _value;
     }
 };
 
@@ -170,26 +167,24 @@ class ParameterExpr : public ExprNode
     std::string _value;
 public:
     explicit ParameterExpr(std::string value)
-        : ExprNode(), _value(value) {}
+        : ExprNode(NodeTypes::ParameterExpr), _value(value) {}
     
-    virtual ExprNode* derivative() const {
-        return new NullExpr();
-    }
-
-    std::string value() const {
-        return _value;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::ParameterExpr;
-    }
+    virtual ~ParameterExpr() {}
 
     virtual ExprNode* copy() const {
         return new ParameterExpr(_value);
     }
 
+    virtual ExprNode* derivative() const {
+        return new NullExpr();
+    }
+
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "P(" << _value << ")";
+    }
+
+    std::string value() const {
+        return _value;
     }
 };
 
@@ -198,63 +193,44 @@ class VariableExpr : public ExprNode
     std::string _value;
 public:
     explicit VariableExpr(std::string value)
-        : ExprNode(), _value(value) {}
+        : ExprNode(NodeTypes::VariableExpr), _value(value) {}
     
-    virtual ExprNode* derivative() const {
-        return new ConstantExpr(1);
-    }
-
-    std::string value() const {
-        return _value;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::VariableExpr;
-    }
+    virtual ~VariableExpr() {}
 
     virtual ExprNode* copy() const {
         return new VariableExpr(_value);
     }
 
+    virtual ExprNode* derivative() const {
+        return new ConstantExpr(1);
+    }
+
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "V(" << _value << ")";
     } 
+
+    std::string value() const {
+        return _value;
+    }
 };
 
-class NegateExpr : public ExprNode
+class NegateExpr : public FuncExpr
 {
-    ExprNode *_node;
 public:
     explicit NegateExpr(ExprNode *node)
-        : ExprNode(), _node(node) {}
+        : FuncExpr(NodeTypes::NegateExpr, node) {}
 
-    virtual ~NegateExpr() {
-        delete _node;
-    }
-
-    virtual ExprNode* derivative() const {
-        ExprNode *d = _node->derivative();
-        if(d->type() == NT::NegateExpr) {
-            return ((NegateExpr*)d)->innerNode();
-        }
-        return new NegateExpr(d);
-    }
-
-    ExprNode* innerNode() {
-        return _node;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::NegateExpr;
-    }
+    virtual ~NegateExpr() {}
 
     virtual ExprNode* copy() const {
-        return new NegateExpr(_node->copy());
+        return new NegateExpr(_argNode->copy());
     }
+
+    virtual ExprNode* derivative() const;
 
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "(-)";
-        _node->print(os, depth + 1);
+        _argNode->print(os, depth + 1);
     }
 };
 
@@ -262,35 +238,15 @@ class AddExpr : public BinaryExpr
 {
 public:
     explicit AddExpr(ExprNode *left, ExprNode *right)
-        : BinaryExpr(left, right) {}
+        : BinaryExpr(NodeTypes::AddExpr, left, right) {}
 
     virtual ~AddExpr() {}
-
-    virtual NodeTypes type() const {
-        return NT::AddExpr;
-    }
 
     virtual ExprNode* copy() const {
         return new AddExpr(_left->copy(), _right->copy());
     }
 
-    virtual ExprNode* derivative() const {
-        ExprNode *leftd = _left->derivative();
-        NodeTypes ltype = leftd->type();
-        ExprNode *rightd = _right->derivative();
-        NodeTypes rtype = rightd->type();
-        if(ltype == NodeTypes::NullExpr && rtype == NodeTypes::NullExpr) {
-            return new NullExpr();
-        } else if(ltype == NodeTypes::NullExpr && rtype != NodeTypes::NullExpr) {
-            return rightd;
-        } else if(ltype != NodeTypes::NullExpr && rtype == NodeTypes::NullExpr) {
-            return leftd;
-        } else {
-            return new AddExpr(leftd, rightd);
-        }
-
-        return nullptr;
-    }
+    virtual ExprNode* derivative() const;
 
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "ADD(";
@@ -305,38 +261,41 @@ class SubtractExpr : public BinaryExpr
 {
 public:
     explicit SubtractExpr(ExprNode *left, ExprNode *right)
-        : BinaryExpr(left, right) {}
+        : BinaryExpr(NodeTypes::SubtractExpr, left, right) {}
 
     virtual ~SubtractExpr() {}
-
-    virtual NodeTypes type() const {
-        return NT::SubtractExpr;
-    }
 
     virtual ExprNode* copy() const {
         return new SubtractExpr(_left->copy(), _right->copy());
     }
 
-    virtual ExprNode* derivative() const {
-        ExprNode *leftd = _left->derivative();
-        NodeTypes ltype = leftd->type();
-        ExprNode *rightd = _right->derivative();
-        NodeTypes rtype = rightd->type();
-        if(ltype == NodeTypes::NullExpr && rtype == NodeTypes::NullExpr) {
-            return new NullExpr();
-        } else if(ltype == NodeTypes::NullExpr && rtype != NodeTypes::NullExpr) {
-            return rightd;
-        } else if(ltype != NodeTypes::NullExpr && rtype == NodeTypes::NullExpr) {
-            return leftd;
-        } else {
-            return new SubtractExpr(leftd, rightd);
-        }
-
-        return nullptr;
-    }
+    virtual ExprNode* derivative() const;
 
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "SUB(";
+        _left->print(os, depth + 1);
+        os << ", ";
+        _right->print(os, depth + 1);
+        os << ")";
+    }
+};
+
+class PowerExpr : public BinaryExpr
+{
+public:
+    explicit PowerExpr(ExprNode *left, ExprNode *right)
+        : BinaryExpr(NodeTypes::PowerExpr, left, right) {}
+
+    virtual ~PowerExpr() {}
+
+    virtual ExprNode* copy() const {
+        return new PowerExpr(_left->copy(), _right->copy());
+    }
+
+    virtual ExprNode* derivative() const;
+
+    virtual void print(std::ostream &os, unsigned int depth) const {
+        os << "POW(";
         _left->print(os, depth + 1);
         os << ", ";
         _right->print(os, depth + 1);
@@ -348,34 +307,15 @@ class MultiplyExpr : public BinaryExpr
 {
 public:
     explicit MultiplyExpr(ExprNode *left, ExprNode *right)
-        : BinaryExpr(left, right) {}
+        : BinaryExpr(NodeTypes::MultiplyExpr, left, right) {}
 
     virtual ~MultiplyExpr() {}
-
-    virtual NodeTypes type() const {
-        return NT::MultiplyExpr;
-    }
 
     virtual ExprNode* copy() const {
         return new MultiplyExpr(_left->copy(), _right->copy());
     }
 
-    virtual ExprNode* derivative() const {
-        ExprNode *leftd = _left->derivative();
-        NodeTypes ltype = leftd->type();
-        ExprNode *rightd = _right->derivative();
-        NodeTypes rtype = rightd->type();
-        if(ltype == NodeTypes::NullExpr && rtype == NodeTypes::NullExpr) {
-            return new NullExpr();
-        } else if(ltype == NodeTypes::NullExpr && rtype != NodeTypes::NullExpr) {
-            return new MultiplyExpr(_left->copy(), rightd);
-        } else if(ltype != NodeTypes::NullExpr && rtype == NodeTypes::NullExpr) {
-            return new MultiplyExpr(leftd, _right->copy());
-        } else {
-            return new AddExpr(new MultiplyExpr(leftd, _right->copy()), new MultiplyExpr(_left->copy(), rightd));
-        }
-        return nullptr;
-    }
+    virtual ExprNode* derivative() const;
 
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "MUL(";
@@ -390,53 +330,18 @@ class DivideExpr : public BinaryExpr
 {
 public:
     explicit DivideExpr(ExprNode *left, ExprNode *right)
-        : BinaryExpr(left, right) {}
+        : BinaryExpr(NodeTypes::DivideExpr, left, right) {}
 
     virtual ~DivideExpr() {}
-
-    virtual NodeTypes type() const {
-        return NT::DivideExpr;
-    }
 
     virtual ExprNode* copy() const {
         return new DivideExpr(_left->copy(), _right->copy());
     }
 
-    virtual ExprNode* derivative() const {
-        return nullptr;
-    }
+    virtual ExprNode* derivative() const;
 
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "DIV(";
-        _left->print(os, depth + 1);
-        os << ", ";
-        _right->print(os, depth + 1);
-        os << ")";
-    }
-};
-
-class PowerExpr : public BinaryExpr
-{
-public:
-    explicit PowerExpr(ExprNode *left, ExprNode *right)
-        : BinaryExpr(left, right) {}
-
-    virtual ~PowerExpr() {}
-
-    virtual NodeTypes type() const {
-        return NT::PowerExpr;
-    }
-
-    virtual ExprNode* copy() const {
-        return new PowerExpr(_left->copy(), _right->copy());
-    }
-
-    virtual ExprNode* derivative() const {
-        return nullptr;
-    }
-
-    virtual void print(std::ostream &os, unsigned int depth) const {
-        os << "POW(";
         _left->print(os, depth + 1);
         os << ", ";
         _right->print(os, depth + 1);
@@ -448,21 +353,15 @@ class SinFunc : public FuncExpr
 {
 public:
     explicit SinFunc(ExprNode *arg)
-        : FuncExpr(arg) {}
+        : FuncExpr(NodeTypes::SinFunc, arg) {}
 
     virtual ~SinFunc() {}
-
-    virtual ExprNode* derivative() const {
-        return nullptr;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::SinFunc;
-    }
 
     virtual ExprNode* copy() const {
         return new SinFunc(_argNode->copy());
     }
+
+    virtual ExprNode* derivative() const;
 
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "SIN(";
@@ -475,21 +374,15 @@ class CosFunc : public FuncExpr
 {
 public:
     explicit CosFunc(ExprNode *arg)
-        : FuncExpr(arg) {}
+        : FuncExpr(NodeTypes::CosFunc, arg) {}
 
     virtual ~CosFunc() {}
-
-    virtual ExprNode* derivative() const {
-        return nullptr;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::CosFunc;
-    }
 
     virtual ExprNode* copy() const {
         return new CosFunc(_argNode->copy());
     }
+
+    virtual ExprNode* derivative() const;
 
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "COS(";
@@ -502,21 +395,15 @@ class TanFunc : public FuncExpr
 {
 public:
     explicit TanFunc(ExprNode *arg)
-        : FuncExpr(arg) {}
+        : FuncExpr(NodeTypes::TanFunc, arg) {}
 
     virtual ~TanFunc() {}
-
-    virtual ExprNode* derivative() const {
-        return nullptr;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::TanFunc;
-    }
 
     virtual ExprNode* copy() const {
         return new TanFunc(_argNode->copy());
     }
+
+    virtual ExprNode* derivative() const;
 
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "TAN(";
@@ -529,24 +416,39 @@ class ExpFunc : public FuncExpr
 {
 public:
     explicit ExpFunc(ExprNode *arg)
-        : FuncExpr(arg) {}
+        : FuncExpr(NodeTypes::ExpFunc, arg) {}
 
     virtual ~ExpFunc() {}
-
-    virtual ExprNode* derivative() const {
-        return nullptr;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::ExpFunc;
-    }
 
     virtual ExprNode* copy() const {
         return new ExpFunc(_argNode->copy());
     }
 
+    virtual ExprNode* derivative() const;
+
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "EXP(";
+        _argNode->print(os, depth + 1);
+        os << ")";
+    }
+};
+
+class LnFunc : public FuncExpr
+{
+public:
+    explicit LnFunc(ExprNode *arg)
+        : FuncExpr(NodeTypes::LnFunc, arg) {}
+
+    virtual ~LnFunc() {}
+
+    virtual ExprNode* copy() const {
+        return new LnFunc(_argNode->copy());
+    }
+
+    virtual ExprNode* derivative() const;
+
+    virtual void print(std::ostream &os, unsigned int depth) const {
+        os << "LN(";
         _argNode->print(os, depth + 1);
         os << ")";
     }
@@ -556,21 +458,15 @@ class SqrtFunc : public FuncExpr
 {
 public:
     explicit SqrtFunc(ExprNode *arg)
-        : FuncExpr(arg) {}
+        : FuncExpr(NodeTypes::SqrtFunc, arg) {}
 
     virtual ~SqrtFunc() {}
-
-    virtual ExprNode* derivative() const {
-        return nullptr;
-    }
-
-    virtual NodeTypes type() const {
-        return NT::SqrtFunc;
-    }
 
     virtual ExprNode* copy() const {
         return new SqrtFunc(_argNode->copy());
     }
+
+    virtual ExprNode* derivative() const;
 
     virtual void print(std::ostream &os, unsigned int depth) const {
         os << "SQRT(";
@@ -594,31 +490,26 @@ public:
     ExprContext()
         : variable("x") {}
 
-    ~ExprContext()
-    {
+    ~ExprContext() {
         clearExpressions();
     }
 
-    void clearExpressions()
-    {
+    void clearExpressions() {
 	    for(unsigned int i = 0; i < expressions.size(); ++i) {
 	        delete expressions[i];
 	    }
 	    expressions.clear();
     }
         
-    bool existsParameter(const std::string &pname) const
-    {
+    bool existsParameter(const std::string &pname) const {
 	    return parameters.find(pname) != parameters.end();
     }
 
-    bool isVariable(const std::string &vname) const 
-    {
+    bool isVariable(const std::string &vname) const {
         return (variable.compare(vname) == 0);
     }
 
-    double getParameter(const std::string &pname) const
-    {
+    double getParameter(const std::string &pname) const {
 	    parameterMapType::const_iterator vi = parameters.find(pname);
 	    if (vi == parameters.end())
 	        throw(std::runtime_error("Unknown variable."));
@@ -626,8 +517,7 @@ public:
 	        return vi->second;
     }
 
-    std::string getVariable() const
-    {
+    std::string getVariable() const {
         return variable;
     }
 };
