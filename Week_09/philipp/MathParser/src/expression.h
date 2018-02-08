@@ -20,6 +20,11 @@ TODO: Zeiger Zählen ->siehe shared_ptr
 TODO: Die Rückgabe von einer neuen NullExpr kann unterlassen werden, wenn bereits
         eine NullExpr durch Ableitung entstanden ist. Diese müsste dann auch nicht
         gelöscht werden.
+TODO: Momentan können Terme wie "2x" | "2x^2" | ... nicht geparset werden
+        dafür muss der parser angepasst werden.
+        Lsg-Ansatz: 
+            - Grammatik anpassen sodass '*' in bestimmten Situationen ausgelassen werden darf
+            - evtl notwendig: Parameter ändern, sodass nur 1 Buchstabe geparst wird 
 */
 
 enum class NodeTypes
