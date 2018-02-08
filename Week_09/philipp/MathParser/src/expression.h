@@ -15,7 +15,6 @@ TODO: Evaluate für die Funktionen nachrüsten.
         d.h. Constanten auf Funktionen und Operatoren auswerten wenn möglich.
         SIN(C(x)) => C(y) <- auswerten !!!
 TODO: Simplify
-TODO: Unit-Tests erweitern / Test-Cases trennen => Expr-Funktionen splitten
 TODO: shared_ptr verwenden! derivative NodeExprPtr einführen als shared_ptr type
 TODO: Zeiger Zählen ->siehe shared_ptr
 TODO: Die Rückgabe von einer neuen NullExpr kann unterlassen werden, wenn bereits
@@ -62,6 +61,18 @@ public:
         return _type;
     }
 
+    virtual bool isNullExpr() const {
+        return false;
+    }
+
+    virtual bool isConstExpr() const {
+        return false;
+    }
+
+    virtual bool isVarExpr() const {
+        return false;
+    }
+
     virtual ExprNode* copy() const = 0;
     virtual ExprNode* derivative() const = 0;
     virtual void print(std::ostream &os, unsigned int depth = 0) const = 0;
@@ -89,6 +100,10 @@ public:
         delete _right;
     }
 
+    virtual bool isVarExpr() const {
+        return (_left->isVarExpr() || _right->isVarExpr());
+    }
+
     inline ExprNode* leftNode() {
         return _left;
     }
@@ -110,6 +125,10 @@ public:
         delete _argNode;
     }
 
+    virtual bool isVarExpr() const {
+        return _argNode->isVarExpr();
+    }
+
     ExprNode* innerNode() {
         return _argNode;
     }
@@ -122,6 +141,10 @@ public:
         : ExprNode(NodeTypes::NullExpr) {}
 
     virtual ~NullExpr() {}
+
+    virtual bool isNullExpr() const {
+        return true;
+    }
 
     virtual ExprNode* copy() const {
         return new NullExpr();
@@ -144,6 +167,10 @@ public:
         : ExprNode(NodeTypes::ConstantExpr), _value(value) {}
     
     virtual ~ConstantExpr() {}
+
+    virtual bool isConstExpr() const {
+        return true;
+    }
 
     virtual ExprNode* copy() const {
         return new ConstantExpr(_value);
@@ -171,6 +198,10 @@ public:
     
     virtual ~ParameterExpr() {}
 
+    virtual bool isConstExpr() const {
+        return true;
+    }
+
     virtual ExprNode* copy() const {
         return new ParameterExpr(_value);
     }
@@ -196,6 +227,10 @@ public:
         : ExprNode(NodeTypes::VariableExpr), _value(value) {}
     
     virtual ~VariableExpr() {}
+    
+    virtual bool isVarExpr() const {
+        return true;
+    }
 
     virtual ExprNode* copy() const {
         return new VariableExpr(_value);

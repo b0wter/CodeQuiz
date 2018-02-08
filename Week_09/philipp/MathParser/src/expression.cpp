@@ -64,7 +64,10 @@ ExprNode* SubtractExpr::derivative() const {
 ExprNode* PowerExpr::derivative() const {
     ExprNode *leftd = _left->derivative();
     ExprNode *rightd = _right->derivative();
-    if(rightd->type() == NodeTypes::NullExpr) {
+    if(rightd->type() == NodeTypes::NullExpr && leftd->type() == NodeTypes::NullExpr) {
+        // const ^ const 
+        return new NullExpr();
+    } else if(rightd->type() == NodeTypes::NullExpr) {
         // f(x)^n = n*f(x)^(n-1)
         return new MultiplyExpr(_right->copy(),
                                 new PowerExpr(_left->copy(),
@@ -218,8 +221,13 @@ ExprNode* ExpFunc::derivative() const {
 }
 
 ExprNode* LnFunc::derivative() const {
-    // todo
-    return nullptr;
+    ExprNode *d = _argNode->derivative();
+    if(d->type() == NodeTypes::NullExpr) {
+        delete d;
+        return new NullExpr();
+    } else {
+        return new DivideExpr(d, _argNode->copy());
+    }
 }
 
 ExprNode* SqrtFunc::derivative() const {
