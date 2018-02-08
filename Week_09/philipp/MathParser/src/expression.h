@@ -100,6 +100,10 @@ public:
         delete _right;
     }
 
+    virtual bool isConstExpr() const {
+        return (_left->isConstExpr() || _right->isConstExpr());
+    }
+
     virtual bool isVarExpr() const {
         return (_left->isVarExpr() || _right->isVarExpr());
     }
@@ -123,6 +127,10 @@ public:
 
     virtual ~FuncExpr() {
         delete _argNode;
+    }
+
+    virtual bool isConstExpr() const {
+        return _argNode->isConstExpr();
     }
 
     virtual bool isVarExpr() const {
