@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 		        for(unsigned int ei = 0; ei < context.expressions.size(); ++ei) {
 		            std::cout << "[" << ei << "]:" << std::endl;
 		            std::cout << "tree:" << std::endl;
-		            context.expressions[ei]->print(std::cout);
+		            context.expressions[ei]->print_expr(std::cout);
                     std::cout << std::endl;
 		        }
 	        }
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 	    if (result) {
 	        for (unsigned int ei = 0; ei < context.expressions.size(); ++ei) {
 		    std::cout << "tree:" << std::endl;
-		    context.expressions[ei]->print(std::cout);
+		    context.expressions[ei]->print_expr(std::cout);
             std::cout << std::endl;
 	        }
 	    }

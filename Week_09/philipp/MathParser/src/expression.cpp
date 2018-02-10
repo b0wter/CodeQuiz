@@ -9,6 +9,16 @@ ExprNode* NegateExpr::derivative() const {
     return new NegateExpr(d);
 }
 
+ExprNode* NegateExpr::evaluate() const {
+    ExprNode* v = _argNode->evaluate();
+    if(v->isConstExpr()) {
+        double value = ((ConstantExpr*)v)->value();
+        delete v;
+        return new ConstantExpr(-value);
+    }
+    return new NegateExpr(_argNode->copy());
+}
+
 ExprNode* AddExpr::derivative() const {
     ExprNode *leftd = _left->derivative();
     NodeTypes ltype = leftd->type();
@@ -33,6 +43,22 @@ ExprNode* AddExpr::derivative() const {
     }
 
     return nullptr;
+}
+
+
+ExprNode* AddExpr::evaluate() const
+{
+    ExprNode* leval = _left->evaluate();
+    ExprNode* reval = _right->evaluate();
+    if(leval->isConstExpr() && reval->isConstExpr()) {
+        double lvalue = ((ConstantExpr*)leval)->value();
+        double rvalue = ((ConstantExpr*)reval)->value();
+        delete leval;
+        delete reval;
+        return new ConstantExpr(lvalue + rvalue);
+    } else {
+        return new AddExpr(leval, reval);
+    }
 }
 
 ExprNode* SubtractExpr::derivative() const {
@@ -61,6 +87,21 @@ ExprNode* SubtractExpr::derivative() const {
     return nullptr;
 }
 
+ExprNode* SubtractExpr::evaluate() const
+{
+    ExprNode* leval = _left->evaluate();
+    ExprNode* reval = _right->evaluate();
+    if(leval->isConstExpr() && reval->isConstExpr()) {
+        double lvalue = ((ConstantExpr*)leval)->value();
+        double rvalue = ((ConstantExpr*)reval)->value();
+        delete leval;
+        delete reval;
+        return new ConstantExpr(lvalue - rvalue);
+    } else {
+        return new SubtractExpr(leval, reval);
+    }
+}
+
 ExprNode* PowerExpr::derivative() const {
     ExprNode *leftd = _left->derivative();
     ExprNode *rightd = _right->derivative();
@@ -83,6 +124,21 @@ ExprNode* PowerExpr::derivative() const {
                                             new MultiplyExpr(_left->copy(),
                                                              new DivideExpr(rightd,
                                                                             _right->copy()))));
+    }
+}
+
+ExprNode* PowerExpr::evaluate() const
+{
+    ExprNode* leval = _left->evaluate();
+    ExprNode* reval = _right->evaluate();
+    if(leval->isConstExpr() && reval->isConstExpr()) {
+        double lvalue = ((ConstantExpr*)leval)->value();
+        double rvalue = ((ConstantExpr*)reval)->value();
+        delete leval;
+        delete reval;
+        return new ConstantExpr(std::pow(lvalue, rvalue));
+    } else {
+        return new PowerExpr(leval, reval);
     }
 }
 
@@ -112,6 +168,43 @@ ExprNode* MultiplyExpr::derivative() const {
                                             rightd));
     }
     return nullptr;
+}
+
+ExprNode* MultiplyExpr::evaluate() const
+{
+    ExprNode* leval = _left->evaluate();
+    ExprNode* reval = _right->evaluate();
+    if(leval->isConstExpr() && reval->isConstExpr()) {
+        double lvalue = ((ConstantExpr*)leval)->value();
+        double rvalue = ((ConstantExpr*)reval)->value();
+        delete leval;
+        delete reval;
+        return new ConstantExpr(lvalue * rvalue);
+    } else {
+        if(leval->isConstExpr() && reval->type() == NodeTypes::MultiplyExpr) {
+            MultiplyExpr *m = (MultiplyExpr*)reval;
+            if(m->leftNode()->isConstExpr()) {
+                return new MultiplyExpr(new ConstantExpr(((ConstantExpr*)leval)->value() * ((ConstantExpr*)m->leftNode())->value()),
+                                        m->rightNode());
+            }
+            if(m->rightNode()->isConstExpr()) {
+                return new MultiplyExpr(new ConstantExpr(((ConstantExpr*)leval)->value() * ((ConstantExpr*)m->rightNode())->value()),
+                                        m->leftNode());
+            }
+        }
+        if(reval->isConstExpr() && leval->type() == NodeTypes::MultiplyExpr) {
+            MultiplyExpr *m = (MultiplyExpr*)leval;
+            if(m->leftNode()->isConstExpr()) {
+                return new MultiplyExpr(new ConstantExpr(((ConstantExpr*)leval)->value() * ((ConstantExpr*)m->leftNode())->value()),
+                                        m->rightNode());
+            }
+            if(m->rightNode()->isConstExpr()) {
+                return new MultiplyExpr(new ConstantExpr(((ConstantExpr*)leval)->value() * ((ConstantExpr*)m->rightNode())->value()),
+                                        m->leftNode());
+            }
+        }
+        return new MultiplyExpr(leval, reval);
+    }
 }
 
 ExprNode* DivideExpr::derivative() const {
@@ -149,6 +242,21 @@ ExprNode* DivideExpr::derivative() const {
     return nullptr;
 }
 
+ExprNode* DivideExpr::evaluate() const
+{
+    ExprNode* leval = _left->evaluate();
+    ExprNode* reval = _right->evaluate();
+    if(leval->isConstExpr() && reval->isConstExpr()) {
+        double lvalue = ((ConstantExpr*)leval)->value();
+        double rvalue = ((ConstantExpr*)reval)->value();
+        delete leval;
+        delete reval;
+        return new ConstantExpr(lvalue / rvalue);
+    } else {
+        return new DivideExpr(leval, reval);
+    }
+}
+
 ExprNode* SinFunc::derivative() const {
     ExprNode *d = _argNode->derivative();
     if(d->type() == NodeTypes::NullExpr) {
@@ -166,6 +274,18 @@ ExprNode* SinFunc::derivative() const {
     return nullptr;
 }
 
+ExprNode* SinFunc::evaluate() const
+{
+    ExprNode* v = _argNode->evaluate();
+    if(v->isConstExpr()) {
+        double value = ((ConstantExpr*)v)->value();
+        delete v;
+        return new ConstantExpr(std::sin(value));    
+    }
+
+    return new SinFunc(v);
+}
+
 ExprNode* CosFunc::derivative() const {
     ExprNode *d = _argNode->derivative();
     if(d->type() == NodeTypes::NullExpr) {
@@ -181,6 +301,18 @@ ExprNode* CosFunc::derivative() const {
     }
 
     return nullptr;
+}
+
+ExprNode* CosFunc::evaluate() const
+{
+    ExprNode* v = _argNode->evaluate();
+    if(v->isConstExpr()) {
+        double value = ((ConstantExpr*)v)->value();
+        delete v;
+        return new ConstantExpr(std::cos(value));    
+    }
+
+    return new CosFunc(v);
 }
 
 ExprNode* TanFunc::derivative() const {
@@ -203,6 +335,18 @@ ExprNode* TanFunc::derivative() const {
     return nullptr;
 }
 
+ExprNode* TanFunc::evaluate() const
+{
+    ExprNode* v = _argNode->evaluate();
+    if(v->isConstExpr()) {
+        double value = ((ConstantExpr*)v)->value();
+        delete v;
+        return new ConstantExpr(std::tan(value));    
+    }
+
+    return new TanFunc(v);
+}
+
 ExprNode* ExpFunc::derivative() const {
     ExprNode *d = _argNode->derivative();
     if(d->type() == NodeTypes::NullExpr) {
@@ -220,6 +364,18 @@ ExprNode* ExpFunc::derivative() const {
     return nullptr;
 }
 
+ExprNode* ExpFunc::evaluate() const
+{
+    ExprNode* v = _argNode->evaluate();
+    if(v->isConstExpr()) {
+        double value = ((ConstantExpr*)v)->value();
+        delete v;
+        return new ConstantExpr(std::exp(value));    
+    }
+
+    return new ExpFunc(v);
+}
+
 ExprNode* LnFunc::derivative() const {
     ExprNode *d = _argNode->derivative();
     if(d->type() == NodeTypes::NullExpr) {
@@ -228,6 +384,18 @@ ExprNode* LnFunc::derivative() const {
     } else {
         return new DivideExpr(d, _argNode->copy());
     }
+}
+
+ExprNode* LnFunc::evaluate() const
+{
+    ExprNode* v = _argNode->evaluate();
+    if(v->isConstExpr()) {
+        double value = ((ConstantExpr*)v)->value();
+        delete v;
+        return new ConstantExpr(std::log(value));    
+    }
+
+    return new LnFunc(v);
 }
 
 ExprNode* SqrtFunc::derivative() const {
@@ -246,4 +414,16 @@ ExprNode* SqrtFunc::derivative() const {
                               new MultiplyExpr(new ConstantExpr(2),
                                                new SqrtFunc(_argNode)));
     }
+}
+
+ExprNode* SqrtFunc::evaluate() const
+{
+    ExprNode* v = _argNode->evaluate();
+    if(v->isConstExpr()) {
+        double value = ((ConstantExpr*)v)->value();
+        delete v;
+        return new ConstantExpr(std::sqrt(value));    
+    }
+
+    return new SqrtFunc(v);
 }

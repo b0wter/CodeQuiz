@@ -45,7 +45,7 @@ digit [0-9]
 integer {digit}+
 exponent [eE][+-]?{integer}
 real {integer}("."{integer})?{exponent}?
-constant [A-Za-z]+
+constant [A-Za-z]
 
 %% /***** Regular Expressions Part *****/
 

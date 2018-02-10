@@ -138,6 +138,7 @@ mulExpr:
         unaryExpr                   { $$ = $1; }
       | mulExpr TIMES unaryExpr     { $$ = new MultiplyExpr($1, $3); }
       | mulExpr DIVIDE unaryExpr    { $$ = new DivideExpr($1, $3); }
+      | mulExpr powExpr            { $$ = new MultiplyExpr($1, $2); }
 ;
 addExpr:
         mulExpr                     { $$ = $1; }
@@ -154,7 +155,7 @@ Expr:
                                         delete $2;
                                     }
       | STRING '=' constant         {
-                                        driver.context.parameters[*$1] = $3->evaluate();
+                                        driver.context.parameters[*$1] = ((ConstantExpr*)$3)->value();
                                         std::cout << "Setting Parameter " << *$1
                                                   << " = " << driver.context.parameters[*$1] << "\n";
                                         delete $1;

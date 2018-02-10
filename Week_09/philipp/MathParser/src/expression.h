@@ -80,11 +80,9 @@ public:
 
     virtual ExprNode* copy() const = 0;
     virtual ExprNode* derivative() const = 0;
-    virtual void print(std::ostream &os, unsigned int depth = 0) const = 0;
-
-    virtual double evaluate() {
-        return DBL_MAX;
-    }
+    virtual ExprNode* evaluate() const = 0;
+    virtual void print_expr(std::ostream &os, unsigned int depth = 0) const = 0;
+    virtual void print_formula(std::ostream &os, bool shorten = true) const = 0;
 
     static inline std::string indent(unsigned int d) {
         return std::string(d * 2, ' ');
@@ -106,7 +104,7 @@ public:
     }
 
     virtual bool isConstExpr() const {
-        return (_left->isConstExpr() || _right->isConstExpr());
+        return (_left->isConstExpr() && _right->isConstExpr());
     }
 
     virtual bool isVarExpr() const {
@@ -142,7 +140,7 @@ public:
         return _argNode->isVarExpr();
     }
 
-    ExprNode* innerNode() {
+    inline ExprNode* innerNode() {
         return _argNode;
     }
 };
@@ -167,7 +165,15 @@ public:
         return new NullExpr();
     }
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual ExprNode* evaluate() const {
+        return new NullExpr();
+    }
+
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
+        return;
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
         return;
     }
 };
@@ -193,11 +199,19 @@ public:
         return new NullExpr();
     }
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual ExprNode* evaluate() const {
+        return new ConstantExpr(_value);
+    }
+
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "C(" << _value << ")";
     }
 
-    virtual double evaluate() {
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        os << _value;
+    }
+
+    virtual double value() const {
         return _value;
     }
 };
@@ -223,8 +237,16 @@ public:
         return new NullExpr();
     }
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual ExprNode* evaluate() const {
+        return new ParameterExpr(_value);
+    }
+
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "P(" << _value << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        os << _value;
     }
 
     std::string value() const {
@@ -253,9 +275,17 @@ public:
         return new ConstantExpr(1);
     }
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual ExprNode* evaluate() const {
+        return new VariableExpr(_value);
+    }
+
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "V(" << _value << ")";
-    } 
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        os << _value;
+    }
 
     std::string value() const {
         return _value;
@@ -275,10 +305,16 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "(-)";
-        _argNode->print(os, depth + 1);
+        _argNode->print_expr(os, depth + 1);
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        os << "-";
+        _argNode->print_formula(os);
     }
 };
 
@@ -295,13 +331,20 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "ADD(";
-        _left->print(os, depth + 1);
+        _left->print_expr(os, depth + 1);
         os << ", ";
-        _right->print(os, depth + 1);
+        _right->print_expr(os, depth + 1);
         os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        _left->print_formula(os);
+        os << "+";
+        _right->print_formula(os);
     }
 };
 
@@ -318,13 +361,20 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "SUB(";
-        _left->print(os, depth + 1);
+        _left->print_expr(os, depth + 1);
         os << ", ";
-        _right->print(os, depth + 1);
+        _right->print_expr(os, depth + 1);
         os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        _left->print_formula(os);
+        os << "-";
+        _right->print_formula(os);
     }
 };
 
@@ -341,13 +391,20 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "POW(";
-        _left->print(os, depth + 1);
+        _left->print_expr(os, depth + 1);
         os << ", ";
-        _right->print(os, depth + 1);
+        _right->print_expr(os, depth + 1);
         os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        _left->print_formula(os);
+        os << "^";
+        _right->print_formula(os);
     }
 };
 
@@ -364,13 +421,21 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "MUL(";
-        _left->print(os, depth + 1);
+        _left->print_expr(os, depth + 1);
         os << ", ";
-        _right->print(os, depth + 1);
+        _right->print_expr(os, depth + 1);
         os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        _left->print_formula(os);
+        if(!shorten)
+            os << "*";
+        _right->print_formula(os);
     }
 };
 
@@ -387,13 +452,20 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "DIV(";
-        _left->print(os, depth + 1);
+        _left->print_expr(os, depth + 1);
         os << ", ";
-        _right->print(os, depth + 1);
+        _right->print_expr(os, depth + 1);
         os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        _left->print_formula(os);
+        os << "/";
+        _right->print_formula(os);
     }
 };
 
@@ -410,10 +482,17 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "SIN(";
-        _argNode->print(os, depth + 1);
+        _argNode->print_expr(os, depth + 1);
+        os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        os << "sin(";
+        _argNode->print_formula(os);
         os << ")";
     }
 };
@@ -431,10 +510,17 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "COS(";
-        _argNode->print(os, depth + 1);
+        _argNode->print_expr(os, depth + 1);
+        os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        os << "cos(";
+        _argNode->print_formula(os);
         os << ")";
     }
 };
@@ -452,10 +538,17 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "TAN(";
-        _argNode->print(os, depth + 1);
+        _argNode->print_expr(os, depth + 1);
+        os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        os << "tan(";
+        _argNode->print_formula(os);
         os << ")";
     }
 };
@@ -473,10 +566,17 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "EXP(";
-        _argNode->print(os, depth + 1);
+        _argNode->print_expr(os, depth + 1);
+        os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        os << "exp(";
+        _argNode->print_formula(os);
         os << ")";
     }
 };
@@ -494,10 +594,17 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "LN(";
-        _argNode->print(os, depth + 1);
+        _argNode->print_expr(os, depth + 1);
+        os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        os << "ln(";
+        _argNode->print_formula(os);
         os << ")";
     }
 };
@@ -515,10 +622,17 @@ public:
     }
 
     virtual ExprNode* derivative() const;
+    virtual ExprNode* evaluate() const;
 
-    virtual void print(std::ostream &os, unsigned int depth) const {
+    virtual void print_expr(std::ostream &os, unsigned int depth) const {
         os << "SQRT(";
-        _argNode->print(os, depth + 1);
+        _argNode->print_expr(os, depth + 1);
+        os << ")";
+    }
+
+    virtual void print_formula(std::ostream &os, bool shorten = true) const {
+        os << "sqrt(";
+        _argNode->print_formula(os);
         os << ")";
     }
 };

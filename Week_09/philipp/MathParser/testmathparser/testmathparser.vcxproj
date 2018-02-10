@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\test\test_derivatives.cpp" />
     <ClCompile Include="..\src\test\test_expression.cpp" />
     <ClCompile Include="..\src\test\test_mathparser.cpp" />
     <ClCompile Include="..\src\test\test_mathparser_main.cpp" />

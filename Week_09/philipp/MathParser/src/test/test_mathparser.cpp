@@ -28,7 +28,7 @@ protected:
         std::ostringstream os;                      
         context.clearExpressions();                 
         ASSERT_TRUE(driver.parseString(input, "input"));
-        context.expressions[0]->print(os);          
+        context.expressions[0]->print_expr(os);          
         EXPECT_EQ(os.str(), expectedOutput);
     }
 
@@ -37,7 +37,7 @@ protected:
         std::ostringstream os;                      
         context.clearExpressions();                 
         ASSERT_TRUE(driver.parseString(input, "input"));
-        context.expressions[0]->print(os);          
+        context.expressions[0]->print_expr(os);          
         EXPECT_NE(os.str(), expectedOutput);
     }
 
@@ -104,4 +104,18 @@ TEST_F(ParserFixture, SqrtFunc) {
 
 TEST_F(ParserFixture, Expressions) {
     testParseString_EQ("2.3*exp(2 * a)", "MUL(C(2.3), EXP(MUL(C(2), P(a))))");
+    testParseString_EQ("x", "V(x)");
+    testParseString_EQ("2x", "MUL(C(2), V(x))");
+    testParseString_EQ("2x^2", "MUL(C(2), POW(V(x), C(2)))");
+
+    testParseString_EQ("2x^10+2x^3", "ADD(MUL(C(2), POW(V(x), C(10))), MUL(C(2), POW(V(x), C(3))))");
+    /*testParseString_EQ("2x^10 +2x^3", "");
+    testParseString_EQ("2x^10 + 2x^3", "");
+    testParseString_EQ("2x^10+ x^3", "");
+    testParseString_EQ("2x^10 +2x ^3", "");
+    testParseString_EQ("2x^10+2x^3+10", "");
+    testParseString_EQ("2x^10+2x^3+sin(x)", "");
+    testParseString_EQ("2x^10(2x^3+10)", "");
+    testParseString_EQ("2x^10(2x^3+10)", "");
+    testParseString_EQ("2x^-10", "");*/
 }

@@ -683,31 +683,37 @@ namespace derivative {
 
   case 23:
 /* Line 670 of lalr1.cc  */
-#line 143 "parser.y"
-    { (yyval.exprNode) = (yysemantic_stack_[(1) - (1)].exprNode); }
+#line 141 "parser.y"
+    { (yyval.exprNode) = new MultiplyExpr((yysemantic_stack_[(2) - (1)].exprNode), (yysemantic_stack_[(2) - (2)].exprNode)); }
     break;
 
   case 24:
 /* Line 670 of lalr1.cc  */
 #line 144 "parser.y"
-    { (yyval.exprNode) = new AddExpr((yysemantic_stack_[(3) - (1)].exprNode), (yysemantic_stack_[(3) - (3)].exprNode)); }
+    { (yyval.exprNode) = (yysemantic_stack_[(1) - (1)].exprNode); }
     break;
 
   case 25:
 /* Line 670 of lalr1.cc  */
 #line 145 "parser.y"
-    { (yyval.exprNode) = new SubtractExpr((yysemantic_stack_[(3) - (1)].exprNode), (yysemantic_stack_[(3) - (3)].exprNode)); }
+    { (yyval.exprNode) = new AddExpr((yysemantic_stack_[(3) - (1)].exprNode), (yysemantic_stack_[(3) - (3)].exprNode)); }
     break;
 
   case 26:
 /* Line 670 of lalr1.cc  */
-#line 148 "parser.y"
-    { (yyval.exprNode) = (yysemantic_stack_[(1) - (1)].exprNode); }
+#line 146 "parser.y"
+    { (yyval.exprNode) = new SubtractExpr((yysemantic_stack_[(3) - (1)].exprNode), (yysemantic_stack_[(3) - (3)].exprNode)); }
     break;
 
   case 27:
 /* Line 670 of lalr1.cc  */
-#line 151 "parser.y"
+#line 149 "parser.y"
+    { (yyval.exprNode) = (yysemantic_stack_[(1) - (1)].exprNode); }
+    break;
+
+  case 28:
+/* Line 670 of lalr1.cc  */
+#line 152 "parser.y"
     { 
                                         driver.context.variable = *(yysemantic_stack_[(2) - (2)].stringVal);
                                         std::cout << "Setting Variable :" << *(yysemantic_stack_[(2) - (2)].stringVal) << std::endl;
@@ -715,22 +721,16 @@ namespace derivative {
                                     }
     break;
 
-  case 28:
+  case 29:
 /* Line 670 of lalr1.cc  */
-#line 156 "parser.y"
+#line 157 "parser.y"
     {
-                                        driver.context.parameters[*(yysemantic_stack_[(3) - (1)].stringVal)] = (yysemantic_stack_[(3) - (3)].exprNode)->evaluate();
+                                        driver.context.parameters[*(yysemantic_stack_[(3) - (1)].stringVal)] = ((ConstantExpr*)(yysemantic_stack_[(3) - (3)].exprNode))->value();
                                         std::cout << "Setting Parameter " << *(yysemantic_stack_[(3) - (1)].stringVal)
                                                   << " = " << driver.context.parameters[*(yysemantic_stack_[(3) - (1)].stringVal)] << "\n";
                                         delete (yysemantic_stack_[(3) - (1)].stringVal);
                                         delete (yysemantic_stack_[(3) - (3)].exprNode);
                                     }
-    break;
-
-  case 35:
-/* Line 670 of lalr1.cc  */
-#line 173 "parser.y"
-    { driver.context.expressions.push_back((yysemantic_stack_[(3) - (2)].exprNode)); }
     break;
 
   case 36:
@@ -745,9 +745,15 @@ namespace derivative {
     { driver.context.expressions.push_back((yysemantic_stack_[(3) - (2)].exprNode)); }
     break;
 
+  case 38:
+/* Line 670 of lalr1.cc  */
+#line 176 "parser.y"
+    { driver.context.expressions.push_back((yysemantic_stack_[(3) - (2)].exprNode)); }
+    break;
+
 
 /* Line 670 of lalr1.cc  */
-#line 751 "gen_parser.tab.cpp"
+#line 757 "gen_parser.tab.cpp"
       default:
         break;
       }
@@ -1047,18 +1053,18 @@ namespace derivative {
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
-  const signed char MathParser::yypact_ninf_ = -15;
+  const signed char MathParser::yypact_ninf_ = -16;
   const signed char
   MathParser::yypact_[] =
   {
-       -15,     2,   -15,   -15,   -15,   -15,    -3,    29,    17,    18,
-      21,    35,    54,    66,    71,    71,    47,   -15,   -15,   -15,
-      25,   -15,   -15,   -13,    12,    19,    20,    24,   -15,    47,
-      47,    47,    47,    47,    47,   -15,   -15,   -15,    67,    59,
-      47,    47,    47,    47,   -15,   -15,   -15,   -15,   -15,   -15,
-     -15,    68,    69,    72,    73,    74,    75,   -15,    71,   -15,
-     -15,   -15,   -13,   -13,   -15,   -15,   -15,   -15,   -15,   -15,
-     -15
+       -16,     7,   -16,   -16,   -16,   -16,   -15,    17,    15,    18,
+      19,    20,    22,    25,    95,    95,    55,   -16,   -16,   -16,
+     -10,   -16,   -16,    67,   -11,     2,    30,    23,   -16,    55,
+      55,    55,    55,    55,    55,   -16,   -16,   -16,    26,    83,
+      55,    55,   -16,    55,    55,   -16,   -16,   -16,   -16,   -16,
+     -16,   -16,    27,    28,    31,    42,    61,    62,   -16,    95,
+     -16,   -16,   -16,    67,    67,   -16,   -16,   -16,   -16,   -16,
+     -16,   -16
   };
 
   /* YYDEFACT[S] -- default reduction number in state S.  Performed when
@@ -1067,22 +1073,22 @@ namespace derivative {
   const unsigned char
   MathParser::yydefact_[] =
   {
-        29,     0,     1,    31,     3,     2,     4,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,    30,     5,    13,
-      14,    17,    20,    23,    26,     0,     0,     0,    27,     0,
+        30,     0,     1,    32,     3,     2,     4,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,    31,     5,    13,
+      14,    17,    20,    24,    27,     0,     0,     0,    28,     0,
        0,     0,     0,     0,     0,     4,    18,    19,     0,     0,
-       0,     0,     0,     0,    37,    36,    35,    34,    33,    32,
-      28,     0,     0,     0,     0,     0,     0,     6,     0,    15,
-      21,    22,    24,    25,     7,     8,     9,    10,    11,    12,
-      16
+       0,     0,    23,     0,     0,    38,    37,    36,    35,    34,
+      33,    29,     0,     0,     0,     0,     0,     0,     6,     0,
+      15,    21,    22,    25,    26,     7,     8,     9,    10,    11,
+      12,    16
   };
 
   /* YYPGOTO[NTERM-NUM].  */
   const signed char
   MathParser::yypgoto_[] =
   {
-       -15,    11,   -15,   -15,   -14,   -10,    -9,   -15,    16,   -15,
-     -15
+       -16,    16,   -16,   -16,   -14,    -9,    -8,   -16,    24,   -16,
+     -16
   };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -1100,32 +1106,36 @@ namespace derivative {
   const unsigned char
   MathParser::yytable_[] =
   {
-        36,    37,     2,    40,    41,     3,     4,     5,     6,     7,
-       8,     9,    10,    11,    12,    13,    14,    15,    27,    44,
-      47,    16,    45,    48,    17,    59,    42,    43,     4,     5,
-      60,    61,    38,    62,    63,    28,    29,    30,    50,     0,
-      31,    46,    49,    39,    70,    51,    52,    53,    54,    55,
-      56,     4,     5,    35,    32,     8,     9,    10,    11,    12,
-      13,    14,    15,     4,     5,    35,    16,     8,     9,    10,
-      11,    12,    13,    33,    58,     4,     5,    35,    16,     8,
-       9,    10,    11,    12,    13,    34,     0,    57,    64,    65,
-      16,     0,    66,    67,    68,    69
+        36,    37,    45,    43,    44,    46,    27,     2,    39,    42,
+       3,     4,     5,     6,     7,     8,     9,    10,    11,    12,
+      13,    14,    15,    28,    47,    60,    16,     4,     5,    17,
+      48,    61,    62,    49,    29,    63,    64,    30,    31,    32,
+      38,    33,     0,    51,    34,    71,    58,    65,    66,    42,
+      42,    67,    50,    52,    53,    54,    55,    56,    57,     4,
+       5,    35,    68,     8,     9,    10,    11,    12,    13,    14,
+      15,     4,     5,    35,    16,     8,     9,    10,    11,    12,
+      13,    69,    70,    40,    41,     0,    16,     4,     5,    35,
+       0,     8,     9,    10,    11,    12,    13,     0,    59,     4,
+       5,    35,    16,     8,     9,    10,    11,    12,    13,     0,
+       0,     0,     0,     0,    16
   };
 
   /* YYCHECK.  */
   const signed char
   MathParser::yycheck_[] =
   {
-        14,    15,     0,    16,    17,     3,     4,     5,     6,     7,
-       8,     9,    10,    11,    12,    13,    14,    15,    21,     0,
-       0,    19,     3,     3,    22,    39,    14,    15,     4,     5,
-      40,    41,    16,    42,    43,     6,    19,    19,    27,    -1,
-      19,    22,    22,    18,    58,    29,    30,    31,    32,    33,
-      34,     4,     5,     6,    19,     8,     9,    10,    11,    12,
-      13,    14,    15,     4,     5,     6,    19,     8,     9,    10,
-      11,    12,    13,    19,    15,     4,     5,     6,    19,     8,
-       9,    10,    11,    12,    13,    19,    -1,    20,    20,    20,
-      19,    -1,    20,    20,    20,    20
+        14,    15,     0,    14,    15,     3,    21,     0,    18,    23,
+       3,     4,     5,     6,     7,     8,     9,    10,    11,    12,
+      13,    14,    15,     6,    22,    39,    19,     4,     5,    22,
+       0,    40,    41,     3,    19,    43,    44,    19,    19,    19,
+      16,    19,    -1,    27,    19,    59,    20,    20,    20,    63,
+      64,    20,    22,    29,    30,    31,    32,    33,    34,     4,
+       5,     6,    20,     8,     9,    10,    11,    12,    13,    14,
+      15,     4,     5,     6,    19,     8,     9,    10,    11,    12,
+      13,    20,    20,    16,    17,    -1,    19,     4,     5,     6,
+      -1,     8,     9,    10,    11,    12,    13,    -1,    15,     4,
+       5,     6,    19,     8,     9,    10,    11,    12,    13,    -1,
+      -1,    -1,    -1,    -1,    19
   };
 
   /* STOS_[STATE-NUM] -- The (internal number of the) accessing
@@ -1137,10 +1147,10 @@ namespace derivative {
       10,    11,    12,    13,    14,    15,    19,    22,    24,    25,
       26,    27,    28,    29,    30,    31,    32,    21,     6,    19,
       19,    19,    19,    19,    19,     6,    27,    27,    31,    18,
-      16,    17,    14,    15,     0,     3,    22,     0,     3,    22,
-      24,    31,    31,    31,    31,    31,    31,    20,    15,    27,
-      28,    28,    29,    29,    20,    20,    20,    20,    20,    20,
-      27
+      16,    17,    27,    14,    15,     0,     3,    22,     0,     3,
+      22,    24,    31,    31,    31,    31,    31,    31,    20,    15,
+      27,    28,    28,    29,    29,    20,    20,    20,    20,    20,
+      20,    27
   };
 
 #if YYDEBUG
@@ -1161,8 +1171,8 @@ namespace derivative {
   {
          0,    23,    24,    24,    25,    26,    26,    26,    26,    26,
       26,    26,    26,    26,    27,    27,    27,    28,    28,    28,
-      29,    29,    29,    30,    30,    30,    31,    32,    32,    33,
-      33,    33,    33,    33,    33,    33,    33,    33
+      29,    29,    29,    29,    30,    30,    30,    31,    32,    32,
+      33,    33,    33,    33,    33,    33,    33,    33,    33
   };
 
   /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -1171,8 +1181,8 @@ namespace derivative {
   {
          0,     2,     1,     1,     1,     1,     3,     4,     4,     4,
        4,     4,     4,     1,     1,     3,     4,     1,     2,     2,
-       1,     3,     3,     1,     3,     3,     1,     2,     3,     0,
-       2,     2,     3,     3,     3,     3,     3,     3
+       1,     3,     3,     2,     1,     3,     3,     1,     2,     3,
+       0,     2,     2,     3,     3,     3,     3,     3,     3
   };
 
 
@@ -1201,12 +1211,12 @@ namespace derivative {
       13,    19,    31,    20,    -1,    25,    -1,    26,    -1,    26,
       18,    27,    -1,    26,    18,    15,    27,    -1,    27,    -1,
       14,    27,    -1,    15,    27,    -1,    28,    -1,    29,    16,
-      28,    -1,    29,    17,    28,    -1,    29,    -1,    30,    14,
-      29,    -1,    30,    15,    29,    -1,    30,    -1,     7,     6,
-      -1,     6,    21,    24,    -1,    -1,    33,    22,    -1,    33,
-       3,    -1,    33,    32,    22,    -1,    33,    32,     3,    -1,
-      33,    32,     0,    -1,    33,    31,    22,    -1,    33,    31,
-       3,    -1,    33,    31,     0,    -1
+      28,    -1,    29,    17,    28,    -1,    29,    27,    -1,    29,
+      -1,    30,    14,    29,    -1,    30,    15,    29,    -1,    30,
+      -1,     7,     6,    -1,     6,    21,    24,    -1,    -1,    33,
+      22,    -1,    33,     3,    -1,    33,    32,    22,    -1,    33,
+      32,     3,    -1,    33,    32,     0,    -1,    33,    31,    22,
+      -1,    33,    31,     3,    -1,    33,    31,     0,    -1
   };
 
   /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
@@ -1216,8 +1226,8 @@ namespace derivative {
   {
          0,     0,     3,     5,     7,     9,    11,    15,    20,    25,
       30,    35,    40,    45,    47,    49,    53,    58,    60,    63,
-      66,    68,    72,    76,    78,    82,    86,    88,    91,    95,
-      96,    99,   102,   106,   110,   114,   118,   122
+      66,    68,    72,    76,    79,    81,    85,    89,    91,    94,
+      98,    99,   102,   105,   109,   113,   117,   121,   125
   };
 
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
@@ -1226,8 +1236,8 @@ namespace derivative {
   {
          0,    99,    99,   100,   103,   117,   118,   119,   120,   121,
      122,   123,   124,   125,   128,   129,   130,   133,   134,   135,
-     138,   139,   140,   143,   144,   145,   148,   151,   156,   166,
-     168,   169,   170,   171,   172,   173,   174,   175
+     138,   139,   140,   141,   144,   145,   146,   149,   152,   157,
+     167,   169,   170,   171,   172,   173,   174,   175,   176
   };
 
   // Print the state stack on the debug stream.
@@ -1303,7 +1313,7 @@ namespace derivative {
   }
 
   const int MathParser::yyeof_ = 0;
-  const int MathParser::yylast_ = 95;
+  const int MathParser::yylast_ = 114;
   const int MathParser::yynnts_ = 11;
   const int MathParser::yyempty_ = -2;
   const int MathParser::yyfinal_ = 2;
@@ -1317,9 +1327,9 @@ namespace derivative {
 
 } // derivative
 /* Line 1141 of lalr1.cc  */
-#line 1321 "gen_parser.tab.cpp"
+#line 1331 "gen_parser.tab.cpp"
 /* Line 1142 of lalr1.cc  */
-#line 180 "parser.y"
+#line 181 "parser.y"
 
 
 /***** Additional Code *****/

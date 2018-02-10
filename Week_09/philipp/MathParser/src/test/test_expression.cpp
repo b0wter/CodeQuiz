@@ -122,10 +122,10 @@ TEST(NullExpr, Copy) {
 TEST(NullExpr, Derivative) {
     std::ostringstream os;
     NullExpr n;
-    EXPECT_EQ(n.evaluate(), DBL_MAX);
+    EXPECT_TRUE(n.evaluate()->isNullExpr());
     EXPECT_EQ(n.derivative()->type(), NodeTypes::NullExpr);
     EXPECT_EQ(n.type(), NodeTypes::NullExpr);
-    n.print(os, 0);
+    n.print_expr(os, 0);
     EXPECT_EQ(os.str(), "");
 }
 
@@ -135,19 +135,26 @@ TEST(ConstantExpr, Copy) {
     EXPECT_EQ(c1, c2);
     c2 = (ConstantExpr*)c1->copy();
     EXPECT_NE(c1, c2);
-    EXPECT_DOUBLE_EQ(c1->evaluate(), c2->evaluate());
+    ExprNode *v1 = c1->evaluate();
+    ExprNode *v2 = c2->evaluate();
+    EXPECT_EQ(v1->type(), NodeTypes::ConstantExpr);
+    EXPECT_EQ(v2->type(), NodeTypes::ConstantExpr);
+    EXPECT_DOUBLE_EQ(((ConstantExpr*)v1)->value(),
+                     ((ConstantExpr*)v2)->value());
     delete c1;
     delete c2;
+    delete v1;
+    delete v2;
 }
 
 TEST(ConstantExpr, Derivative) {
     std::ostringstream os;
     ConstantExpr c(2);
-    EXPECT_EQ(c.evaluate(), double(2));
+    EXPECT_EQ(c.value(), double(2));
     EXPECT_EQ(c.type(), NodeTypes::ConstantExpr);
     ExprNode *d = c.derivative();
     EXPECT_EQ(d->type(), NodeTypes::NullExpr);
-    c.print(os, 0);
+    c.print_expr(os, 0);
     EXPECT_EQ(os.str(), "C(2)");
     delete d;
 }
@@ -166,11 +173,11 @@ TEST(ParameterExpr, Copy) {
 TEST(ParameterExpr, Derivative) {
     std::ostringstream os;
     ParameterExpr p("a");
-    EXPECT_EQ(p.evaluate(), DBL_MAX);
+    EXPECT_TRUE(p.evaluate()->isConstExpr());
     EXPECT_EQ(p.type(), NodeTypes::ParameterExpr);
     ExprNode *d = p.derivative();
     EXPECT_EQ(d->type(), NodeTypes::NullExpr);
-    p.print(os, 0);
+    p.print_expr(os, 0);
     EXPECT_EQ(os.str(), "P(a)");
     delete d;
 }
@@ -191,12 +198,13 @@ TEST(VariableExpr, Copy) {
 TEST(VariableExpr, Derivative) {
     std::ostringstream os;
     VariableExpr v("x");
-    EXPECT_EQ(v.evaluate(), DBL_MAX);
+    EXPECT_FALSE(v.evaluate()->isNullExpr());
+    EXPECT_TRUE(v.evaluate()->isVarExpr());
     EXPECT_EQ(v.type(), NodeTypes::VariableExpr);
     ExprNode *d = v.derivative();
     EXPECT_EQ(d->type(), NodeTypes::ConstantExpr);
-    EXPECT_EQ(d->evaluate(), double(1));
-    v.print(os, 0);
+    EXPECT_EQ(((ConstantExpr*)d)->value(), double(1));
+    v.print_expr(os, 0);
     EXPECT_EQ(os.str(), "V(x)");
     delete d;
 }
@@ -221,7 +229,7 @@ TEST(NegateExpr, Derivative) {
     NegateExpr n(new VariableExpr("x"));
     EXPECT_EQ(n.type(), NodeTypes::NegateExpr);
     EXPECT_EQ(n.innerNode()->type(), NodeTypes::VariableExpr);
-    n.print(os, 0);
+    n.print_expr(os, 0);
     EXPECT_EQ(os.str(), "(-)V(x)");
     ExprNode *d = n.derivative();
     EXPECT_EQ(d->type(), NodeTypes::NegateExpr);
@@ -254,7 +262,7 @@ TEST(AddExpr, Derivative_Const_Const) {
     EXPECT_EQ(a.type(), NodeTypes::AddExpr);
     EXPECT_EQ(a.leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(a.rightNode()->type(), NodeTypes::ConstantExpr);
-    a.print(os, 0);
+    a.print_expr(os, 0);
     EXPECT_EQ(os.str(), "ADD(C(2), C(3))");
     ExprNode *d = a.derivative();
     ASSERT_EQ(d->type(), NodeTypes::NullExpr);
@@ -267,7 +275,7 @@ TEST(AddExpr, Derivative_Const_Var) {
     EXPECT_EQ(a.type(), NodeTypes::AddExpr);
     EXPECT_EQ(a.leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(a.rightNode()->type(), NodeTypes::VariableExpr);
-    a.print(os, 0);
+    a.print_expr(os, 0);
     EXPECT_EQ(os.str(), "ADD(C(2), V(x))");
     ExprNode *d = a.derivative();
     ASSERT_EQ(d->type(), NodeTypes::ConstantExpr);
@@ -280,7 +288,7 @@ TEST(AddExpr, Derivative_Var_Const) {
     EXPECT_EQ(a.type(), NodeTypes::AddExpr);
     EXPECT_EQ(a.leftNode()->type(), NodeTypes::VariableExpr);
     EXPECT_EQ(a.rightNode()->type(), NodeTypes::ConstantExpr);
-    a.print(os, 0);
+    a.print_expr(os, 0);
     EXPECT_EQ(os.str(), "ADD(V(x), C(2))");
     ExprNode *d = a.derivative();
     ASSERT_EQ(d->type(), NodeTypes::ConstantExpr);
@@ -293,14 +301,14 @@ TEST(AddExpr, Derivative_Var_Var) {
     EXPECT_EQ(a.type(), NodeTypes::AddExpr);
     EXPECT_EQ(a.leftNode()->type(), NodeTypes::VariableExpr);
     EXPECT_EQ(a.rightNode()->type(), NodeTypes::VariableExpr);
-    a.print(os, 0);
+    a.print_expr(os, 0);
     EXPECT_EQ(os.str(), "ADD(V(x), V(x))");
     ExprNode *d = a.derivative();
     ASSERT_EQ(d->type(), NodeTypes::AddExpr);
     ASSERT_EQ(((AddExpr*)d)->leftNode()->type(), NodeTypes::ConstantExpr);
     ASSERT_EQ(((AddExpr*)d)->rightNode()->type(), NodeTypes::ConstantExpr);
-    EXPECT_EQ(((ConstantExpr*)((AddExpr*)d)->leftNode())->evaluate(), double(1));
-    EXPECT_EQ(((ConstantExpr*)((AddExpr*)d)->rightNode())->evaluate(), double(1));
+    EXPECT_EQ(((ConstantExpr*)((AddExpr*)d)->leftNode())->evaluate()->type(), NodeTypes::ConstantExpr);
+    EXPECT_EQ(((ConstantExpr*)((AddExpr*)d)->rightNode())->evaluate()->type(), NodeTypes::ConstantExpr);
 }
 
 TEST(SubtractExpr, Copy) {
@@ -326,7 +334,7 @@ TEST(SubtractExpr, Derivative_Const_Const) {
     EXPECT_EQ(a.type(), NodeTypes::SubtractExpr);
     EXPECT_EQ(a.leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(a.rightNode()->type(), NodeTypes::ConstantExpr);
-    a.print(os, 0);
+    a.print_expr(os, 0);
     EXPECT_EQ(os.str(), "SUB(C(2), C(3))");
     ExprNode *d = a.derivative();
     ASSERT_EQ(d->type(), NodeTypes::NullExpr);
@@ -339,7 +347,7 @@ TEST(SubtractExpr, Derivative_Const_Var) {
     EXPECT_EQ(a.type(), NodeTypes::SubtractExpr);
     EXPECT_EQ(a.leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(a.rightNode()->type(), NodeTypes::VariableExpr);
-    a.print(os, 0);
+    a.print_expr(os, 0);
     EXPECT_EQ(os.str(), "SUB(C(2), V(x))");
     ExprNode *d = a.derivative();
     ASSERT_EQ(d->type(), NodeTypes::NegateExpr);
@@ -353,7 +361,7 @@ TEST(SubtractExpr, Derivative_Var_Const) {
     EXPECT_EQ(a.type(), NodeTypes::SubtractExpr);
     EXPECT_EQ(a.leftNode()->type(), NodeTypes::VariableExpr);
     EXPECT_EQ(a.rightNode()->type(), NodeTypes::ConstantExpr);
-    a.print(os, 0);
+    a.print_expr(os, 0);
     EXPECT_EQ(os.str(), "SUB(V(x), C(2))");
     ExprNode *d = a.derivative();
     ASSERT_EQ(d->type(), NodeTypes::ConstantExpr);
@@ -366,14 +374,14 @@ TEST(SubtractExpr, Derivative_Var_Var) {
     EXPECT_EQ(a.type(), NodeTypes::SubtractExpr);
     EXPECT_EQ(a.leftNode()->type(), NodeTypes::VariableExpr);
     EXPECT_EQ(a.rightNode()->type(), NodeTypes::VariableExpr);
-    a.print(os, 0);
+    a.print_expr(os, 0);
     EXPECT_EQ(os.str(), "SUB(V(x), V(x))");
     ExprNode *d = a.derivative();
     ASSERT_EQ(d->type(), NodeTypes::SubtractExpr);
     ASSERT_EQ(((AddExpr*)d)->leftNode()->type(), NodeTypes::ConstantExpr);
     ASSERT_EQ(((AddExpr*)d)->rightNode()->type(), NodeTypes::ConstantExpr);
-    EXPECT_EQ(((ConstantExpr*)((AddExpr*)d)->leftNode())->evaluate(), double(1));
-    EXPECT_EQ(((ConstantExpr*)((AddExpr*)d)->rightNode())->evaluate(), double(1));
+    EXPECT_EQ(((ConstantExpr*)((AddExpr*)d)->leftNode())->evaluate()->type(), NodeTypes::ConstantExpr);
+    EXPECT_EQ(((ConstantExpr*)((AddExpr*)d)->rightNode())->evaluate()->type(), NodeTypes::ConstantExpr);
 }
 
 TEST(MultiplyExpr, Copy) {
@@ -398,7 +406,7 @@ TEST(MultiplyExpr, Derivative_Const_Const) {
     EXPECT_EQ(m.type(), NodeTypes::MultiplyExpr);
     EXPECT_EQ(m.leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(m.rightNode()->type(), NodeTypes::ConstantExpr);
-    m.print(os, 0);
+    m.print_expr(os, 0);
     EXPECT_EQ(os.str(), "MUL(C(1), C(2))");
     ExprNode *d = m.derivative();
     ASSERT_EQ(d->type(), NodeTypes::NullExpr);
@@ -410,14 +418,14 @@ TEST(MultiplyExpr, Derivative_Const_Expr) {
     EXPECT_EQ(m.type(), NodeTypes::MultiplyExpr);
     EXPECT_EQ(m.leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(m.rightNode()->type(), NodeTypes::VariableExpr);
-    m.print(os, 0);
+    m.print_expr(os, 0);
     EXPECT_EQ(os.str(), "MUL(C(1), V(x))");
     ExprNode *d = m.derivative();
     ASSERT_EQ(d->type(), NodeTypes::MultiplyExpr);
     ASSERT_EQ(((MultiplyExpr*)d)->leftNode()->type(), NodeTypes::ConstantExpr);
     ASSERT_EQ(((MultiplyExpr*)d)->rightNode()->type(), NodeTypes::ConstantExpr);
-    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->leftNode())->evaluate(), double(1));
-    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->rightNode())->evaluate(), double(1));
+    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->leftNode())->evaluate()->type(), NodeTypes::ConstantExpr);
+    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->rightNode())->evaluate()->type(), NodeTypes::ConstantExpr);
 }
 
 TEST(MultiplyExpr, Derivative_Expr_Const) {
@@ -426,14 +434,14 @@ TEST(MultiplyExpr, Derivative_Expr_Const) {
     EXPECT_EQ(m.type(), NodeTypes::MultiplyExpr);
     EXPECT_EQ(m.leftNode()->type(), NodeTypes::VariableExpr);
     EXPECT_EQ(m.rightNode()->type(), NodeTypes::ConstantExpr);
-    m.print(os, 0);
+    m.print_expr(os, 0);
     EXPECT_EQ(os.str(), "MUL(V(x), C(2))");
     ExprNode *d = m.derivative();
     ASSERT_EQ(d->type(), NodeTypes::MultiplyExpr);
     ASSERT_EQ(((MultiplyExpr*)d)->leftNode()->type(), NodeTypes::ConstantExpr);
     ASSERT_EQ(((MultiplyExpr*)d)->rightNode()->type(), NodeTypes::ConstantExpr);
-    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->leftNode())->evaluate(), double(1));
-    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->rightNode())->evaluate(), double(2));
+    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->leftNode())->evaluate()->type(), NodeTypes::ConstantExpr);
+    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->rightNode())->evaluate()->type(), NodeTypes::ConstantExpr);
 }
 
 TEST(MultiplyExpr, Derivative_Expr_Expr) {
@@ -442,7 +450,7 @@ TEST(MultiplyExpr, Derivative_Expr_Expr) {
     EXPECT_EQ(m.type(), NodeTypes::MultiplyExpr);
     EXPECT_EQ(m.leftNode()->type(), NodeTypes::VariableExpr);
     EXPECT_EQ(m.rightNode()->type(), NodeTypes::VariableExpr);
-    m.print(os, 0);
+    m.print_expr(os, 0);
     EXPECT_EQ(os.str(), "MUL(V(x), V(x))");
     ExprNode *d = m.derivative();
     ASSERT_EQ(d->type(), NodeTypes::AddExpr);
@@ -476,7 +484,7 @@ TEST(DivideExpr, Derivative_Const_Const) {
     EXPECT_EQ(e.type(), NodeTypes::DivideExpr);
     EXPECT_EQ(e.leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(e.rightNode()->type(), NodeTypes::ConstantExpr);
-    e.print(os, 0);
+    e.print_expr(os, 0);
     EXPECT_EQ(os.str(), "DIV(C(1), C(2))");
     ExprNode *d = e.derivative();
     ASSERT_EQ(d->type(), NodeTypes::NullExpr);
@@ -488,13 +496,13 @@ TEST(DivideExpr, Derivative_Const_Expr) {
     EXPECT_EQ(e.type(), NodeTypes::DivideExpr);
     EXPECT_EQ(e.leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(e.rightNode()->type(), NodeTypes::VariableExpr);
-    e.print(os, 0);
+    e.print_expr(os, 0);
     EXPECT_EQ(os.str(), "DIV(C(1), V(x))");
     ExprNode *d = e.derivative();
     ASSERT_EQ(d->type(), NodeTypes::MultiplyExpr);
     ASSERT_EQ(((MultiplyExpr*)d)->leftNode()->type(), NodeTypes::ConstantExpr);
     ASSERT_EQ(((MultiplyExpr*)d)->rightNode()->type(), NodeTypes::DivideExpr);
-    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->leftNode())->evaluate(), double(1));
+    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->leftNode())->evaluate()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(((DivideExpr*)((MultiplyExpr*)d)->rightNode())->leftNode()->type(), NodeTypes::NegateExpr);
     EXPECT_EQ(((DivideExpr*)((MultiplyExpr*)d)->rightNode())->rightNode()->type(), NodeTypes::PowerExpr);
     EXPECT_EQ(((PowerExpr*)((DivideExpr*)((MultiplyExpr*)d)->rightNode())->rightNode())->leftNode()->type(), NodeTypes::VariableExpr);
@@ -507,13 +515,13 @@ TEST(DivideExpr, Derivative_Expr_Const) {
     EXPECT_EQ(e.type(), NodeTypes::DivideExpr);
     EXPECT_EQ(e.leftNode()->type(), NodeTypes::VariableExpr);
     EXPECT_EQ(e.rightNode()->type(), NodeTypes::ConstantExpr);
-    e.print(os, 0);
+    e.print_expr(os, 0);
     EXPECT_EQ(os.str(), "DIV(V(x), C(2))");
     ExprNode *d = e.derivative();
     ASSERT_EQ(d->type(), NodeTypes::MultiplyExpr);
     ASSERT_EQ(((MultiplyExpr*)d)->leftNode()->type(), NodeTypes::DivideExpr);
     ASSERT_EQ(((MultiplyExpr*)d)->rightNode()->type(), NodeTypes::ConstantExpr);
-    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->rightNode())->evaluate(), double(1));
+    EXPECT_EQ(((ConstantExpr*)((MultiplyExpr*)d)->rightNode())->evaluate()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(((DivideExpr*)((MultiplyExpr*)d)->leftNode())->leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(((DivideExpr*)((MultiplyExpr*)d)->leftNode())->rightNode()->type(), NodeTypes::ConstantExpr);
 }
@@ -525,7 +533,7 @@ TEST(DivideExpr, Derivative_Expr_Expr) {
     EXPECT_EQ(e.type(), NodeTypes::DivideExpr);
     EXPECT_EQ(e.leftNode()->type(), NodeTypes::AddExpr);
     EXPECT_EQ(e.rightNode()->type(), NodeTypes::PowerExpr);
-    e.print(os, 0);
+    e.print_expr(os, 0);
     EXPECT_EQ(os.str(), "DIV(ADD(V(x), C(2)), POW(V(x), C(3)))");
     ExprNode *d = e.derivative();
     ASSERT_EQ(d->type(), NodeTypes::DivideExpr);
@@ -569,7 +577,7 @@ TEST(PowerExpr, Derivative_Const_Const) {
     EXPECT_EQ(e.type(), NodeTypes::PowerExpr);
     EXPECT_EQ(e.leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(e.rightNode()->type(), NodeTypes::ConstantExpr);
-    e.print(os, 0);
+    e.print_expr(os, 0);
     EXPECT_EQ(os.str(), "POW(C(1), C(2))");
     ExprNode *d = e.derivative();
     ASSERT_EQ(d->type(), NodeTypes::NullExpr);
@@ -581,7 +589,7 @@ TEST(PowerExpr, Derivative_Expr_Const) {
     EXPECT_EQ(e.type(), NodeTypes::PowerExpr);
     EXPECT_EQ(e.leftNode()->type(), NodeTypes::VariableExpr);
     EXPECT_EQ(e.rightNode()->type(), NodeTypes::ConstantExpr);
-    e.print(os, 0);
+    e.print_expr(os, 0);
     EXPECT_EQ(os.str(), "POW(V(x), C(2))");
     ExprNode *d = e.derivative();
     ASSERT_EQ(d->type(), NodeTypes::MultiplyExpr);
@@ -599,7 +607,7 @@ TEST(PowerExpr, Derivative_Expr_Expr) {
     EXPECT_EQ(e.type(), NodeTypes::PowerExpr);
     EXPECT_EQ(e.leftNode()->type(), NodeTypes::VariableExpr);
     EXPECT_EQ(e.rightNode()->type(), NodeTypes::SinFunc);
-    e.print(os, 0);
+    e.print_expr(os, 0);
     EXPECT_EQ(os.str(), "POW(V(x), SIN(V(x)))");
     ExprNode *d = e.derivative();
     ASSERT_EQ(d->type(), NodeTypes::MultiplyExpr);
@@ -637,7 +645,7 @@ TEST(SinFunc, Derivative_Const) {
     SinFunc f(new ConstantExpr(2.0));
     EXPECT_EQ(f.type(), NodeTypes::SinFunc);
     EXPECT_EQ(f.innerNode()->type(), NodeTypes::ConstantExpr);
-    f.print(os1, 0);
+    f.print_expr(os1, 0);
     EXPECT_EQ(os1.str(), "SIN(C(2))");
     ExprNode *d = f.derivative();
     EXPECT_EQ(d->type(), NodeTypes::NullExpr);
@@ -648,13 +656,13 @@ TEST(SinFunc, Derivative_Var) {
     SinFunc f(new VariableExpr("x"));
     EXPECT_EQ(f.type(), NodeTypes::SinFunc);
     EXPECT_EQ(f.innerNode()->type(), NodeTypes::VariableExpr);
-    f.print(os1, 0);
+    f.print_expr(os1, 0);
     EXPECT_EQ(os1.str(), "SIN(V(x))");
     ExprNode *d = f.derivative();
     EXPECT_EQ(d->type(), NodeTypes::CosFunc);
     EXPECT_EQ(((CosFunc*)d)->innerNode()->type(), NodeTypes::VariableExpr);
     std::ostringstream os2;
-    d->print(os2, 0);
+    d->print_expr(os2, 0);
     EXPECT_EQ(os2.str(), "COS(V(x))");
 }
 
@@ -663,14 +671,14 @@ TEST(SinFunc, Derivative_Expr) {
     SinFunc f(new AddExpr(new ConstantExpr(2.0), new VariableExpr("x")));
     EXPECT_EQ(f.type(), NodeTypes::SinFunc);
     EXPECT_EQ(f.innerNode()->type(), NodeTypes::AddExpr);
-    f.print(os1, 0);
+    f.print_expr(os1, 0);
     EXPECT_EQ(os1.str(), "SIN(ADD(C(2), V(x)))");
     ExprNode *d = f.derivative();
     EXPECT_EQ(d->type(), NodeTypes::MultiplyExpr);
     EXPECT_EQ(((MultiplyExpr*)d)->leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(((MultiplyExpr*)d)->rightNode()->type(), NodeTypes::CosFunc);
     std::ostringstream os2;
-    d->print(os2, 0);
+    d->print_expr(os2, 0);
     EXPECT_EQ(os2.str(), "MUL(C(1), COS(ADD(C(2), V(x))))");
 }
 
@@ -693,7 +701,7 @@ TEST(CosFunc, Derivative_Const) {
     CosFunc f(new ConstantExpr(2.0));
     EXPECT_EQ(f.type(), NodeTypes::CosFunc);
     EXPECT_EQ(f.innerNode()->type(), NodeTypes::ConstantExpr);
-    f.print(os1, 0);
+    f.print_expr(os1, 0);
     EXPECT_EQ(os1.str(), "COS(C(2))");
     ExprNode *d = f.derivative();
     EXPECT_EQ(d->type(), NodeTypes::NullExpr);
@@ -704,14 +712,14 @@ TEST(CosFunc, Derivative_Var) {
     CosFunc f(new VariableExpr("x"));
     EXPECT_EQ(f.type(), NodeTypes::CosFunc);
     EXPECT_EQ(f.innerNode()->type(), NodeTypes::VariableExpr);
-    f.print(os1, 0);
+    f.print_expr(os1, 0);
     EXPECT_EQ(os1.str(), "COS(V(x))");
     ExprNode *d = f.derivative();
     EXPECT_EQ(d->type(), NodeTypes::NegateExpr);
     EXPECT_EQ(((NegateExpr*)d)->innerNode()->type(), NodeTypes::SinFunc);
     EXPECT_EQ(((CosFunc*)((NegateExpr*)d)->innerNode())->innerNode()->type(), NodeTypes::VariableExpr);
     std::ostringstream os2;
-    d->print(os2, 0);
+    d->print_expr(os2, 0);
     EXPECT_EQ(os2.str(), "(-)SIN(V(x))");
 }
 
@@ -720,14 +728,14 @@ TEST(CosFunc, Derivative_Expr) {
     CosFunc f(new AddExpr(new ConstantExpr(2.0), new VariableExpr("x")));
     EXPECT_EQ(f.type(), NodeTypes::CosFunc);
     EXPECT_EQ(f.innerNode()->type(), NodeTypes::AddExpr);
-    f.print(os1, 0);
+    f.print_expr(os1, 0);
     EXPECT_EQ(os1.str(), "COS(ADD(C(2), V(x)))");
     ExprNode *d = f.derivative();
     EXPECT_EQ(d->type(), NodeTypes::NegateExpr);
     EXPECT_EQ(((MultiplyExpr*)((NegateExpr*)d)->innerNode())->leftNode()->type(), NodeTypes::ConstantExpr);
     EXPECT_EQ(((MultiplyExpr*)((NegateExpr*)d)->innerNode())->rightNode()->type(), NodeTypes::SinFunc);
     std::ostringstream os2;
-    d->print(os2, 0);
+    d->print_expr(os2, 0);
     EXPECT_EQ(os2.str(), "(-)MUL(C(1), SIN(ADD(C(2), V(x))))");
 }
 
@@ -750,7 +758,7 @@ TEST(TanFunc, Derivative_Const) {
     TanFunc f(new ConstantExpr(2.0));
     EXPECT_EQ(f.type(), NodeTypes::TanFunc);
     EXPECT_EQ(f.innerNode()->type(), NodeTypes::ConstantExpr);
-    f.print(os1, 0);
+    f.print_expr(os1, 0);
     EXPECT_EQ(os1.str(), "TAN(C(2))");
     ExprNode *d = f.derivative();
     EXPECT_EQ(d->type(), NodeTypes::NullExpr);
@@ -761,7 +769,7 @@ TEST(TanFunc, Derivative_Expr) {
     TanFunc f(new AddExpr(new ConstantExpr(2.0), new VariableExpr("x")));
     EXPECT_EQ(f.type(), NodeTypes::TanFunc);
     EXPECT_EQ(f.innerNode()->type(), NodeTypes::AddExpr);
-    f.print(os1, 0);
+    f.print_expr(os1, 0);
     EXPECT_EQ(os1.str(), "TAN(ADD(C(2), V(x)))");
     ExprNode *d = f.derivative();
     EXPECT_EQ(d->type(), NodeTypes::DivideExpr);
@@ -769,7 +777,7 @@ TEST(TanFunc, Derivative_Expr) {
     EXPECT_EQ(((PowerExpr*)((DivideExpr*)d)->rightNode())->leftNode()->type(), NodeTypes::CosFunc);
     EXPECT_EQ(((PowerExpr*)((DivideExpr*)d)->rightNode())->rightNode()->type(), NodeTypes::ConstantExpr);
     std::ostringstream os2;
-    d->print(os2, 0);
+    d->print_expr(os2, 0);
     EXPECT_EQ(os2.str(), "DIV(C(1), POW(COS(ADD(C(2), V(x))), C(2)))");
 }
 
@@ -829,7 +837,7 @@ TEST(LnFunc, Derivative_Const) {
     LnFunc ln = LnFunc(new ConstantExpr(2.0));
     EXPECT_EQ(ln.type(), NodeTypes::LnFunc);
     EXPECT_EQ(ln.innerNode()->type(), NodeTypes::ConstantExpr);
-    ln.print(os, 0);
+    ln.print_expr(os, 0);
     EXPECT_EQ(os.str(), "LN(C(2))");
     ExprNode *d = ln.derivative();
     EXPECT_EQ(d->type(), NodeTypes::NullExpr);
@@ -841,7 +849,7 @@ TEST(LnFunc, Derivative_Expr) {
                                    new VariableExpr("x")));
     EXPECT_EQ(ln.type(), NodeTypes::LnFunc);
     EXPECT_EQ(ln.innerNode()->type(), NodeTypes::AddExpr);
-    ln.print(os, 0);
+    ln.print_expr(os, 0);
     EXPECT_EQ(os.str(), "LN(ADD(C(2), V(x)))");
     ExprNode *d = ln.derivative();
     EXPECT_EQ(d->type(), NodeTypes::DivideExpr);
@@ -868,7 +876,7 @@ TEST(SqrtFunc, Derivative_Const) {
     SqrtFunc s = SqrtFunc(new ConstantExpr(2.0));
     EXPECT_EQ(s.type(), NodeTypes::SqrtFunc);
     EXPECT_EQ(s.innerNode()->type(), NodeTypes::ConstantExpr);
-    s.print(os, 0);
+    s.print_expr(os, 0);
     EXPECT_EQ(os.str(), "SQRT(C(2))");
     ExprNode *d = s.derivative();
     EXPECT_EQ(d->type(), NodeTypes::NullExpr);
@@ -879,7 +887,7 @@ TEST(SqrtFunc, Derivative_Expr) {
     SqrtFunc s = SqrtFunc(new VariableExpr("x"));
     EXPECT_EQ(s.type(), NodeTypes::SqrtFunc);
     EXPECT_EQ(s.innerNode()->type(), NodeTypes::VariableExpr);
-    s.print(os, 0);
+    s.print_expr(os, 0);
     EXPECT_EQ(os.str(), "SQRT(V(x))");
     ExprNode *d = s.derivative();
     ASSERT_EQ(d->type(), NodeTypes::DivideExpr);
