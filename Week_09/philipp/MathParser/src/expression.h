@@ -14,7 +14,7 @@
 TODO: Evaluate für die Funktionen nachrüsten. 
         d.h. Constanten auf Funktionen und Operatoren auswerten wenn möglich.
         SIN(C(x)) => C(y) <- auswerten !!!
-TODO: Simplify
+TODO: Simplify -> more than just in multiplication. Also check for 1*Expr | 0*Expr
 TODO: shared_ptr verwenden! derivative NodeExprPtr einführen als shared_ptr type
 TODO: Zeiger Zählen ->siehe shared_ptr
 TODO: Die Rückgabe von einer neuen NullExpr kann unterlassen werden, wenn bereits
@@ -55,12 +55,18 @@ typedef std::numeric_limits<double> dbl;
 // Abstract base class of all expressions
 class ExprNode 
 {
+    static int _constructions;
+    static int _destructions;
     const NodeTypes _type;
 public:
     ExprNode(const NodeTypes type)
-        : _type(type) {}
+        : _type(type) {
+        _constructions++;
+    }
 
-    virtual ~ExprNode() {}
+    virtual ~ExprNode() {
+        _destructions++;
+    }
 
     virtual NodeTypes type() const final {
         return _type;
@@ -87,6 +93,9 @@ public:
     static inline std::string indent(unsigned int d) {
         return std::string(d * 2, ' ');
     }
+
+    static int constructions() { return _constructions; }
+    static int destructions() { return _destructions; }
 };
 
 class BinaryExpr : public ExprNode

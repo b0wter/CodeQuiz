@@ -1,5 +1,8 @@
 #include "expression.h"
 
+int ExprNode::_constructions = 0;
+int ExprNode::_destructions = 0;
+
 ExprNode* NegateExpr::derivative() const {
     ExprNode *d = _argNode->derivative();
     if(d->type() == NodeTypes::NullExpr) {
