@@ -1,0 +1,37 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "name": "(gdb) Launch",
+          "preLaunchTask": "make",
+          "type": "cppdbg",
+          "request": "launch",
+          "args": [],
+          "stopAtEntry": true,
+          "cwd": "${workspaceRoot}",
+          "environment": [],
+          "externalConsole": false,
+          "setupCommands": [
+              {
+                  "description": "Enable pretty-printing for gdb",
+                  "text": "-enable-pretty-printing",
+                  "ignoreFailures": true
+              }
+          ],
+          "logging": {
+              "engineLogging": false,
+              "trace": false
+          },
+          "windows": {
+              "program": "${workspaceRoot}/polyparser.exe",
+              "MIMode": "gdb",
+              "miDebuggerPath": "<Path/To/GDB>" // Path to gdb on windows
+          },
+          "linux": {
+              "program": "${workspaceRoot}/polyparser",
+              "MIMode": "gdb",
+              "miDebuggerPath": "/usr/bin/gdb"
+          }
+      }
+  ]
+}
