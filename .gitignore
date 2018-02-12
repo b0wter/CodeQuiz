@@ -285,6 +285,9 @@ paket-files/
 *.o
 *.hi
 
+# Haskell cabal results
+*/dist/*
+
 # Vim Swap files
 .*.swp
 
