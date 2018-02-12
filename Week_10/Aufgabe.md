@@ -1,6 +1,6 @@
 Aufgabe
 =======
-Otto bekam vom Weihnachtsmann letztes Jahr nicht die Geschenke, die er sich gewunscht hatte. Deswegen spielt er ihm dieses Jahr einen Streich. Traditionell betritt der Weihnachtsmann die Gebaude durch den Schornstein von oben, welcher hier 10 Meter lang ist. Am unteren Ende des Schornsteins hat Otto nun ein Trampolin aufgestellt. Die Position des Weihnachtsmanns
+P#4 bekam vom Weihnachtsmann letztes Jahr nicht die Geschenke, die er sich gewunscht hatte. Deswegen spielt er ihm dieses Jahr einen Streich. Traditionell betritt der Weihnachtsmann die Gebaude durch den Schornstein von oben, welcher hier 10 Meter lang ist. Am unteren Ende des Schornsteins hat P#4 nun ein Trampolin aufgestellt. Die Position des Weihnachtsmanns
 
     y(t)
 
