@@ -1,0 +1,57 @@
+[
+	{
+		"Input": ["2x^10+2x^3"],
+		"ExpectedOutput": ["20x^9+6x^2"],
+		"TrimOutput": true
+	},
+	{
+		"Input": ["2x^10 +2x^3"],
+		"ExpectedOutput": ["20x^9+6x^2"],
+		"TrimOutput": true		
+	},
+	{
+		"Input": ["2x^10 + 2x^3"],
+		"ExpectedOutput": ["20x^9+6x^2"],
+		"TrimOutput": true		
+	},
+	{
+		"Input": ["2x^10+ x^3"],
+		"ExpectedOutput": ["20x^9+6x^2"],
+		"TrimOutput": true		
+	},	
+	{
+		"Input": ["2x^10 +2x ^3"],
+		"ExpectedOutput": ["20x^9+6x^2"],
+		"TrimOutput": true		
+	},
+	{
+		"Input": ["2x^10+2x^3+10"],
+		"ExpectedOutput": ["20x^9+6x^2"],
+		"TrimOutput": true		
+	},
+	{
+		"Input": ["2x^10+2x^3+sin(x)"],
+		"ExpectedOutput": ["20x^9+6x^2-cos(x)"],
+		"TrimOutput": true		
+	},
+	{
+		"Input": ["2x^10(2x^3+10)"],
+		"ExpectedOutput": ["20x^9*6x^2*(2x^3+10)"],
+		"TrimOutput": true		
+	},
+	{
+		"Input": ["2x^10(2x^3+10)"],
+		"ExpectedOutput": ["20x^9*6x^2(2x^3+10)"],
+		"TrimOutput": true		
+	},
+	{
+		"Input": ["2x^10(2x^3+10)"],
+		"ExpectedOutput": ["20x^9*6x^2/(2x^3+10)"],
+		"TrimOutput": true		
+	},
+	{
+		"Input": ["2x^-10"],
+		"ExpectedOutput": ["-20x^-11"],
+		"TrimOutput": true
+	}
+]

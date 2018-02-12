@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,16 +49,14 @@ namespace TestRunner.Models
         /// </summary>
         public DateTime? LastRun { get { return _lastRun; } set { _lastRun = value; NotifyPropertyChanged(); } }
             
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public async Task<TestResult> Run(ITestRunner runner, string command, string argument)
+        public async Task Run(ITestRunner runner, string command, string argument)
         {
-            TestResult result = null;
             LastRun = DateTime.Now;
             WasRun = true;
             Result = await runner.Run(command, argument, Input, ExpectedOutput, Timeout);
-            return result;
+            Debug.WriteLine($"Testlauf nach {Result.Duration}ms abgeschlossen.");
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
