@@ -316,3 +316,5 @@ __pycache__/
 
 binaries/
 Releases/
+
+.vscode/
