@@ -33,3 +33,5 @@ Hinweise
 --------
  * Wenn man auf einem zweidimensionalen Array arbeitet sollte man die Ränder des Gitter mit Bedacht wählen. Üblicherweise werden sie als "permanent" tot angenommen.
  * Eine ausführliche, englischsprachige Anleitung findet sich auch hier (viele Beispiele und Videos): https://www.theguardian.com/science/alexs-adventures-in-numberland/2014/dec/15/the-game-of-life-a-beginners-guide
+
+_Aufgaben vorgesehen für Start am 25.03.2018._
