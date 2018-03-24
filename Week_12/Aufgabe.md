@@ -12,7 +12,7 @@ Jede Zelle hat genau acht Nachbarn (diagonal).
 
 Beispiele
 ---------
-Es gibt verschiedene Muster welche interessante Eigenschaften zeigen. So gibt es beispielsweise stabile Muster, welche sich nicht verändern, wie z.B.:
+Es gibt etliche Muster mit interessanten Eigenschaften. So gibt es beispielsweise stabile Muster, welche sich nicht verändern:
 
 	 1234
 	1░░░░
@@ -20,7 +20,7 @@ Es gibt verschiedene Muster welche interessante Eigenschaften zeigen. So gibt es
 	3░██░
 	4░░░░
 
-oder welche mit einer gewissen Periode oszillieren:
+und andere, welcher oszillieren:
 
 	 12345    12345    12345
 	1░░░░░    ░░░░░    ░░░░░
