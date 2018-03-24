@@ -20,7 +20,7 @@ Es gibt etliche Muster mit interessanten Eigenschaften. So gibt es beispielsweis
 	3░██░
 	4░░░░
 
-und andere, welcher oszillieren:
+und andere, welche oszillieren:
 
 	 12345    12345    12345
 	1░░░░░    ░░░░░    ░░░░░
