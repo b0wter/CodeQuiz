@@ -51,3 +51,10 @@ Nachdem man eine laufende Simulation hat sind folgende Fragen zu beantworten:
  2. Lass die Simulation in der Zeit vorwärts laufen und drehe danach die Zeit um und messe wie weit du bei "Zeitschritt null" von den ursprünglichen Werten entfernt bist. Für welche Methode ist dieser Wert am besten?
  3. Berechne neben der kinetischen Energie auch die Gesamtenergie des Systems und plotte sie.
  4. Wird die Simulation immer genauer, je kleiner die Zeitschritte werden? Warum?
+
+Hinweise
+--------
+Weiterführende Informationen zu dem Thema gibt es hier:
+	
+	https://de.wikibooks.org/wiki/Das_Mehrkörperproblem_in_der_Astronomie/_Grundlagen/_Energieerhaltung#C-Code:_Gesamtenergie_im_Mehrkörpersystem
+	
