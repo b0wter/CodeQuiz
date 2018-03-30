@@ -57,4 +57,6 @@ Hinweise
 Weiterführende Informationen zu dem Thema gibt es hier:
 	
 	https://de.wikibooks.org/wiki/Das_Mehrkörperproblem_in_der_Astronomie/_Grundlagen/_Energieerhaltung#C-Code:_Gesamtenergie_im_Mehrkörpersystem
+
+und in dem PDF 'simulation-solar-system.pdf', welches in diesem Ordner liegt.
 	
