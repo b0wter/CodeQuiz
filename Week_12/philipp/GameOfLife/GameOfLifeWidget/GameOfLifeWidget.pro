@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-04-04T12:07:56
+# Project created by QtCreator 2018-04-04T16:29:14
 #
 #-------------------------------------------------
 
@@ -25,10 +25,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        gameoflifewidget.cpp
+        mainwindow.cpp
 
 HEADERS += \
-        gameoflifewidget.h
+        mainwindow.h
 
 FORMS += \
-        gameoflifewidget.ui
+        mainwindow.ui
