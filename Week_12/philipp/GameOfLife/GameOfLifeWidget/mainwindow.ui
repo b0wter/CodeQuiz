@@ -30,17 +30,23 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox"/>
+         <widget class="QComboBox" name="gameTypeCombo">
+          <item>
+           <property name="text">
+            <string>Simple</string>
+           </property>
+          </item>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Grid Size</string>
+           <string>Grid Size (HxW)</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox">
+         <widget class="QSpinBox" name="heightSpin">
           <property name="minimum">
            <number>10</number>
           </property>
@@ -60,7 +66,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_2">
+         <widget class="QSpinBox" name="widthSpin">
           <property name="minimum">
            <number>10</number>
           </property>
@@ -69,6 +75,13 @@
           </property>
           <property name="value">
            <number>100</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="createGameButton">
+          <property name="text">
+           <string>Create</string>
           </property>
          </widget>
         </item>
@@ -88,7 +101,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QWidget" name="widget" native="true"/>
+       <widget class="GameWidget" name="gameWidget" native="true"/>
       </item>
      </layout>
     </item>
@@ -112,14 +125,6 @@
    <addaction name="menuGame_of_Life_Widget"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
   <action name="actionClose">
    <property name="text">
     <string>Close</string>
@@ -127,6 +132,31 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>GameWidget</class>
+   <extends>QWidget</extends>
+   <header>gamewidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionClose</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

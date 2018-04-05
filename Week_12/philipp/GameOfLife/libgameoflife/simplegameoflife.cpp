@@ -25,7 +25,7 @@ void SimpleGameOfLife::init(std::vector<std::pair<int, int> > initialValues)
     }
 }
 
-void SimpleGameOfLife::evolve()
+int SimpleGameOfLife::evolve()
 {
     int newBuffer = mBuffer ^ 1;
     for(int h = 1; h < (mHeight - 1); ++h) {
@@ -51,6 +51,8 @@ void SimpleGameOfLife::evolve()
     }
     mBuffer = newBuffer;
     ++mEvolution;
+
+    return mEvolution;
 }
 
 void SimpleGameOfLife::print()

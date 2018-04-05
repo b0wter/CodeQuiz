@@ -20,7 +20,7 @@ public:
     virtual ~SimpleGameOfLife();
 
     virtual void init(std::vector<std::pair<int, int>> initialValues);
-    virtual void evolve();
+    virtual int evolve();
 
     void print();
 
