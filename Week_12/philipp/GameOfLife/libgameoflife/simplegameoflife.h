@@ -21,6 +21,11 @@ public:
 
     virtual void init(std::vector<std::pair<int, int>> initialValues);
     virtual int evolve();
+    virtual void clear();
+    virtual void randomFill(int percentage);
+
+    virtual inline int getHeight();
+    virtual inline int getWidth();
 
     void print();
 

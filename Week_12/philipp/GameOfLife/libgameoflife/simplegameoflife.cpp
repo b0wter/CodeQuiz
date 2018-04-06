@@ -1,5 +1,7 @@
 #include "simplegameoflife.h"
 
+#include <ctime>
+#include <cstdlib>
 #include <iostream>
 
 SimpleGameOfLife::SimpleGameOfLife(int height, int width)
@@ -11,6 +13,8 @@ SimpleGameOfLife::SimpleGameOfLife(int height, int width)
     , mEvolution(0)
 {
     mCell = new bool[2*height*width]();
+
+    std::srand((unsigned int)std::time(nullptr));
 }
 
 SimpleGameOfLife::~SimpleGameOfLife()
@@ -53,6 +57,38 @@ int SimpleGameOfLife::evolve()
     ++mEvolution;
 
     return mEvolution;
+}
+
+void SimpleGameOfLife::clear()
+{
+    for(int h = 1; h < (mHeight - 1); ++h) {
+        for(int w = 1; w < (mWidth - 1); ++w) {
+             mCell[h*mWidth + w] = false;
+             mCell[mSize + h*mWidth + w] = false;
+        }
+    }
+}
+
+void SimpleGameOfLife::randomFill(int percentage)
+{
+    for(int h = 1; h < (mHeight - 1); ++h) {
+        for(int w = 1; w < (mWidth - 1); ++w) {
+             if(rand() % 100 < percentage)
+                 mCell[mBuffer*mSize + h*mWidth + w] = true;
+             else
+                 mCell[mBuffer*mSize + h*mWidth + w] = false;
+        }
+    }
+}
+
+int SimpleGameOfLife::getHeight()
+{
+    return mHeight;
+}
+
+int SimpleGameOfLife::getWidth()
+{
+    return mWidth;
 }
 
 void SimpleGameOfLife::print()

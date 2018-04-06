@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+class QTimer;
+
 class GameOfLifeBase;
 
 namespace Ui {
@@ -33,6 +35,7 @@ private:
 
     GameOfLifeBase *mGame;
     int mCurrentEvolution;
+    QTimer *mAutoEvolutionTimer;
 };
 
 #endif // GAMEWIDGET_H
