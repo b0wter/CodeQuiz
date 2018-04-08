@@ -33,6 +33,7 @@ namespace WpfFrontend.Viewmodels
 
         public ICommand StartTestcasesCommand { get; }
         public ICommand LoadTestcasesCommand { get; }
+        public ICommand SelectCommandCommand { get; }
         public RelayCommand<TestCase> ShowTestDetailsCommand { get; }
 
         public ObservableCollection<TestCase> TestCases { get; } = new ObservableCollection<TestCase>();
@@ -51,6 +52,26 @@ namespace WpfFrontend.Viewmodels
             StartTestcasesCommand = new RelayCommand<object>((nullArgument) => StartTestCases().ConfigureAwait(false));
             LoadTestcasesCommand = new RelayCommand<object>((nullArgument) => LoadTestCases());
             ShowTestDetailsCommand = new RelayCommand<TestCase>((testCase) => _messageDialog.ShowMessage($"Erwartet:{Environment.NewLine}{string.Join(Environment.NewLine, testCase.Result.ExpectedOutput)}{Environment.NewLine}{Environment.NewLine}Ausgegeben:{Environment.NewLine}{string.Join(Environment.NewLine, testCase.Result.Output)}", "CodeRunner", MessageDialogIcons.Info));
+            SelectCommandCommand = new RelayCommand<object>((nullArgument) => SelectCommand());
+        }
+
+        private void SelectCommand()
+        {
+            var filename = _fileSelector.GetFilename("exe");
+
+            if(string.IsNullOrWhiteSpace(filename))
+            {
+                // Es wurde keine Datei ausgewählt.
+                return;
+            }
+
+            if (System.IO.File.Exists(filename) == false)
+            {
+                _messageDialog.ShowMessage("Die ausgewählte Datei existiert nicht.", "CodeRunner", MessageDialogIcons.Error);
+                return;
+            }
+
+            Command = filename;
         }
 
         private void LoadTestCases()
@@ -94,7 +115,7 @@ namespace WpfFrontend.Viewmodels
             {
                 try
                 {
-                    var result = await test.Run(_runner, Command, Argument);
+                   await test.Run(_runner, Command, Argument);
                 }
                 catch(Exception ex)
                 {

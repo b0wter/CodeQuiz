@@ -285,6 +285,12 @@ paket-files/
 *.o
 *.hi
 
+# Haskell cabal results
+*/dist/*
+
+# Vim Swap files
+.*.swp
+
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
@@ -309,3 +315,6 @@ __pycache__/
 0penCover/
 
 binaries/
+Releases/
+
+.vscode/

@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmathparser", "libmathparser\libmathparser.vcxproj", "{18849825-9573-4324-9D47-604323F9BE0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{985C9720-34D9-4478-9813-6BEF3DB9B119}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testmathparser", "testmathparser\testmathparser.vcxproj", "{13DE25E6-C046-4898-89CE-847718D3AD76}"
+	ProjectSection(ProjectDependencies) = postProject
+		{18849825-9573-4324-9D47-604323F9BE0C} = {18849825-9573-4324-9D47-604323F9BE0C}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "calcderivative", "calcderivative\calcderivative.vcxproj", "{E72F3ABC-415B-4B07-8BAC-58A6FBAD953F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{18849825-9573-4324-9D47-604323F9BE0C} = {18849825-9573-4324-9D47-604323F9BE0C}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18849825-9573-4324-9D47-604323F9BE0C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18849825-9573-4324-9D47-604323F9BE0C}.Debug|Win32.Build.0 = Debug|Win32
+		{18849825-9573-4324-9D47-604323F9BE0C}.Release|Win32.ActiveCfg = Release|Win32
+		{18849825-9573-4324-9D47-604323F9BE0C}.Release|Win32.Build.0 = Release|Win32
+		{13DE25E6-C046-4898-89CE-847718D3AD76}.Debug|Win32.ActiveCfg = Debug|Win32
+		{13DE25E6-C046-4898-89CE-847718D3AD76}.Debug|Win32.Build.0 = Debug|Win32
+		{13DE25E6-C046-4898-89CE-847718D3AD76}.Release|Win32.ActiveCfg = Release|Win32
+		{13DE25E6-C046-4898-89CE-847718D3AD76}.Release|Win32.Build.0 = Release|Win32
+		{E72F3ABC-415B-4B07-8BAC-58A6FBAD953F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E72F3ABC-415B-4B07-8BAC-58A6FBAD953F}.Debug|Win32.Build.0 = Debug|Win32
+		{E72F3ABC-415B-4B07-8BAC-58A6FBAD953F}.Release|Win32.ActiveCfg = Release|Win32
+		{E72F3ABC-415B-4B07-8BAC-58A6FBAD953F}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{13DE25E6-C046-4898-89CE-847718D3AD76} = {985C9720-34D9-4478-9813-6BEF3DB9B119}
+	EndGlobalSection
+EndGlobal
