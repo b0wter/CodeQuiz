@@ -23,12 +23,15 @@ public:
 
 private:
     void setCurrentEvolution(int evolution);
+    void setImageData();
 
 public slots:
     void on_nextEvolutionButton_clicked();
     void on_autoEvolveButton_clicked();
     void on_clearButton_clicked();
     void on_randomFillButton_clicked();
+    void on_evolutionIntervalSpin_valueChanged(double d);
+    void on_coordinateClicked(QPointF point);
 
 private:
     Ui::GameWidget *ui;

@@ -11,7 +11,7 @@ private:
     int mWidth;
     int mSize;
     int mEvolution;
-    bool *mCell;
+    unsigned char *mCell;
 
     SimpleGameOfLife();
 
@@ -24,24 +24,32 @@ public:
     virtual void clear();
     virtual void randomFill(int percentage);
 
-    virtual inline int getHeight();
-    virtual inline int getWidth();
+    virtual inline int getHeight() const;
+    virtual inline int getWidth() const;
+    virtual const unsigned char* getData();
+    virtual inline int getEvolution() const;
 
     void print();
 
-    inline bool get(int idxH, int idxW) {
+    virtual inline unsigned char get(int idxH, int idxW) {
         return mCell[mBuffer*mSize + idxH*mWidth + idxW];
     }
-    inline void set(int idxH, int idxW) {
-        mCell[mBuffer*mSize + idxH*mWidth + idxW] = true;
+    virtual inline void set(int idxH, int idxW) {
+        if(idxH != 0 && idxH != (mHeight - 1) && idxW != 0 && idxW != (mWidth - 1))
+            mCell[mBuffer*mSize + idxH*mWidth + idxW] = 1;
     }
-    inline void unset(int idxH, int idxW) {
-        mCell[mBuffer*mSize + idxH*mWidth + idxW] = false;
+    virtual inline void unset(int idxH, int idxW) {
+        if(idxH != 0 && idxH != (mHeight - 1) && idxW != 0 && idxW != (mWidth - 1))
+            mCell[mBuffer*mSize + idxH*mWidth + idxW] = 0;
     }
-    inline void setTo(int idxH, int idxW, bool val) {
-        mCell[mBuffer*mSize + idxH*mWidth + idxW] = val;
+    virtual inline void swap(int idxH, int idxW) {
+        if(idxH != 0 && idxH != (mHeight - 1) && idxW != 0 && idxW != (mWidth - 1))
+            mCell[mBuffer*mSize + idxH*mWidth + idxW] ^= 1;
     }
-
+    virtual inline void setTo(int idxH, int idxW, unsigned char val) {
+        if(idxH != 0 && idxH != (mHeight - 1) && idxW != 0 && idxW != (mWidth - 1))
+            mCell[mBuffer*mSize + idxH*mWidth + idxW] = val;
+    }
 };
 
 #endif // SIMPLEGAMEOFLIFE_H

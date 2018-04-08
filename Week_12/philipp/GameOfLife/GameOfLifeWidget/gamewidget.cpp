@@ -3,11 +3,11 @@
 
 #include <QDebug>
 #include <QTimer>
+#include <QBitmap>
 #include <QMessageBox>
 
 // Game Of Life
 #include "simplegameoflife.h"
-
 
 GameWidget::GameWidget(QWidget *parent)
     : QWidget(parent)
@@ -18,8 +18,11 @@ GameWidget::GameWidget(QWidget *parent)
     ui->setupUi(this);
 
     mAutoEvolutionTimer = new QTimer();
-    mAutoEvolutionTimer->setInterval(1000);
-    connect(mAutoEvolutionTimer, SIGNAL(timeout()), this, SLOT(on_nextEvolutionButton_clicked()));
+    mAutoEvolutionTimer->setInterval(1000 * ui->evolutionIntervalSpin->value());
+    connect(mAutoEvolutionTimer, SIGNAL(timeout()),
+            this, SLOT(on_nextEvolutionButton_clicked()));
+    connect(ui->gameMap, SIGNAL(coordinateClicked(QPointF)),
+            this, SLOT(on_coordinateClicked(QPointF)));
 }
 
 GameWidget::~GameWidget()
@@ -31,9 +34,6 @@ GameWidget::~GameWidget()
 
 void GameWidget::createNewGame(int height, int width, int gameType)
 {
-    qDebug() << "createNewGame : (" << height << " x " << width
-             << ") T: " << gameType;
-
     if(mGame) {
         if(QMessageBox::No == QMessageBox::question(this,
                                                     tr("Game of Life"),
@@ -46,6 +46,8 @@ void GameWidget::createNewGame(int height, int width, int gameType)
 
     if(gameType == 0) {
         mGame = new SimpleGameOfLife(height, width);
+        setCurrentEvolution(mGame->getEvolution());
+        setImageData();
 
         this->setEnabled(true);
     } else {
@@ -60,43 +62,65 @@ void GameWidget::setCurrentEvolution(int evolution)
     ui->currentEvolutionLabel->setText(QString("Evolution: %1").arg(mCurrentEvolution));
 }
 
+void GameWidget::setImageData()
+{
+    QImage img = QImage(mGame->getData(),
+                        mGame->getWidth(),
+                        mGame->getHeight(),
+                        mGame->getWidth(),
+                        QImage::Format_Indexed8);
+    img.setColorTable({qRgb(255, 255, 255), qRgb(0, 0, 0)});
+    ui->gameMap->setPixmap(QPixmap::fromImage(img).scaled(qMax(ui->gameMap->width(), mGame->getWidth()),
+                                                          qMax(ui->gameMap->height(), mGame->getHeight()),
+                                                          Qt::KeepAspectRatio,
+                                                          Qt::FastTransformation));
+    ui->gameMap->show();
+}
+
 void GameWidget::on_nextEvolutionButton_clicked()
 {
-    qDebug() << "Next evolution";
-    int newEvolution = mGame->evolve();
-
-    setCurrentEvolution(newEvolution);
+    setCurrentEvolution(mGame->evolve());
+    setImageData();
 }
 
 void GameWidget::on_autoEvolveButton_clicked()
 {
-    if(mAutoEvolutionTimer->isActive()) {
-        qDebug() << "Stop clicked";
+    bool enabled = mAutoEvolutionTimer->isActive();
+    if(enabled) {
         ui->autoEvolveButton->setText("Run");
-        ui->nextEvolutionButton->setEnabled(true);
-        ui->clearButton->setEnabled(true);
-        ui->fillSpin->setEnabled(true);
-        ui->randomFillButton->setEnabled(true);
         mAutoEvolutionTimer->stop();
     } else {
-        qDebug() << "Run clicked";
         ui->autoEvolveButton->setText("Stop");
-        ui->nextEvolutionButton->setEnabled(false);
-        ui->clearButton->setEnabled(false);
-        ui->fillSpin->setEnabled(false);
-        ui->randomFillButton->setEnabled(false);
         mAutoEvolutionTimer->start();
     }
+    ui->nextEvolutionButton->setEnabled(enabled);
+    ui->clearButton->setEnabled(enabled);
+    ui->fillSpin->setEnabled(enabled);
+    ui->randomFillButton->setEnabled(enabled);
 }
 
 void GameWidget::on_clearButton_clicked()
 {
-    qDebug() << "Clear clicked";
     mGame->clear();
+    setImageData();
 }
 
 void GameWidget::on_randomFillButton_clicked()
 {
-    qDebug() << "RandomFill clicked -> Fill: " << ui->fillSpin->value();
     mGame->randomFill(ui->fillSpin->value());
+    setImageData();
+}
+
+void GameWidget::on_evolutionIntervalSpin_valueChanged(double d)
+{
+    mAutoEvolutionTimer->setInterval(1000 * d);
+}
+
+void GameWidget::on_coordinateClicked(QPointF point)
+{
+    float x = point.x() / ui->gameMap->pixmap()->width() * mGame->getWidth();
+    float y = point.y() / ui->gameMap->pixmap()->height() * mGame->getHeight();
+
+    mGame->swap(int(y), int(x));
+    setImageData();
 }

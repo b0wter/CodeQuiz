@@ -116,18 +116,54 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuGame_of_Life_Widget">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
     <addaction name="actionClose"/>
    </widget>
-   <addaction name="menuGame_of_Life_Widget"/>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="ramByteAction"/>
+    <addaction name="ramKiloByteAction"/>
+    <addaction name="ramMegaByteAction"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionClose">
    <property name="text">
     <string>Close</string>
+   </property>
+  </action>
+  <action name="ramByteAction">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>B</string>
+   </property>
+  </action>
+  <action name="ramKiloByteAction">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>kB</string>
+   </property>
+  </action>
+  <action name="ramMegaByteAction">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>MB</string>
    </property>
   </action>
  </widget>
