@@ -1,4 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    SimpleGameOfLife
+    SimpleGameOfLife \
+    libgameoflife \
+    GameOfLifeWidget
+
