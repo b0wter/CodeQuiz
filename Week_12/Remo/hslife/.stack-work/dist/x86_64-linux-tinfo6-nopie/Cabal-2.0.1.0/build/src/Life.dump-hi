@@ -1,0 +1,1265 @@
+
+==================== FINAL INTERFACE ====================
+2018-04-18 10:53:58.453110035 UTC
+
+interface gameoflife-0.1.0.0-31J5BBxKXwnF93f5aSromi:Life 8022
+  interface hash: 7133679d8a53983693b8ebe893a4bcf2
+  ABI hash: 20ac5fe6304ff958390aa1657d29dbf2
+  export-list hash: 3774805869a117bd5281c22467f7a636
+  orphan hash: 8c3d4a96ba7d1e7ac78638a812331fb0
+  flag hash: 26e0ff4b0ff758fc4ebf6a516aed248e
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  Life.conwayRule
+  Life.defaultLifeSign
+  Life.defaultRule
+  Life.generation
+  Life.generationWithRule
+  Life.mkBlankWorld
+  Life.mkOverWorld
+  Life.mkRandWorld
+  Life.mkRule
+  Life.mkWorldFrom
+  Life.neighbourhood
+  Life.neighbours
+  Life.rule1357
+  Life.showWorld
+  Life.showWorldUsing
+  Life.Coord
+  Life.Height
+  Life.Life{Life.Alive Life.Dead}
+  Life.LifeSign{Life.LifeSign symAlive symDead}
+  Life.Rule
+  Life.Width
+  Life.World
+module dependencies:
+package dependencies: array-0.5.2.0 base-4.10.1.0*
+                      containers-0.5.10.2 deepseq-1.4.3.0 ghc-prim-0.5.1.1
+                      integer-gmp-1.0.1.0 random-1.1* time-1.8.0.2
+orphans: time-1.8.0.2:Data.Time.Format.Parse
+         time-1.8.0.2:Data.Time.LocalTime.Internal.ZonedTime
+         time-1.8.0.2:Data.Time.LocalTime.Internal.LocalTime
+         time-1.8.0.2:Data.Time.Calendar.Gregorian base-4.10.1.0:GHC.Float
+         base-4.10.1.0:GHC.Base
+family instance modules: base-4.10.1.0:Control.Applicative
+                         base-4.10.1.0:Data.Complex base-4.10.1.0:Data.Either
+                         base-4.10.1.0:Data.Functor.Compose base-4.10.1.0:Data.Functor.Const
+                         base-4.10.1.0:Data.Functor.Identity
+                         base-4.10.1.0:Data.Functor.Product base-4.10.1.0:Data.Functor.Sum
+                         base-4.10.1.0:Data.List.NonEmpty base-4.10.1.0:Data.Monoid
+                         base-4.10.1.0:Data.Semigroup base-4.10.1.0:Data.Type.Equality
+                         base-4.10.1.0:Data.Version base-4.10.1.0:Data.Void
+                         base-4.10.1.0:GHC.Exts base-4.10.1.0:GHC.Generics
+                         base-4.10.1.0:GHC.IO.Exception base-4.10.1.0:GHC.TypeLits
+                         base-4.10.1.0:GHC.TypeNats containers-0.5.10.2:Data.Map.Internal
+                         containers-0.5.10.2:Data.Set.Internal
+import  -/  base-4.10.1.0:Data.Foldable 9ed87455d68e87ff2b5b8725eae9897e
+import  -/  base-4.10.1.0:Data.Word c4e948c409792d945106eb5269810128
+import  -/  base-4.10.1.0:GHC.Base 782fd99b5e36f3698a26179a49afca64
+import  -/  base-4.10.1.0:GHC.Enum 5a1ba50c23f92f669e01f8955f202337
+import  -/  base-4.10.1.0:GHC.List e3060fbeb44ce0038e6b4dedf2dd9cf1
+import  -/  base-4.10.1.0:GHC.Num 6e1dc5d36d99a802edb39b92bb1923b8
+import  -/  base-4.10.1.0:GHC.Show 0a8ce2b5e533d1c2cfb7954e6736be45
+import  -/  base-4.10.1.0:Prelude 31945b7d0084063347fc52506d3a4020
+import  -/  containers-0.5.10.2:Data.Map.Internal 33ddbf5aa8c0f2ab26fb6dc5be1b1f4c
+import  -/  containers-0.5.10.2:Data.Map.Strict 194f5b0a9785a91a43562790aa6787fc
+import  -/  containers-0.5.10.2:Data.Map.Strict.Internal 63726a19357ba6ce3637c9bcf7d38b1e
+import  -/  containers-0.5.10.2:Data.Set e0f44b836a00cf82340abfec45686444
+import  -/  containers-0.5.10.2:Data.Set.Internal b207250e4d0053f17172bfafbcd5c82f
+import  -/  ghc-prim-0.5.1.1:GHC.Classes 93e2660065dce9329577e83d76d8f0d4
+import  -/  random-1.1:System.Random 1f9783c2e4f478be012ca03febf119ac
+40cf790995147421b17e73edf39adc65
+  $fEqLife :: GHC.Classes.Eq Life.Life
+  DFunId
+  {- HasNoCafRefs, Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ Life.Life Life.$fEqLife_$c== Life.$fEqLife_$c/= -}
+40cf790995147421b17e73edf39adc65
+  $fEqLife_$c/= :: Life.Life -> Life.Life -> GHC.Types.Bool
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U>,
+     Unfolding: InlineRule (2, True, False)
+                (\ (a :: Life.Life) (b :: Life.Life) ->
+                 case a of wild {
+                   Life.Dead
+                   -> case b of wild1 {
+                        Life.Dead -> GHC.Types.False Life.Alive -> GHC.Types.True }
+                   Life.Alive
+                   -> case b of wild1 {
+                        Life.Dead -> GHC.Types.True Life.Alive -> GHC.Types.False } }) -}
+40cf790995147421b17e73edf39adc65
+  $fEqLife_$c== :: Life.Life -> Life.Life -> GHC.Types.Bool
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><S,1*U>,
+     Unfolding: InlineRule (2, True, False)
+                (\ (ds :: Life.Life) (ds1 :: Life.Life) ->
+                 case ds of wild {
+                   Life.Dead
+                   -> case ds1 of wild1 {
+                        Life.Dead -> GHC.Types.True Life.Alive -> GHC.Types.False }
+                   Life.Alive
+                   -> case ds1 of wild1 {
+                        Life.Dead -> GHC.Types.False Life.Alive -> GHC.Types.True } }) -}
+40cf790995147421b17e73edf39adc65
+  $fShowLife :: GHC.Show.Show Life.Life
+  DFunId
+  {- Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ Life.Life
+                  Life.$fShowLife_$cshowsPrec
+                  Life.$fShowLife_$cshow
+                  Life.$fShowLife_$cshowList -}
+40cf790995147421b17e73edf39adc65
+  $fShowLife1 :: Life.Life -> GHC.Show.ShowS
+  {- Arity: 2, Strictness: <S,1*U><L,1*U>,
+     Unfolding: InlineRule (2, True, False)
+                (\ (ds :: Life.Life) (eta :: GHC.Base.String) ->
+                 case ds of wild {
+                   Life.Dead
+                   -> GHC.Base.augment
+                        @ GHC.Types.Char
+                        (\ @ b
+                           (c :: GHC.Types.Char -> b -> b)[OneShot]
+                           (n :: b)[OneShot] ->
+                         GHC.Base.foldr @ GHC.Types.Char @ b c n Life.$fShowLife4)
+                        eta
+                   Life.Alive
+                   -> GHC.Base.augment
+                        @ GHC.Types.Char
+                        (\ @ b
+                           (c :: GHC.Types.Char -> b -> b)[OneShot]
+                           (n :: b)[OneShot] ->
+                         GHC.Base.foldr @ GHC.Types.Char @ b c n Life.$fShowLife2)
+                        eta }) -}
+92aa9e5dcd50cd693cccd37df12c02fd
+  $fShowLife2 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Life.$fShowLife3) -}
+bd6148faf197618ef41c8d2e984ab0ef
+  $fShowLife3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Alive"#) -}
+7bc24d248f462e6823a6cfb51e0f71b6
+  $fShowLife4 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Life.$fShowLife5) -}
+9deae69fda5ac05fe6180dbd53dcd948
+  $fShowLife5 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Dead"#) -}
+ffb696f7b56b46e609551d9cc2586f49
+  $fShowLifeSign :: GHC.Show.Show Life.LifeSign
+  DFunId
+  {- Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ Life.LifeSign
+                  Life.$fShowLifeSign_$cshowsPrec
+                  Life.$fShowLifeSign_$cshow
+                  Life.$fShowLifeSign_$cshowList -}
+ffb696f7b56b46e609551d9cc2586f49
+  $fShowLifeSign1 :: Life.LifeSign -> GHC.Show.ShowS
+  {- Arity: 2, Strictness: <S,1*U(1*U,1*U)><L,U>,
+     Unfolding: (\ (w :: Life.LifeSign) (w1 :: GHC.Base.String) ->
+                 case w of ww { Life.LifeSign ww1 ww2 ->
+                 Life.$w$cshowsPrec 0# ww1 ww2 w1 }) -}
+57baf013bfe78ea7208da3ae6f998918
+  $fShowLifeSign2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("}"#) -}
+beb801a639215deb9d6e700a3b999dda
+  $fShowLifeSign3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("symAlive = "#) -}
+a83b01dc405eb24b7980c0519fd490d5
+  $fShowLifeSign4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("symDead = "#) -}
+7aa78b19e8cee8590cbf3e352a0d20d7
+  $fShowLifeSign5 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("LifeSign {"#) -}
+ffdfe021a1b49c0f1ab8838d0b0813ab
+  $fShowLifeSign6 :: [GHC.Types.Char]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Types.Char
+                   GHC.Show.$fShow(,)3
+                   Life.$fShowLifeSign7) -}
+90d28a6dd04975ca2a21578d5a3d5715
+  $fShowLifeSign7 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackAppendCString#
+                   Life.$fShowLifeSign2
+                   (GHC.Types.[] @ GHC.Types.Char)) -}
+ffb696f7b56b46e609551d9cc2586f49
+  $fShowLifeSign_$cshow :: Life.LifeSign -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U(1*U,1*U)>, Inline: [0],
+     Unfolding: InlineRule (1, True, False)
+                (\ (w :: Life.LifeSign) ->
+                 case w of ww { Life.LifeSign ww1 ww2 -> Life.$w$cshow ww1 ww2 }) -}
+ffb696f7b56b46e609551d9cc2586f49
+  $fShowLifeSign_$cshowList :: [Life.LifeSign] -> GHC.Show.ShowS
+  {- Arity: 2,
+     Unfolding: (GHC.Show.showList__
+                   @ Life.LifeSign
+                   Life.$fShowLifeSign1) -}
+ffb696f7b56b46e609551d9cc2586f49
+  $fShowLifeSign_$cshowsPrec ::
+    GHC.Types.Int -> Life.LifeSign -> GHC.Show.ShowS
+  {- Arity: 3, Strictness: <S(S),1*U(U)><S,1*U(1*U,1*U)><L,U>,
+     Inline: [0],
+     Unfolding: InlineRule (3, True, False)
+                (\ (w :: GHC.Types.Int)
+                   (w1 :: Life.LifeSign)
+                   (w2 :: GHC.Base.String) ->
+                 case w of ww { GHC.Types.I# ww1 ->
+                 case w1 of ww2 { Life.LifeSign ww3 ww4 ->
+                 Life.$w$cshowsPrec ww1 ww3 ww4 w2 } }) -}
+40cf790995147421b17e73edf39adc65
+  $fShowLife_$cshow :: Life.Life -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (x :: Life.Life) ->
+                 case x of wild {
+                   Life.Dead -> Life.$fShowLife4 Life.Alive -> Life.$fShowLife2 }) -}
+40cf790995147421b17e73edf39adc65
+  $fShowLife_$cshowList :: [Life.Life] -> GHC.Show.ShowS
+  {- Arity: 2,
+     Unfolding: (GHC.Show.showList__ @ Life.Life Life.$fShowLife1) -}
+40cf790995147421b17e73edf39adc65
+  $fShowLife_$cshowsPrec ::
+    GHC.Types.Int -> Life.Life -> GHC.Show.ShowS
+  {- Arity: 3, Strictness: <L,A><S,1*U><L,1*U>,
+     Unfolding: InlineRule (3, True, False)
+                (\ (ds :: GHC.Types.Int)
+                   (ds1 :: Life.Life)
+                   (eta :: GHC.Base.String) ->
+                 case ds1 of wild {
+                   Life.Dead
+                   -> GHC.Base.augment
+                        @ GHC.Types.Char
+                        (\ @ b
+                           (c :: GHC.Types.Char -> b -> b)[OneShot]
+                           (n :: b)[OneShot] ->
+                         GHC.Base.foldr @ GHC.Types.Char @ b c n Life.$fShowLife4)
+                        eta
+                   Life.Alive
+                   -> GHC.Base.augment
+                        @ GHC.Types.Char
+                        (\ @ b
+                           (c :: GHC.Types.Char -> b -> b)[OneShot]
+                           (n :: b)[OneShot] ->
+                         GHC.Base.foldr @ GHC.Types.Char @ b c n Life.$fShowLife2)
+                        eta }) -}
+6394282a32528d543df390c4c8f8a60e
+  $s$fEq(,) :: GHC.Classes.Eq (GHC.Types.Int, GHC.Types.Int)
+  {- HasNoCafRefs, Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ (GHC.Types.Int, GHC.Types.Int)
+                  (GHC.Classes.$fEq(,)_$c==
+                     @ GHC.Types.Int
+                     @ GHC.Types.Int
+                     GHC.Classes.$fEqInt
+                     GHC.Classes.$fEqInt)
+                  (GHC.Classes.$fEq(,)_$c/=
+                     @ GHC.Types.Int
+                     @ GHC.Types.Int
+                     GHC.Classes.$fEqInt
+                     GHC.Classes.$fEqInt) -}
+70c42151487a4c8fde43cec2c280f7aa
+  $s$fOrd(,) :: GHC.Classes.Ord (GHC.Types.Int, GHC.Types.Int)
+  {- HasNoCafRefs, Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ (GHC.Types.Int, GHC.Types.Int)
+                  Life.$s$fEq(,)
+                  (GHC.Classes.$fOrd(,)_$ccompare
+                     @ GHC.Types.Int
+                     @ GHC.Types.Int
+                     GHC.Classes.$fOrdInt
+                     GHC.Classes.$fOrdInt)
+                  (GHC.Classes.$fOrd(,)_$c<
+                     @ GHC.Types.Int
+                     @ GHC.Types.Int
+                     GHC.Classes.$fOrdInt
+                     GHC.Classes.$fOrdInt)
+                  (GHC.Classes.$fOrd(,)_$c<=
+                     @ GHC.Types.Int
+                     @ GHC.Types.Int
+                     GHC.Classes.$fOrdInt
+                     GHC.Classes.$fOrdInt)
+                  (\ (a1 :: (GHC.Types.Int, GHC.Types.Int))
+                     (b1 :: (GHC.Types.Int, GHC.Types.Int)) ->
+                   GHC.Classes.$fOrd(,)_$c<
+                     @ GHC.Types.Int
+                     @ GHC.Types.Int
+                     GHC.Classes.$fOrdInt
+                     GHC.Classes.$fOrdInt
+                     b1
+                     a1)
+                  (GHC.Classes.$fOrd(,)_$c>=
+                     @ GHC.Types.Int
+                     @ GHC.Types.Int
+                     GHC.Classes.$fOrdInt
+                     GHC.Classes.$fOrdInt)
+                  (GHC.Classes.$fOrd(,)_$cmax
+                     @ GHC.Types.Int
+                     @ GHC.Types.Int
+                     GHC.Classes.$fOrdInt
+                     GHC.Classes.$fOrdInt)
+                  (GHC.Classes.$fOrd(,)_$cmin
+                     @ GHC.Types.Int
+                     @ GHC.Types.Int
+                     GHC.Classes.$fOrdInt
+                     GHC.Classes.$fOrdInt) -}
+0efed17050baeff5bb8cfe7dc18f8aea
+  $sfromList ::
+    [(Life.Height, Life.Height)]
+    -> Data.Set.Internal.Set (Life.Height, Life.Height)
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: (\ (ds :: [(Life.Height, Life.Height)]) ->
+                 case ds of wild {
+                   [] -> Data.Set.Internal.Tip @ (Life.Height, Life.Height)
+                   : x ds1
+                   -> case ds1 of wild1 {
+                        []
+                        -> case x of dt { (,) ipv ipv1 ->
+                           Data.Set.Internal.Bin
+                             @ (Life.Height, Life.Height)
+                             1#
+                             dt
+                             (Data.Set.Internal.Tip @ (Life.Height, Life.Height))
+                             (Data.Set.Internal.Tip @ (Life.Height, Life.Height)) }
+                        : ipv ipv1
+                        -> case x of ww { (,) ww1 ww2 ->
+                           case ipv of ww3 { (,) ww4 ww5 ->
+                           case ww1 of wild2 { GHC.Types.I# x# ->
+                           case ww4 of wild3 { GHC.Types.I# y# ->
+                           case GHC.Prim.tagToEnum#
+                                  @ GHC.Types.Bool
+                                  (GHC.Prim.<# x# y#) of wild4 {
+                             GHC.Types.False
+                             -> case GHC.Prim.tagToEnum#
+                                       @ GHC.Types.Bool
+                                       (GHC.Prim.==# x# y#) of wild5 {
+                                  GHC.Types.False
+                                  -> Life.$sfromList_go4
+                                       (Data.Set.Internal.Bin
+                                          @ (Life.Height, Life.Height)
+                                          1#
+                                          ww
+                                          (Data.Set.Internal.Tip @ (Life.Height, Life.Height))
+                                          (Data.Set.Internal.Tip @ (Life.Height, Life.Height)))
+                                       wild1
+                                  GHC.Types.True
+                                  -> case ww2 of wild6 { GHC.Types.I# x1 ->
+                                     case ww5 of wild7 { GHC.Types.I# y ->
+                                     case GHC.Prim.tagToEnum#
+                                            @ GHC.Types.Bool
+                                            (GHC.Prim.<# x1 y) of wild8 {
+                                       GHC.Types.False
+                                       -> Life.$sfromList_go4
+                                            (Data.Set.Internal.Bin
+                                               @ (Life.Height, Life.Height)
+                                               1#
+                                               ww
+                                               (Data.Set.Internal.Tip @ (Life.Height, Life.Height))
+                                               (Data.Set.Internal.Tip @ (Life.Height, Life.Height)))
+                                            wild1
+                                       GHC.Types.True
+                                       -> Life.$wgo3
+                                            1#
+                                            (Data.Set.Internal.Bin
+                                               @ (Life.Height, Life.Height)
+                                               1#
+                                               ww
+                                               (Data.Set.Internal.Tip @ (Life.Height, Life.Height))
+                                               (Data.Set.Internal.Tip @ (Life.Height, Life.Height)))
+                                            wild1 } } } }
+                             GHC.Types.True
+                             -> Life.$wgo3
+                                  1#
+                                  (Data.Set.Internal.Bin
+                                     @ (Life.Height, Life.Height)
+                                     1#
+                                     ww
+                                     (Data.Set.Internal.Tip @ (Life.Height, Life.Height))
+                                     (Data.Set.Internal.Tip @ (Life.Height, Life.Height)))
+                                  wild1 } } } } } } }) -}
+37ae2d2e5f1c3872bd67699b8b982ffc
+  $sfromList1 ::
+    [((Life.Height, Life.Width), a)]
+    -> Data.Map.Internal.Map (Life.Height, Life.Width) a
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: (\ @ a (ds :: [((Life.Height, Life.Width), a)]) ->
+                 case ds of wild {
+                   [] -> Data.Map.Internal.Tip @ (Life.Height, Life.Width) @ a
+                   : ds1 ds2
+                   -> case ds1 of wild1 { (,) kx x ->
+                      case ds2 of wild2 {
+                        []
+                        -> case x of x1 { DEFAULT ->
+                           case kx of dt { (,) ipv ipv1 ->
+                           Data.Map.Internal.Bin
+                             @ (Life.Height, Life.Width)
+                             @ a
+                             1#
+                             dt
+                             x1
+                             (Data.Map.Internal.Tip @ (Life.Height, Life.Width) @ a)
+                             (Data.Map.Internal.Tip @ (Life.Height, Life.Width) @ a) } }
+                        : ipv ipv1
+                        -> case ipv of wild3 { (,) ky ds3 ->
+                           case kx of ww { (,) ww1 ww2 ->
+                           case ky of ww3 { (,) ww4 ww5 ->
+                           case ww1 of wild4 { GHC.Types.I# x# ->
+                           case ww4 of wild5 { GHC.Types.I# y# ->
+                           case GHC.Prim.tagToEnum#
+                                  @ GHC.Types.Bool
+                                  (GHC.Prim.<# x# y#) of wild6 {
+                             GHC.Types.False
+                             -> case GHC.Prim.tagToEnum#
+                                       @ GHC.Types.Bool
+                                       (GHC.Prim.==# x# y#) of wild7 {
+                                  GHC.Types.False
+                                  -> case x of x0 { DEFAULT ->
+                                     Life.$sfromList2
+                                       @ a
+                                       (Data.Map.Internal.Bin
+                                          @ (Life.Height, Life.Width)
+                                          @ a
+                                          1#
+                                          ww
+                                          x0
+                                          (Data.Map.Internal.Tip @ (Life.Height, Life.Width) @ a)
+                                          (Data.Map.Internal.Tip @ (Life.Height, Life.Width) @ a))
+                                       wild2 }
+                                  GHC.Types.True
+                                  -> case ww2 of wild8 { GHC.Types.I# x1 ->
+                                     case ww5 of wild9 { GHC.Types.I# y ->
+                                     case GHC.Prim.tagToEnum#
+                                            @ GHC.Types.Bool
+                                            (GHC.Prim.<# x1 y) of wild10 {
+                                       GHC.Types.False
+                                       -> case x of x0 { DEFAULT ->
+                                          Life.$sfromList2
+                                            @ a
+                                            (Data.Map.Internal.Bin
+                                               @ (Life.Height, Life.Width)
+                                               @ a
+                                               1#
+                                               ww
+                                               x0
+                                               (Data.Map.Internal.Tip
+                                                  @ (Life.Height, Life.Width)
+                                                  @ a)
+                                               (Data.Map.Internal.Tip
+                                                  @ (Life.Height, Life.Width)
+                                                  @ a))
+                                            wild2 }
+                                       GHC.Types.True
+                                       -> case x of x0 { DEFAULT ->
+                                          Life.$wpoly_go8
+                                            @ a
+                                            1#
+                                            (Data.Map.Internal.Bin
+                                               @ (Life.Height, Life.Width)
+                                               @ a
+                                               1#
+                                               ww
+                                               x0
+                                               (Data.Map.Internal.Tip
+                                                  @ (Life.Height, Life.Width)
+                                                  @ a)
+                                               (Data.Map.Internal.Tip
+                                                  @ (Life.Height, Life.Width)
+                                                  @ a))
+                                            wild2 } } } } }
+                             GHC.Types.True
+                             -> case x of x0 { DEFAULT ->
+                                Life.$wpoly_go8
+                                  @ a
+                                  1#
+                                  (Data.Map.Internal.Bin
+                                     @ (Life.Height, Life.Width)
+                                     @ a
+                                     1#
+                                     ww
+                                     x0
+                                     (Data.Map.Internal.Tip @ (Life.Height, Life.Width) @ a)
+                                     (Data.Map.Internal.Tip @ (Life.Height, Life.Width) @ a))
+                                  wild2 } } } } } } } } } }) -}
+f793699cdfa714f06893824becea719f
+  $sfromList2 ::
+    Data.Map.Internal.Map (Life.Height, Life.Width) a
+    -> [((Life.Height, Life.Width), a)]
+    -> Data.Map.Internal.Map (Life.Height, Life.Width) a
+  {- Arity: 2, Strictness: <S,1*U><S,1*U> -}
+bcfff8430cee9c5622f8af66028441cc
+  $sfromList_go4 ::
+    Data.Set.Internal.Set (Life.Height, Life.Height)
+    -> [(Life.Height, Life.Height)]
+    -> Data.Set.Internal.Set (Life.Height, Life.Height)
+  {- Arity: 2, Strictness: <S,1*U><S,1*U> -}
+89b449d85552f0f4f650b717971992e8
+  $sinsert_go3 ::
+    GHC.Classes.Ord a1 =>
+    a1 -> a1 -> Data.Set.Internal.Set a1 -> Data.Set.Internal.Set a1
+  {- Arity: 4,
+     Strictness: <L,U(A,C(C1(U)),A,A,A,A,A,A)><L,U><S,1*U><S,1*U> -}
+7ffdf065fda910a1adb8fe1a72f20a42
+  $srestrictKeys ::
+    Data.Map.Internal.Map Life.Coord a
+    -> Data.Set.Internal.Set Life.Coord
+    -> Data.Map.Internal.Map Life.Coord a
+  {- Arity: 2, Strictness: <S,1*U><L,1*U>, Inline: [~] -}
+ccea164b43ed1b86cebd439b0183d7a3
+  $tc'Alive :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   1718401620054791552##
+                   8396977145356137519##
+                   Life.$trModule
+                   Life.$tc'Alive2
+                   0#
+                   Life.$tc'Alive1) -}
+c69a0b9379589f9d43711c7db0b6a2dd
+  $tc'Alive1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m1, Inline: [~] -}
+a73761d34e5f660ff886c47aa0c333b3
+  $tc'Alive2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Life.$tc'Alive3) -}
+b649a596a57f2e180a7399ba6bd0994d
+  $tc'Alive3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Alive"#) -}
+6ee021457a3f6851d1ffc4c509ed4cce
+  $tc'Dead :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   12580963467829353021##
+                   3106146758932430259##
+                   Life.$trModule
+                   Life.$tc'Dead1
+                   0#
+                   Life.$tc'Alive1) -}
+e20ec18bce106e25acfb686ff0345bd2
+  $tc'Dead1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Life.$tc'Dead2) -}
+9b206ac6cc8ea6ef6834a781cb56d9f8
+  $tc'Dead2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Dead"#) -}
+9a42a044e49a1b027ecbbf0f40581678
+  $tc'LifeSign :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   1176150469753492394##
+                   15357998139864788741##
+                   Life.$trModule
+                   Life.$tc'LifeSign2
+                   0#
+                   Life.$tc'LifeSign1) -}
+961b06311a405c6c31716fe0507be071
+  $tc'LifeSign1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+c38eb5ec16409662ff2e463f5f53eb78
+  $tc'LifeSign2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Life.$tc'LifeSign3) -}
+c5cdb6c518c3e287eb301419bbb4669f
+  $tc'LifeSign3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'LifeSign"#) -}
+05bca501349f74b501fcf7af49ed7071
+  $tcLife :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   16635064784451006278##
+                   16405991409601149370##
+                   Life.$trModule
+                   Life.$trModule1
+                   0#
+                   GHC.Types.krep$*) -}
+a18b24ae9c9cf91681ed739806fdaa51
+  $tcLifeSign :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   18285841013281025204##
+                   14247422533390590766##
+                   Life.$trModule
+                   Life.$tcLifeSign1
+                   0#
+                   GHC.Types.krep$*) -}
+1a93add2865c7bc0b21f51fdfa500b5a
+  $tcLifeSign1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Life.$tcLifeSign2) -}
+7a2d173720e94d4dc6811e09d44ba254
+  $tcLifeSign2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("LifeSign"#) -}
+19f365db6079c9df505531a3d63a0bb3
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module Life.$trModule3 Life.$trModule1) -}
+f38841ab811364bf69c3ba799a905ac5
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Life.$trModule2) -}
+7a1fe7026ab6bfb6d41b18d78b968fa9
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Life"#) -}
+80132c521bd552176fa81c817cdaf92d
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Life.$trModule4) -}
+6075b1ec90bc5a914966267182d6155a
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("gameoflife-0.1.0.0-31J5BBxKXwnF93f5aSromi"#) -}
+358289badfd1080b4e0730ae7c082d45
+  $w$cshow :: GHC.Base.String -> GHC.Base.String -> GHC.Base.String
+  {- Arity: 2, Strictness: <L,1*U><L,1*U>, Inline: [0],
+     Unfolding: (\ (ww :: GHC.Base.String) (ww1 :: GHC.Base.String) ->
+                 GHC.CString.unpackAppendCString#
+                   Life.$fShowLifeSign5
+                   (GHC.CString.unpackAppendCString#
+                      Life.$fShowLifeSign4
+                      (GHC.Types.:
+                         @ GHC.Types.Char
+                         GHC.Show.$fShow(,)3
+                         (GHC.Show.showLitString
+                            ww
+                            (GHC.Types.:
+                               @ GHC.Types.Char
+                               GHC.Show.$fShow(,)3
+                               (GHC.Base.++
+                                  @ GHC.Types.Char
+                                  GHC.Show.showCommaSpace1
+                                  (GHC.CString.unpackAppendCString#
+                                     Life.$fShowLifeSign3
+                                     (GHC.Types.:
+                                        @ GHC.Types.Char
+                                        GHC.Show.$fShow(,)3
+                                        (GHC.Show.showLitString ww1 Life.$fShowLifeSign6))))))))) -}
+6bf12bbeea653eb731364825998fa44b
+  $w$cshowsPrec ::
+    GHC.Prim.Int#
+    -> GHC.Base.String
+    -> GHC.Base.String
+    -> GHC.Base.String
+    -> GHC.Base.String
+  {- Arity: 4, Strictness: <S,U><L,1*U><L,1*U><L,U>, Inline: [0],
+     Unfolding: (\ (ww :: GHC.Prim.Int#)
+                   (ww1 :: GHC.Base.String)
+                   (ww2 :: GHC.Base.String)
+                   (w :: GHC.Base.String) ->
+                 let {
+                   p :: GHC.Show.ShowS {- Arity: 1, Strictness: <L,U> -}
+                   = \ (x :: GHC.Base.String)[OneShot] ->
+                     GHC.CString.unpackAppendCString#
+                       Life.$fShowLifeSign5
+                       (GHC.CString.unpackAppendCString#
+                          Life.$fShowLifeSign4
+                          (GHC.Types.:
+                             @ GHC.Types.Char
+                             GHC.Show.$fShow(,)3
+                             (GHC.Show.showLitString
+                                ww1
+                                (GHC.Types.:
+                                   @ GHC.Types.Char
+                                   GHC.Show.$fShow(,)3
+                                   (GHC.Base.++
+                                      @ GHC.Types.Char
+                                      GHC.Show.showCommaSpace1
+                                      (GHC.CString.unpackAppendCString#
+                                         Life.$fShowLifeSign3
+                                         (GHC.Types.:
+                                            @ GHC.Types.Char
+                                            GHC.Show.$fShow(,)3
+                                            (GHC.Show.showLitString
+                                               ww2
+                                               (GHC.Types.:
+                                                  @ GHC.Types.Char
+                                                  GHC.Show.$fShow(,)3
+                                                  (GHC.CString.unpackAppendCString#
+                                                     Life.$fShowLifeSign2
+                                                     x))))))))))
+                 } in
+                 case GHC.Prim.tagToEnum#
+                        @ GHC.Types.Bool
+                        (GHC.Prim.>=# ww 11#) of wild {
+                   GHC.Types.False -> p w
+                   GHC.Types.True
+                   -> GHC.Types.:
+                        @ GHC.Types.Char
+                        GHC.Show.$fShow(,)4
+                        (p (GHC.Types.: @ GHC.Types.Char GHC.Show.$fShow(,)2 w)) }) -}
+0cd535d20439a601a8f05682c50f97af
+  $w$sgo8 ::
+    Life.Height
+    -> Life.Width
+    -> a1
+    -> Data.Map.Internal.Map (Life.Height, Life.Width) a1
+    -> Data.Map.Internal.Map (Life.Height, Life.Width) a1
+  {- Arity: 4, Strictness: <L,U(U)><L,U(U)><S,1*U><S,1*U>,
+     Inline: [0] -}
+b90cbe88c8d4b2db866532d4babf1f31
+  $wgo3 ::
+    GHC.Prim.Int#
+    -> Data.Set.Internal.Set (Life.Height, Life.Height)
+    -> [(Life.Height, Life.Height)]
+    -> Data.Set.Internal.Set (Life.Height, Life.Height)
+  {- Arity: 3, Strictness: <L,U><S,1*U><S,1*U>, Inline: [0] -}
+0a1d82b8e2e0d714d586243788ce956f
+  $wmkWorldFrom ::
+    [Life.Life]
+    -> Life.Height
+    -> GHC.Prim.Int#
+    -> Data.Map.Internal.Map (Life.Height, Life.Width) Life.Life
+  {- Arity: 3, Strictness: <L,1*U><L,1*U(U)><S,U>, Inline: [0],
+     Unfolding: (\ (w :: [Life.Life])
+                   (w1 :: Life.Height)
+                   (ww :: GHC.Prim.Int#) ->
+                 let {
+                   y :: GHC.Prim.Int# = GHC.Prim.-# ww 1#
+                 } in
+                 case GHC.Prim.tagToEnum#
+                        @ GHC.Types.Bool
+                        (GHC.Prim.># 0# y) of wild {
+                   GHC.Types.False
+                   -> case w1 of wild1 { GHC.Types.I# x ->
+                      let {
+                        lvl9 :: [Life.Height] = GHC.Enum.eftInt 0# (GHC.Prim.-# x 1#)
+                      } in
+                      letrec {
+                        go :: GHC.Prim.Int#
+                              -> [Life.Life] -> [((Life.Height, Life.Width), Life.Life)]
+                          {- Arity: 2, Strictness: <L,U><L,1*U> -}
+                        = \ (x1 :: GHC.Prim.Int#) (eta :: [Life.Life]) ->
+                          let {
+                            ds :: Life.Width = GHC.Types.I# x1
+                          } in
+                          let {
+                            lvl10 :: GHC.Types.Bool
+                            = GHC.Prim.tagToEnum# @ GHC.Types.Bool (GHC.Prim.==# x1 y)
+                          } in
+                          letrec {
+                            go1 :: [Life.Height]
+                                   -> [Life.Life] -> [((Life.Height, Life.Width), Life.Life)]
+                              {- Arity: 2, Strictness: <S,1*U><L,1*U> -}
+                            = \ (ds1 :: [Life.Height]) (eta1 :: [Life.Life]) ->
+                              case ds1 of wild2 {
+                                []
+                                -> case lvl10 of wild3 {
+                                     GHC.Types.False -> go (GHC.Prim.+# x1 1#) eta1
+                                     GHC.Types.True
+                                     -> GHC.Types.[] @ ((Life.Height, Life.Width), Life.Life) }
+                                : y1 ys
+                                -> case eta1 of wild3 {
+                                     [] -> GHC.Types.[] @ ((Life.Height, Life.Width), Life.Life)
+                                     : y2 ys1
+                                     -> GHC.Types.:
+                                          @ ((Life.Height, Life.Width), Life.Life)
+                                          ((y1, ds), y2)
+                                          (go1 ys ys1) } }
+                          } in
+                          go1 lvl9 eta
+                      } in
+                      Life.$sfromList1
+                        @ Life.Life
+                        (go
+                           0#
+                           (let {
+                              y1 :: GHC.Prim.Int# = GHC.Prim.*# ww x
+                            } in
+                            case GHC.Prim.tagToEnum#
+                                   @ GHC.Types.Bool
+                                   (GHC.Prim.<# 0# y1) of wild2 {
+                              GHC.Types.False -> GHC.Types.[] @ Life.Life
+                              GHC.Types.True
+                              -> case w of wild3 {
+                                   [] -> case GHC.List.cycle1 ret_ty [Life.Life] of {}
+                                   : ipv ipv1
+                                   -> letrec {
+                                        xs' :: [Life.Life] = GHC.Base.++ @ Life.Life wild3 xs'
+                                      } in
+                                      GHC.List.$wunsafeTake @ Life.Life y1 xs' } })) }
+                   GHC.Types.True -> Life.mkBlankWorld2 }) -}
+2ab17f32888424993d7c94c145d506d4
+  $wneighbours ::
+    Life.Coord -> Life.Life -> Life.World -> GHC.Prim.Int#
+  {- Arity: 3, Strictness: <L,1*U(1*U(U),1*U(U))><L,U><S,1*U>,
+     Inline: [0],
+     Unfolding: (\ (w :: Life.Coord)
+                   (w1 :: Life.Life)
+                   (w2 :: Life.World) ->
+                 case Data.Map.Internal.filterWithKey
+                        @ Life.Coord
+                        @ Life.Life
+                        (\ (ds :: Life.Coord) (x :: Life.Life)[OneShot] ->
+                         Life.$fEqLife_$c== x w1)
+                        (Life.neighbourhood w w2) of wild {
+                   Data.Map.Internal.Bin dt ds1 ds2 ds3 ds4 -> dt
+                   Data.Map.Internal.Tip -> 0# }) -}
+094570514f43c49a4e7513f903c29d55
+  $wpoly_go8 ::
+    GHC.Prim.Int#
+    -> Data.Map.Internal.Map (Life.Height, Life.Width) a
+    -> [((Life.Height, Life.Width), a)]
+    -> Data.Map.Internal.Map (Life.Height, Life.Width) a
+  {- Arity: 3, Strictness: <L,U><S,1*U><S,1*U>, Inline: [0] -}
+53d1c00cd122a3eccaf63b8477f86bdc
+  type Coord = (Life.Height, Life.Width)
+1c771895231d98e521469b1ab670c5ae
+  type Height = GHC.Types.Int
+40cf790995147421b17e73edf39adc65
+  data Life = Dead | Alive
+ffb696f7b56b46e609551d9cc2586f49
+  data LifeSign
+    = LifeSign {symDead :: GHC.Base.String,
+                symAlive :: GHC.Base.String}
+7d235b5e6fe1b95371812f97aa99f5cd
+  type Radius = GHC.Types.Int
+aa7bf451f944ca1bd30544fe8c5610b8
+  type Rule = Life.Life -> GHC.Types.Int -> Life.Life
+919355563831a33dabd430f855d800ef
+  type Width = GHC.Types.Int
+da6823fcb1bce99fcc3746cef08f4bc6
+  type World = Data.Map.Internal.Map Life.Coord Life.Life
+0558244f2bf29bbbed32502e496cd981
+  conwayRule :: Life.Rule
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><L,U>,
+     Unfolding: (\ (ds :: Life.Life) (n :: GHC.Types.Int) ->
+                 case ds of wild {
+                   Life.Dead
+                   -> case GHC.List.elem
+                             @ GHC.Types.Int
+                             GHC.Classes.$fEqInt
+                             n
+                             Life.conwayRule1 of wild1 {
+                        GHC.Types.False -> Life.Dead GHC.Types.True -> Life.Alive }
+                   Life.Alive
+                   -> case GHC.List.elem
+                             @ GHC.Types.Int
+                             GHC.Classes.$fEqInt
+                             n
+                             Life.conwayRule_survive of wild1 {
+                        GHC.Types.False -> Life.Dead GHC.Types.True -> Life.Alive } }) -}
+2e955782c0dfcce2e924e14d7661e554
+  conwayRule1 :: [GHC.Types.Int]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Types.Int
+                   Life.conwayRule2
+                   (GHC.Types.[] @ GHC.Types.Int)) -}
+e695d47be2e7fed34ecb4c9536b3f57f
+  conwayRule2 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 3#) -}
+770184495692a86ceaf8208d8b784b29
+  conwayRule3 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 2#) -}
+e015a022d06cb97971bcc7425e53cefd
+  conwayRule_survive :: [GHC.Types.Int]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Types.Int
+                   Life.conwayRule3
+                   Life.conwayRule1) -}
+f8809a054fe39145a272300c1d8eded3
+  defaultLifeSign :: Life.LifeSign
+  {- Strictness: m,
+     Unfolding: (Life.LifeSign
+                   Life.defaultLifeSign3
+                   Life.defaultLifeSign1) -}
+87b647013db3a0a55fc306cf96d24ea5
+  defaultLifeSign1 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Life.defaultLifeSign2) -}
+3a5fa4248d6f26947f5081a7af8ffe5b
+  defaultLifeSign2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("\\226\\128\\162"#) -}
+2b9052b6ba6fe1f19c2ae6b006f6c7a2
+  defaultLifeSign3 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Life.defaultLifeSign4) -}
+e6a283804cc89a04b738f7bfe2bb0b6d
+  defaultLifeSign4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: (" "#) -}
+9eddd9b6f57d0dfc2ba4f28919992c63
+  defaultRule :: Life.Rule
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><L,U>,
+     Unfolding: InlineRule (0, True, True) Life.conwayRule -}
+ee97672ee5c02641b65546cbba6d3585
+  generation :: Life.World -> Life.World
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: (\ (w :: Life.World) ->
+                 Data.Map.Strict.Internal.mapWithKey
+                   @ Life.Coord
+                   @ Life.Life
+                   @ Life.Life
+                   (\ (coord :: Life.Coord) (life :: Life.Life)[OneShot] ->
+                    Life.conwayRule
+                      life
+                      (case Life.$wneighbours coord Life.Alive w of ww { DEFAULT ->
+                       GHC.Types.I# ww }))
+                   w) -}
+581bb876545fcccfee6b9735e4512175
+  generationWithRule :: Life.Rule -> Life.World -> Life.World
+  {- Arity: 2, Strictness: <L,C(C1(U))><S,U>,
+     Unfolding: (\ (rule :: Life.Rule) (w :: Life.World) ->
+                 Data.Map.Strict.Internal.mapWithKey
+                   @ Life.Coord
+                   @ Life.Life
+                   @ Life.Life
+                   (\ (coord :: Life.Coord) (life :: Life.Life)[OneShot] ->
+                    rule
+                      life
+                      (case Life.$wneighbours coord Life.Alive w of ww { DEFAULT ->
+                       GHC.Types.I# ww }))
+                   w) -}
+160b3d84e5538ae9ab17d2ba987bfa71
+  mkBlankWorld :: Life.Height -> Life.Width -> Life.World
+  {- Arity: 2, Strictness: <L,1*U(U)><S(S),1*U(U)>,
+     Unfolding: (\ (w :: Life.Height) (w1 :: Life.Width) ->
+                 case w1 of ww { GHC.Types.I# ww1 ->
+                 Life.$wmkWorldFrom Life.mkBlankWorld1 w ww1 }) -}
+135815e482b02ab90a55377e93ab6167
+  mkBlankWorld1 :: [Life.Life]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ Life.Life
+                   Life.Dead
+                   (GHC.Types.[] @ Life.Life)) -}
+f8cacf1deef68eaac3f053b3ddcaba5e
+  mkBlankWorld2 ::
+    Data.Map.Internal.Map (Life.Height, Life.Width) Life.Life
+  {- Unfolding: (Life.$sfromList1
+                   @ Life.Life
+                   (GHC.Types.[] @ ((Life.Height, Life.Width), Life.Life))) -}
+434f5fc4822ba67e9fd86acbe5a73cc6
+  mkOverWorld :: Life.Height -> Life.Width -> Life.World
+  {- Arity: 2, Strictness: <L,1*U(U)><S(S),1*U(U)>,
+     Unfolding: (\ (w :: Life.Height) (w1 :: Life.Width) ->
+                 case w1 of ww { GHC.Types.I# ww1 ->
+                 Life.$wmkWorldFrom Life.mkOverWorld1 w ww1 }) -}
+836431fd857e5e44f53ffd198b1f8d89
+  mkOverWorld1 :: [Life.Life]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ Life.Life
+                   Life.Alive
+                   (GHC.Types.[] @ Life.Life)) -}
+53d852d6f905105b946c8511781bf6ab
+  mkRandWorld ::
+    System.Random.StdGen -> Life.Height -> Life.Width -> Life.World
+  {- Arity: 1, Strictness: <L,U(U,U)>,
+     Unfolding: (\ (g :: System.Random.StdGen) ->
+                 let {
+                   w :: [Life.Life] = Life.mkRandWorld_go g
+                 } in
+                 \ (w1 :: Life.Height) (w2 :: Life.Width) ->
+                 case w2 of ww { GHC.Types.I# ww1 ->
+                 Life.$wmkWorldFrom w w1 ww1 }) -}
+2db56dbd5e179f2ccd07e6f5809ba9d6
+  mkRandWorld_go :: System.Random.StdGen -> [Life.Life]
+  {- Arity: 1, Strictness: <L,U(U,U)>m2 -}
+91ddd5d207570ab65207ad1a353166c4
+  mkRule :: [GHC.Types.Int] -> [GHC.Types.Int] -> Life.Rule
+  {- Arity: 4, HasNoCafRefs, Strictness: <L,1*U><L,1*U><S,1*U><L,U>,
+     Unfolding: (\ (survive :: [GHC.Types.Int])
+                   (birth :: [GHC.Types.Int])
+                   (ds :: Life.Life)
+                   (n :: GHC.Types.Int) ->
+                 case ds of wild {
+                   Life.Dead
+                   -> case GHC.List.elem
+                             @ GHC.Types.Int
+                             GHC.Classes.$fEqInt
+                             n
+                             birth of wild1 {
+                        GHC.Types.False -> Life.Dead GHC.Types.True -> Life.Alive }
+                   Life.Alive
+                   -> case GHC.List.elem
+                             @ GHC.Types.Int
+                             GHC.Classes.$fEqInt
+                             n
+                             survive of wild1 {
+                        GHC.Types.False -> Life.Dead GHC.Types.True -> Life.Alive } }) -}
+7201e8f13ab41e28a6c4e729f25b4ead
+  mkWorldFrom ::
+    [Life.Life] -> Life.Height -> Life.Width -> Life.World
+  {- Arity: 3, Strictness: <L,1*U><L,1*U(U)><S(S),1*U(U)>,
+     Inline: [0],
+     Unfolding: InlineRule (3, True, False)
+                (\ (w :: [Life.Life]) (w1 :: Life.Height) (w2 :: Life.Width) ->
+                 case w2 of ww { GHC.Types.I# ww1 ->
+                 Life.$wmkWorldFrom w w1 ww1 }) -}
+c9951f3d811f45ebf239b1de3818ec59
+  neighbourhood :: Life.Coord -> Life.World -> Life.World
+  {- Arity: 2, Strictness: <L,1*U(1*U(U),1*U(U))><S,1*U>,
+     Unfolding: (\ (c :: Life.Coord) (w :: Life.World) ->
+                 Life.$srestrictKeys
+                   @ Life.Life
+                   w
+                   (case c of wild { (,) x y ->
+                    case x of wild1 { GHC.Types.I# x1 ->
+                    let {
+                      x0 :: GHC.Prim.Int# = GHC.Prim.-# x1 1#
+                    } in
+                    let {
+                      y1 :: GHC.Prim.Int# = GHC.Prim.+# x1 1#
+                    } in
+                    case GHC.Prim.tagToEnum#
+                           @ GHC.Types.Bool
+                           (GHC.Prim.># x0 y1) of wild2 {
+                      GHC.Types.False
+                      -> case y of wild3 { GHC.Types.I# x2 ->
+                         let {
+                           x3 :: GHC.Prim.Int# = GHC.Prim.-# x2 1#
+                         } in
+                         let {
+                           y2 :: GHC.Prim.Int# = GHC.Prim.+# x2 1#
+                         } in
+                         let {
+                           lvl9 :: [Life.Height]
+                           = case GHC.Prim.tagToEnum#
+                                    @ GHC.Types.Bool
+                                    (GHC.Prim.># x3 y2) of wild4 {
+                               GHC.Types.False
+                               -> letrec {
+                                    go :: GHC.Prim.Int# -> [GHC.Types.Int]
+                                      {- Arity: 1, Strictness: <L,U> -}
+                                    = \ (x4 :: GHC.Prim.Int#) ->
+                                      GHC.Types.:
+                                        @ GHC.Types.Int
+                                        (GHC.Types.I# x4)
+                                        (case GHC.Prim.tagToEnum#
+                                                @ GHC.Types.Bool
+                                                (GHC.Prim.==# x4 y2) of wild5 {
+                                           GHC.Types.False -> go (GHC.Prim.+# x4 1#)
+                                           GHC.Types.True -> GHC.Types.[] @ GHC.Types.Int })
+                                  } in
+                                  go x3
+                               GHC.Types.True -> GHC.Types.[] @ GHC.Types.Int }
+                         } in
+                         letrec {
+                           go :: GHC.Prim.Int# -> [(Life.Height, Life.Height)]
+                             {- Arity: 1, Strictness: <L,U> -}
+                           = \ (x4 :: GHC.Prim.Int#) ->
+                             let {
+                               ds :: Life.Height = GHC.Types.I# x4
+                             } in
+                             let {
+                               z :: [(Life.Height, Life.Height)]
+                               = case GHC.Prim.tagToEnum#
+                                        @ GHC.Types.Bool
+                                        (GHC.Prim.==# x4 y1) of wild4 {
+                                   GHC.Types.False -> go (GHC.Prim.+# x4 1#)
+                                   GHC.Types.True -> GHC.Types.[] @ (Life.Height, Life.Height) }
+                             } in
+                             let {
+                               lvl10 :: GHC.Types.Bool
+                               = GHC.Prim.tagToEnum# @ GHC.Types.Bool (GHC.Prim.==# x4 x1)
+                             } in
+                             letrec {
+                               go1 :: [Life.Height] -> [(Life.Height, Life.Height)]
+                                 {- Arity: 1, Strictness: <S,1*U> -}
+                               = \ (ds1 :: [Life.Height]) ->
+                                 case ds1 of wild4 {
+                                   [] -> z
+                                   : y3 ys
+                                   -> case lvl10 of wild5 {
+                                        GHC.Types.False
+                                        -> GHC.Types.:
+                                             @ (Life.Height, Life.Height)
+                                             (ds, y3)
+                                             (go1 ys)
+                                        GHC.Types.True
+                                        -> case y3 of wild6 { GHC.Types.I# x5 ->
+                                           case GHC.Prim.tagToEnum#
+                                                  @ GHC.Types.Bool
+                                                  (GHC.Prim.==# x5 x2) of wild7 {
+                                             GHC.Types.False
+                                             -> GHC.Types.:
+                                                  @ (Life.Height, Life.Height)
+                                                  (ds, wild6)
+                                                  (go1 ys)
+                                             GHC.Types.True -> go1 ys } } } }
+                             } in
+                             go1 lvl9
+                         } in
+                         Life.$sfromList (go x0) }
+                      GHC.Types.True -> Life.neighbourhood1 } } })) -}
+0f67fd05e405fa6fc421014593a47754
+  neighbourhood1 :: Data.Set.Internal.Set (Life.Height, Life.Height)
+  {- Unfolding: (Life.$sfromList
+                   (GHC.Types.[] @ (Life.Height, Life.Height))) -}
+669741146b4a1291b15c0768924b6172
+  neighbours ::
+    Life.Coord -> Life.Life -> Life.World -> GHC.Types.Int
+  {- Arity: 3, Strictness: <L,1*U(1*U(U),1*U(U))><L,U><S,1*U>m,
+     Inline: [0],
+     Unfolding: InlineRule (3, True, False)
+                (\ (w :: Life.Coord) (w1 :: Life.Life) (w2 :: Life.World) ->
+                 case Life.$wneighbours w w1 w2 of ww { DEFAULT ->
+                 GHC.Types.I# ww }) -}
+b2653b19f98b2f2fb5fae50f31068adf
+  rule1 :: [GHC.Types.Int]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Types.Int
+                   Life.conwayRule2
+                   Life.rule2) -}
+179d69ae9961c62c1dace56662ab40dd
+  rule1357 :: Life.Rule
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><L,U>,
+     Unfolding: (\ (ds :: Life.Life) (n :: GHC.Types.Int) ->
+                 case ds of wild { DEFAULT ->
+                 case GHC.List.elem
+                        @ GHC.Types.Int
+                        GHC.Classes.$fEqInt
+                        n
+                        Life.rule1357_survive of wild1 {
+                   GHC.Types.False -> Life.Dead GHC.Types.True -> Life.Alive } }) -}
+6bcc14fcc4baffaf76ef4a0f474a2de4
+  rule1357_survive :: [GHC.Types.Int]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.: @ GHC.Types.Int Life.rule6 Life.rule1) -}
+3ed1b386b65eb42697df8f1abf7ed134
+  rule2 :: [GHC.Types.Int]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.: @ GHC.Types.Int Life.rule5 Life.rule3) -}
+825f2d248acfaaa72078fbd6b9b67dc3
+  rule3 :: [GHC.Types.Int]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Types.Int
+                   Life.rule4
+                   (GHC.Types.[] @ GHC.Types.Int)) -}
+11a4ff1a95db0d4ac75ce20fdeed359b
+  rule4 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 7#) -}
+47959a40fe818cb1b207abf60fd9197e
+  rule5 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 5#) -}
+0636fb9489fb8d72759cac970b3842a0
+  rule6 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 1#) -}
+3d098f798b9089ccf8b6ae148de2ac44
+  showWorld :: Life.World -> GHC.Base.String
+  {- Arity: 1,
+     Unfolding: (Life.showWorldUsing Life.defaultLifeSign) -}
+5567d848b13c77d4e70c4198ebf99397
+  showWorldUsing :: Life.LifeSign -> Life.World -> GHC.Base.String
+  {- Arity: 2, Strictness: <L,U(U,U)><S,U>,
+     Unfolding: (\ (repr :: Life.LifeSign) (w :: Life.World) ->
+                 let {
+                   width :: Life.Width
+                   = case w of wild {
+                       Data.Map.Internal.Bin dt k1 x ds r
+                       -> case Data.Map.Internal.$wlookupMaxSure
+                                 @ Life.Coord
+                                 @ Life.Life
+                                 k1
+                                 x
+                                 r of ww { (#,#) ww1 ww2 ->
+                          case ww1 of wild1 { (,) ds1 width1 -> width1 } }
+                       Data.Map.Internal.Tip
+                       -> case Data.Map.Internal.findMax1 ret_ty Life.Width of {} }
+                 } in
+                 let {
+                   $wf :: Life.Width -> Life.Life -> [GHC.Types.Char]
+                     {- Arity: 2, Strictness: <L,1*U(U)><S,1*U>, Inline: [0] -}
+                   = \ (ww :: Life.Width) (w1 :: Life.Life)[OneShot] ->
+                     case w1 of wild {
+                       Life.Dead
+                       -> case repr of wild1 { Life.LifeSign ds ds1 ->
+                          GHC.Base.++
+                            @ GHC.Types.Char
+                            ds
+                            (case ww of wild2 { GHC.Types.I# x ->
+                             case width of wild3 { GHC.Types.I# y ->
+                             case GHC.Prim.tagToEnum#
+                                    @ GHC.Types.Bool
+                                    (GHC.Prim.>=# x y) of wild4 {
+                               GHC.Types.False -> GHC.Types.[] @ GHC.Types.Char
+                               GHC.Types.True -> Life.showWorldUsing1 } } }) }
+                       Life.Alive
+                       -> case repr of wild1 { Life.LifeSign ds ds1 ->
+                          GHC.Base.++
+                            @ GHC.Types.Char
+                            ds1
+                            (case ww of wild2 { GHC.Types.I# x ->
+                             case width of wild3 { GHC.Types.I# y ->
+                             case GHC.Prim.tagToEnum#
+                                    @ GHC.Types.Bool
+                                    (GHC.Prim.>=# x y) of wild4 {
+                               GHC.Types.False -> GHC.Types.[] @ GHC.Types.Char
+                               GHC.Types.True -> Life.showWorldUsing1 } } }) } }
+                 } in
+                 letrec {
+                   go13 :: Data.Map.Internal.Map (Life.Height, Life.Width) Life.Life
+                           -> [GHC.Types.Char]
+                     {- Arity: 1, Strictness: <S,1*U> -}
+                   = \ (ds :: Data.Map.Internal.Map
+                                (Life.Height, Life.Width) Life.Life) ->
+                     case ds of wild {
+                       Data.Map.Internal.Bin dt k1 v ds1 ds2
+                       -> case k1 of ww { (,) ww1 ww2 ->
+                          case dt of ds3 {
+                            DEFAULT
+                            -> GHC.Base.++
+                                 @ GHC.Types.Char
+                                 (go13 ds1)
+                                 (GHC.Base.++ @ GHC.Types.Char ($wf ww2 v) (go13 ds2))
+                            1# -> $wf ww2 v } }
+                       Data.Map.Internal.Tip -> GHC.Types.[] @ GHC.Types.Char }
+                 } in
+                 go13 w) -}
+1e3e8703ffc407b09461868387e666fb
+  showWorldUsing1 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Life.showWorldUsing2) -}
+1b03329f8d8086d556a3abc890525bf5
+  showWorldUsing2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("\n"#) -}
+ffb696f7b56b46e609551d9cc2586f49
+  symAlive :: Life.LifeSign -> GHC.Base.String
+  RecSel Left Life.LifeSign
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(LS),1*U(A,1*U)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Life.LifeSign) ->
+                 case ds of wild { Life.LifeSign ds1 ds2 -> ds2 }) -}
+ffb696f7b56b46e609551d9cc2586f49
+  symDead :: Life.LifeSign -> GHC.Base.String
+  RecSel Left Life.LifeSign
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(SL),1*U(1*U,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Life.LifeSign) ->
+                 case ds of wild { Life.LifeSign ds1 ds2 -> ds1 }) -}
+instance [safe] GHC.Classes.Eq [Life.Life] = Life.$fEqLife
+instance [safe] GHC.Show.Show [Life.Life] = Life.$fShowLife
+instance [safe] GHC.Show.Show [Life.LifeSign] = Life.$fShowLifeSign
+"SPEC/Life $fEq(,) @ Int @ Int" [orphan] forall (v1 :: GHC.Classes.Eq
+                                                         GHC.Types.Int)
+                                                (v :: GHC.Classes.Eq GHC.Types.Int)
+  GHC.Classes.$fEq(,) @ GHC.Types.Int @ GHC.Types.Int v v1
+  = Life.$s$fEq(,)
+"SPEC/Life $fOrd(,) @ Int @ Int" [orphan] forall (v1 :: GHC.Classes.Ord
+                                                          GHC.Types.Int)
+                                                 (v :: GHC.Classes.Ord GHC.Types.Int)
+  GHC.Classes.$fOrd(,) @ GHC.Types.Int @ GHC.Types.Int v v1
+  = Life.$s$fOrd(,)
+"SPEC/Life fromList @ (Height, Height)" [orphan] forall ($dOrd :: GHC.Classes.Ord
+                                                                    (Life.Height, Life.Height))
+  Data.Set.Internal.fromList @ (Life.Height, Life.Height) $dOrd
+  = Life.$sfromList
+"SPEC/Life fromList @ (Height, Width) _" [orphan] forall @ a
+                                                         ($dOrd :: GHC.Classes.Ord
+                                                                     (Life.Height, Life.Width))
+  Data.Map.Strict.Internal.fromList @ (Life.Height, Life.Width)
+                                    @ a
+                                    $dOrd
+  = Life.$sfromList1 @ a
+"SPEC/Life restrictKeys @ Coord _" [orphan] forall @ a
+                                                   ($dOrd :: GHC.Classes.Ord Life.Coord)
+  Data.Map.Internal.restrictKeys @ (Life.Height, Life.Width)
+                                 @ a
+                                 $dOrd
+  = Life.$srestrictKeys @ a
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: safe
+require own pkg trusted: False
+

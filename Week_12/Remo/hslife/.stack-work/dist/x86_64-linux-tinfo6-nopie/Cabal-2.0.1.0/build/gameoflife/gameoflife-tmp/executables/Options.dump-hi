@@ -1,0 +1,1179 @@
+
+==================== FINAL INTERFACE ====================
+2018-04-18 10:53:59.808106735 UTC
+
+interface main:Options 8022
+  interface hash: e7acf888941a16117ba39dbd67cc5c4e
+  ABI hash: d7e03c38679d3caa083baf09aba6e482
+  export-list hash: 5af96f15954d44719b06f70f101e55f1
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: 0f684c375e2174fb4aced99f956c2e93
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  Options.getOpts
+  Options.Options{Options.Options fps height width}
+module dependencies: Paths_gameoflife
+package dependencies: array-0.5.2.0 base-4.10.1.0 cmdargs-0.10.20
+                      containers-0.5.10.2 deepseq-1.4.3.0 filepath-1.4.1.2
+                      gameoflife-0.1.0.0 ghc-prim-0.5.1.1 integer-gmp-1.0.1.0
+                      process-1.6.1.0 random-1.1 time-1.8.0.2 transformers-0.5.2.0
+                      unix-2.7.2.2
+orphans: cmdargs-0.10.20:System.Console.CmdArgs.Explicit.Help
+         time-1.8.0.2:Data.Time.Format.Parse
+         time-1.8.0.2:Data.Time.LocalTime.Internal.ZonedTime
+         time-1.8.0.2:Data.Time.LocalTime.Internal.LocalTime
+         time-1.8.0.2:Data.Time.Calendar.Gregorian base-4.10.1.0:GHC.Float
+         base-4.10.1.0:GHC.Base
+family instance modules: base-4.10.1.0:Control.Applicative
+                         base-4.10.1.0:Data.Complex base-4.10.1.0:Data.Either
+                         base-4.10.1.0:Data.Functor.Compose base-4.10.1.0:Data.Functor.Const
+                         base-4.10.1.0:Data.Functor.Identity
+                         base-4.10.1.0:Data.Functor.Product base-4.10.1.0:Data.Functor.Sum
+                         base-4.10.1.0:Data.List.NonEmpty base-4.10.1.0:Data.Monoid
+                         base-4.10.1.0:Data.Semigroup base-4.10.1.0:Data.Type.Equality
+                         base-4.10.1.0:Data.Version base-4.10.1.0:Data.Void
+                         base-4.10.1.0:GHC.Exts base-4.10.1.0:GHC.Generics
+                         base-4.10.1.0:GHC.IO.Exception base-4.10.1.0:GHC.TypeLits
+                         base-4.10.1.0:GHC.TypeNats containers-0.5.10.2:Data.Map.Internal
+                         containers-0.5.10.2:Data.Set.Internal
+import  -/  base-4.10.1.0:Data.Data c16c1b59ecdb12037d0296eaec32afef
+import  -/  base-4.10.1.0:Data.Typeable.Internal b31684019ac02e3213b270a8482ac844
+import  -/  base-4.10.1.0:Data.Version 6f3983622b9a4afb46259626123f5908
+import  -/  base-4.10.1.0:GHC.Base 782fd99b5e36f3698a26179a49afca64
+import  -/  base-4.10.1.0:GHC.Show 0a8ce2b5e533d1c2cfb7954e6736be45
+import  -/  base-4.10.1.0:Prelude 31945b7d0084063347fc52506d3a4020
+import  -/  cmdargs-0.10.20:System.Console.CmdArgs.Implicit 17681e47f4141506b69f5cad1d069397
+import  -/  cmdargs-0.10.20:System.Console.CmdArgs.Implicit.UI efc0f71175bfa514af8e8207234a0e96
+import  -/  gameoflife-0.1.0.0:Life 20ac5fe6304ff958390aa1657d29dbf2
+import  -/  ghc-prim-0.5.1.1:GHC.Classes 93e2660065dce9329577e83d76d8f0d4
+import  -/  Paths_gameoflife a5fea7b4f137283b9534d28c6ecfd646
+  exports: 880ff8f369fd286de5d4c93c6e555f5a
+  version 2cd392502540297e0e4f940a6a5acff2
+b4c660aa9df509e12885a9411389484e
+  $cOptions :: Data.Data.Constr
+  {- Strictness: m -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions :: Data.Data.Data Options.Options
+  DFunId
+  {- Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ Options.Options
+                  Options.$fDataOptions8
+                    `cast`
+                  (Sym (Data.Typeable.Internal.N:Typeable[0]) <*>_N <Options.Options>_N)
+                  Options.$fDataOptions_$cgfoldl
+                  Options.$fDataOptions_$cgunfold
+                  Options.$fDataOptions_$ctoConstr
+                  Options.$fDataOptions_$cdataTypeOf
+                  Options.$fDataOptions_$cdataCast1
+                  Options.$fDataOptions_$cdataCast2
+                  Options.$fDataOptions3
+                    `cast`
+                  (<forall b. Data.Data.Data b => b -> b>_R
+                   ->_R <Options.Options>_R
+                   ->_R Data.Functor.Identity.N:Identity[0] <Options.Options>_R)
+                  Options.$fDataOptions2
+                    `cast`
+                  (forall (r :: <*>_N) (r' :: <*>_N).
+                   <r -> r' -> r>_R
+                   ->_R <r>_R
+                   ->_R <forall d. Data.Data.Data d => d -> r'>_R
+                   ->_R <Options.Options>_R
+                   ->_R Data.Functor.Const.N:Const[0] <*>_N <r>_R <Options.Options>_P)
+                  Options.$fDataOptions_$cgmapQr
+                  Options.$fDataOptions_$cgmapQ
+                  Options.$fDataOptions_$cgmapQi
+                  Options.$fDataOptions_$cgmapM
+                  Options.$fDataOptions_$cgmapMp
+                  Options.$fDataOptions_$cgmapMo -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions1 ::
+    (Life.Width -> Life.Height -> GHC.Types.Int -> Options.Options,
+     GHC.Types.Bool)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Options.Options, GHC.Types.False)) -}
+90cb98873e0939e5e5aef37d9050ac32
+  $fDataOptions10 :: [GHC.Fingerprint.Type.Fingerprint]
+  {- Unfolding: (GHC.Base.map
+                   @ Data.Typeable.Internal.SomeTypeRep
+                   @ GHC.Fingerprint.Type.Fingerprint
+                   Data.Typeable.Internal.someTypeRepFingerprint
+                   (GHC.Types.[] @ Data.Typeable.Internal.SomeTypeRep)) -}
+3733f0237e45ae944d7f40d0383fa744
+  $fDataOptions11 :: GHC.Fingerprint.Type.Fingerprint
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Fingerprint.Type.Fingerprint
+                   14592147415178491644##
+                   13909223898442528862##) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions2 ::
+    (r -> r' -> r)
+    -> r
+    -> (forall d. Data.Data.Data d => d -> r')
+    -> Options.Options
+    -> Data.Functor.Const.Const r Options.Options
+  {- Arity: 4,
+     Strictness: <C(C(S)),C(C1(U))><L,U><L,C(C1(U))><S,1*U(U,U,U)>,
+     Inline: [0],
+     Unfolding: InlineRule (4, True, False)
+                (\ @ r
+                   @ r'
+                   (w :: r -> r' -> r)
+                   (w1 :: r)
+                   (w2 :: forall d. Data.Data.Data d => d -> r')
+                   (w3 :: Options.Options) ->
+                 case w3 of ww { Options.Options ww1 ww2 ww3 ->
+                 (Options.$w$cgmapQl @ r @ r' w w1 w2 ww1 ww2 ww3)
+                   `cast`
+                 (Sym (Data.Functor.Const.N:Const[0]
+                           <*>_N <r>_R <Options.Options>_P)) }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions3 ::
+    (forall b. Data.Data.Data b => b -> b)
+    -> Options.Options
+    -> Data.Functor.Identity.Identity Options.Options
+  {- Arity: 2, Strictness: <L,C(C1(U))><S,1*U(U,U,U)>m, Inline: [0],
+     Unfolding: InlineRule (2, True, False)
+                (\ (w :: forall b. Data.Data.Data b => b -> b)
+                   (w1 :: Options.Options) ->
+                 case w1 of ww { Options.Options ww1 ww2 ww3 ->
+                 (Options.Options
+                    (w @ Life.Width Data.Data.$fDataInt ww1)
+                    (w @ Life.Height Data.Data.$fDataInt ww2)
+                    (w @ GHC.Types.Int Data.Data.$fDataInt ww3))
+                   `cast`
+                 (Sym (Data.Functor.Identity.N:Identity[0]
+                           <Options.Options>_R)) }) -}
+1e59c0fccb37546159581f189c50d36e
+  $fDataOptions4 :: Data.Data.DataRep
+  {- Strictness: m1,
+     Unfolding: (Data.Data.AlgRep Options.$fDataOptions5) -}
+7f96f8b9fe386d1494a96a23b0f4d6c1
+  $fDataOptions5 :: [Data.Data.Constr]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ Data.Data.Constr
+                   Options.$cOptions
+                   (GHC.Types.[] @ Data.Data.Constr)) -}
+f7ce856210dc27d46312a902abf87055
+  $fDataOptions6 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString#
+                   Options.$fDataOptions7) -}
+053f70a7045f64479bcc4aea7a1f14cd
+  $fDataOptions7 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Options"#) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions8 :: Data.Typeable.Internal.TypeRep Options.Options
+  {- Unfolding: (case GHC.Magic.noinline
+                        @ ([GHC.Fingerprint.Type.Fingerprint]
+                           -> GHC.Fingerprint.Type.Fingerprint)
+                        GHC.Fingerprint.fingerprintFingerprints
+                        Options.$fDataOptions9 of dt { GHC.Fingerprint.Type.Fingerprint dt1 dt2 ->
+                 Data.Typeable.Internal.TrTyCon
+                   @ *
+                   @ Options.Options
+                   dt1
+                   dt2
+                   Options.$tcOptions
+                   (GHC.Types.[] @ Data.Typeable.Internal.SomeTypeRep) }) -}
+b42ddcfac233b674426d6bce807bbfe0
+  $fDataOptions9 :: [GHC.Fingerprint.Type.Fingerprint]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Fingerprint.Type.Fingerprint
+                   Options.$fDataOptions11
+                   Options.$fDataOptions10) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cdataCast1 ::
+    Data.Typeable.Internal.Typeable t =>
+    (forall d. Data.Data.Data d => c (t d))
+    -> GHC.Base.Maybe (c Options.Options)
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,A><L,A>,
+     Unfolding: InlineRule (2, True, True)
+                (\ @ t :: * -> *
+                   @ c :: * -> *
+                   ($dTypeable :: Data.Typeable.Internal.Typeable t)
+                   (ds :: forall d. Data.Data.Data d => c (t d)) ->
+                 GHC.Base.Nothing @ (c Options.Options)) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cdataCast2 ::
+    Data.Typeable.Internal.Typeable t =>
+    (forall d e. (Data.Data.Data d, Data.Data.Data e) => c (t d e))
+    -> GHC.Base.Maybe (c Options.Options)
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,A><L,A>,
+     Unfolding: InlineRule (2, True, True)
+                (\ @ t :: * -> * -> *
+                   @ c :: * -> *
+                   ($dTypeable :: Data.Typeable.Internal.Typeable t)
+                   (ds :: forall d e.
+                          (Data.Data.Data d, Data.Data.Data e) =>
+                          c (t d e)) ->
+                 GHC.Base.Nothing @ (c Options.Options)) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cdataTypeOf :: Options.Options -> Data.Data.DataType
+  {- Arity: 1, Strictness: <L,A>m,
+     Unfolding: InlineRule (1, True, True)
+                (\ (ds :: Options.Options) -> Options.$tOptions) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cgfoldl ::
+    (forall d b. Data.Data.Data d => c (d -> b) -> d -> c b)
+    -> (forall g. g -> c g) -> Options.Options -> c Options.Options
+  {- Arity: 3,
+     Strictness: <C(C(C(S))),C(C1(C1(U)))><L,1*C1(U)><S,1*U(U,U,U)>,
+     Inline: [0],
+     Unfolding: InlineRule (3, True, False)
+                (\ @ c :: * -> *
+                   (w :: forall d b. Data.Data.Data d => c (d -> b) -> d -> c b)
+                   (w1 :: forall g. g -> c g)
+                   (w2 :: Options.Options) ->
+                 case w2 of ww { Options.Options ww1 ww2 ww3 ->
+                 Options.$w$cgfoldl @ c w w1 ww1 ww2 ww3 }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cgmapM ::
+    GHC.Base.Monad m =>
+    (forall d. Data.Data.Data d => d -> m d)
+    -> Options.Options -> m Options.Options
+  {- Arity: 3,
+     Strictness: <S(LC(C(S))LLL),U(A,C(C1(U)),A,C(U),A)><L,C(C1(U))><S,1*U(U,U,U)>,
+     Inline: [0],
+     Unfolding: InlineRule (3, True, False)
+                (\ @ m :: * -> *
+                   (w :: GHC.Base.Monad m)
+                   (w1 :: forall d. Data.Data.Data d => d -> m d)
+                   (w2 :: Options.Options) ->
+                 case w2 of ww { Options.Options ww1 ww2 ww3 ->
+                 Options.$w$cgmapM @ m w w1 ww1 ww2 ww3 }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cgmapMo ::
+    GHC.Base.MonadPlus m =>
+    (forall d. Data.Data.Data d => d -> m d)
+    -> Options.Options -> m Options.Options
+  {- Arity: 3,
+     Strictness: <S(LS(LC(C(S))LLL)LL),U(A,1*U(A,C(C1(U)),A,C(U),A),1*U,C(C1(U)))><L,C(C1(U))><L,1*U(U,U,U)>,
+     Unfolding: (\ @ m :: * -> *
+                   ($dMonadPlus :: GHC.Base.MonadPlus m)
+                   (ds :: forall d. Data.Data.Data d => d -> m d)
+                   (eta :: Options.Options) ->
+                 let {
+                   $dMonad :: GHC.Base.Monad m = GHC.Base.$p2MonadPlus @ m $dMonadPlus
+                 } in
+                 let {
+                   lvl :: m Options.Options
+                   = GHC.Base.mzero @ m $dMonadPlus @ Options.Options
+                 } in
+                 GHC.Base.>>=
+                   @ m
+                   $dMonad
+                   @ (Options.Options, GHC.Types.Bool)
+                   @ Options.Options
+                   (case eta of wild { Options.Options a1 a2 a3 ->
+                    let {
+                      $sk :: forall b.
+                             Data.Data.Mp m (Life.Height -> b)
+                             -> Life.Height -> m (b, GHC.Types.Bool)
+                        {- Arity: 2, Strictness: <L,U><L,U> -}
+                      = \ @ b
+                          (ds1 :: Data.Data.Mp m (Life.Height -> b))
+                          (y :: Life.Height)[OneShot] ->
+                        let {
+                          lvl1 :: m Life.Height = ds @ Life.Height Data.Data.$fDataInt y
+                        } in
+                        GHC.Base.>>=
+                          @ m
+                          $dMonad
+                          @ (Life.Height -> b, GHC.Types.Bool)
+                          @ (b, GHC.Types.Bool)
+                          ds1 `cast` (Data.Data.N:Mp[0] <m>_R <Life.Height -> b>_N)
+                          (\ (ds2 :: (Life.Height -> b, GHC.Types.Bool)) ->
+                           case ds2 of wild1 { (,) h b1 ->
+                           case b1 of wild2 {
+                             GHC.Types.False
+                             -> GHC.Base.mplus
+                                  @ m
+                                  $dMonadPlus
+                                  @ (b, GHC.Types.Bool)
+                                  (GHC.Base.>>=
+                                     @ m
+                                     $dMonad
+                                     @ Life.Height
+                                     @ (b, GHC.Types.Bool)
+                                     lvl1
+                                     (\ (y' :: Life.Height) ->
+                                      GHC.Base.return
+                                        @ m
+                                        $dMonad
+                                        @ (b, GHC.Types.Bool)
+                                        (h y', GHC.Types.True)))
+                                  (GHC.Base.return
+                                     @ m
+                                     $dMonad
+                                     @ (b, GHC.Types.Bool)
+                                     (h y, GHC.Types.False))
+                             GHC.Types.True
+                             -> GHC.Base.return
+                                  @ m
+                                  $dMonad
+                                  @ (b, GHC.Types.Bool)
+                                  (h y, GHC.Types.True) } })
+                    } in
+                    $sk
+                      @ Options.Options
+                      ($sk
+                         @ (GHC.Types.Int -> Options.Options)
+                         ($sk
+                            @ (Life.Height -> GHC.Types.Int -> Options.Options)
+                            (GHC.Base.return
+                               @ m
+                               $dMonad
+                               @ (Life.Width -> Life.Height -> GHC.Types.Int -> Options.Options,
+                                  GHC.Types.Bool)
+                               Options.$fDataOptions1)
+                              `cast`
+                            (Sym (Data.Data.N:Mp[0]
+                                      <m>_R
+                                      <Life.Width
+                                       -> Life.Height -> GHC.Types.Int -> Options.Options>_N))
+                            a1)
+                           `cast`
+                         (Sym (Data.Data.N:Mp[0]
+                                   <m>_R <Life.Height -> GHC.Types.Int -> Options.Options>_N))
+                         a2)
+                        `cast`
+                      (Sym (Data.Data.N:Mp[0]
+                                <m>_R <GHC.Types.Int -> Options.Options>_N))
+                      a3 })
+                   (\ (ds1 :: (Options.Options, GHC.Types.Bool)) ->
+                    case ds1 of wild { (,) x' b ->
+                    case b of wild1 {
+                      GHC.Types.False -> lvl
+                      GHC.Types.True
+                      -> GHC.Base.return @ m $dMonad @ Options.Options x' } })) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cgmapMp ::
+    GHC.Base.MonadPlus m =>
+    (forall d. Data.Data.Data d => d -> m d)
+    -> Options.Options -> m Options.Options
+  {- Arity: 3,
+     Strictness: <S(LS(LC(C(S))LLL)LL),U(A,1*U(A,C(C1(U)),A,C(U),A),1*U,C(C1(U)))><L,C(C1(U))><L,1*U(U,U,U)>,
+     Unfolding: (\ @ m :: * -> *
+                   ($dMonadPlus :: GHC.Base.MonadPlus m)
+                   (ds :: forall d. Data.Data.Data d => d -> m d)
+                   (eta :: Options.Options) ->
+                 let {
+                   $dMonad :: GHC.Base.Monad m = GHC.Base.$p2MonadPlus @ m $dMonadPlus
+                 } in
+                 let {
+                   lvl :: m Options.Options
+                   = GHC.Base.mzero @ m $dMonadPlus @ Options.Options
+                 } in
+                 GHC.Base.>>=
+                   @ m
+                   $dMonad
+                   @ (Options.Options, GHC.Types.Bool)
+                   @ Options.Options
+                   (case eta of wild { Options.Options a1 a2 a3 ->
+                    let {
+                      $sk :: forall b.
+                             Data.Data.Mp m (Life.Height -> b)
+                             -> Life.Height -> m (b, GHC.Types.Bool)
+                        {- Arity: 2, Strictness: <L,U><L,U> -}
+                      = \ @ b
+                          (ds1 :: Data.Data.Mp m (Life.Height -> b))
+                          (y :: Life.Height)[OneShot] ->
+                        let {
+                          lvl1 :: m Life.Height = ds @ Life.Height Data.Data.$fDataInt y
+                        } in
+                        GHC.Base.>>=
+                          @ m
+                          $dMonad
+                          @ (Life.Height -> b, GHC.Types.Bool)
+                          @ (b, GHC.Types.Bool)
+                          ds1 `cast` (Data.Data.N:Mp[0] <m>_R <Life.Height -> b>_N)
+                          (\ (ds2 :: (Life.Height -> b, GHC.Types.Bool)) ->
+                           case ds2 of wild1 { (,) h b1 ->
+                           GHC.Base.mplus
+                             @ m
+                             $dMonadPlus
+                             @ (b, GHC.Types.Bool)
+                             (GHC.Base.>>=
+                                @ m
+                                $dMonad
+                                @ Life.Height
+                                @ (b, GHC.Types.Bool)
+                                lvl1
+                                (\ (y' :: Life.Height) ->
+                                 GHC.Base.return
+                                   @ m
+                                   $dMonad
+                                   @ (b, GHC.Types.Bool)
+                                   (h y', GHC.Types.True)))
+                             (GHC.Base.return @ m $dMonad @ (b, GHC.Types.Bool) (h y, b1)) })
+                    } in
+                    $sk
+                      @ Options.Options
+                      ($sk
+                         @ (GHC.Types.Int -> Options.Options)
+                         ($sk
+                            @ (Life.Height -> GHC.Types.Int -> Options.Options)
+                            (GHC.Base.return
+                               @ m
+                               $dMonad
+                               @ (Life.Width -> Life.Height -> GHC.Types.Int -> Options.Options,
+                                  GHC.Types.Bool)
+                               Options.$fDataOptions1)
+                              `cast`
+                            (Sym (Data.Data.N:Mp[0]
+                                      <m>_R
+                                      <Life.Width
+                                       -> Life.Height -> GHC.Types.Int -> Options.Options>_N))
+                            a1)
+                           `cast`
+                         (Sym (Data.Data.N:Mp[0]
+                                   <m>_R <Life.Height -> GHC.Types.Int -> Options.Options>_N))
+                         a2)
+                        `cast`
+                      (Sym (Data.Data.N:Mp[0]
+                                <m>_R <GHC.Types.Int -> Options.Options>_N))
+                      a3 })
+                   (\ (ds1 :: (Options.Options, GHC.Types.Bool)) ->
+                    case ds1 of wild { (,) x' b ->
+                    case b of wild1 {
+                      GHC.Types.False -> lvl
+                      GHC.Types.True
+                      -> GHC.Base.return @ m $dMonad @ Options.Options x' } })) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cgmapQ ::
+    (forall d. Data.Data.Data d => d -> u) -> Options.Options -> [u]
+  {- Arity: 2, Strictness: <L,C(C1(U))><S,1*U(U,U,U)>m2, Inline: [0],
+     Unfolding: InlineRule (2, True, False)
+                (\ @ u
+                   (w :: forall d. Data.Data.Data d => d -> u)
+                   (w1 :: Options.Options) ->
+                 case w1 of ww { Options.Options ww1 ww2 ww3 ->
+                 GHC.Types.:
+                   @ u
+                   (w @ Life.Width Data.Data.$fDataInt ww1)
+                   (GHC.Types.:
+                      @ u
+                      (w @ Life.Height Data.Data.$fDataInt ww2)
+                      (GHC.Types.:
+                         @ u
+                         (w @ GHC.Types.Int Data.Data.$fDataInt ww3)
+                         (GHC.Types.[] @ u))) }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cgmapQi ::
+    GHC.Types.Int
+    -> (forall d. Data.Data.Data d => d -> u) -> Options.Options -> u
+  {- Arity: 3,
+     Strictness: <S(S),1*U(1*U)><C(C(S)),1*C1(C1(U))><S,1*U(U,U,U)>,
+     Inline: [0],
+     Unfolding: InlineRule (3, True, False)
+                (\ @ u
+                   (w :: GHC.Types.Int)
+                   (w1 :: forall d. Data.Data.Data d => d -> u)
+                   (w2 :: Options.Options) ->
+                 case w of ww { GHC.Types.I# ww1 ->
+                 case w2 of ww2 { Options.Options ww3 ww4 ww5 ->
+                 Options.$w$cgmapQi @ u ww1 w1 ww3 ww4 ww5 } }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cgmapQr ::
+    (r' -> r -> r)
+    -> r
+    -> (forall d. Data.Data.Data d => d -> r')
+    -> Options.Options
+    -> r
+  {- Arity: 4,
+     Strictness: <C(C(S)),C(C1(U))><L,U><L,C(C1(U))><S,1*U(U,U,U)>,
+     Inline: [0],
+     Unfolding: InlineRule (4, True, False)
+                (\ @ r
+                   @ r'
+                   (w :: r' -> r -> r)
+                   (w1 :: r)
+                   (w2 :: forall d. Data.Data.Data d => d -> r')
+                   (w3 :: Options.Options) ->
+                 case w3 of ww { Options.Options ww1 ww2 ww3 ->
+                 Options.$w$cgmapQr @ r @ r' w w1 w2 ww1 ww2 ww3 }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$cgunfold ::
+    (forall b r. Data.Data.Data b => c (b -> r) -> c r)
+    -> (forall r. r -> c r) -> Data.Data.Constr -> c Options.Options
+  {- Arity: 3, Strictness: <C(C(S)),C(C1(U))><L,1*C1(U)><L,A>,
+     Inline: [0],
+     Unfolding: InlineRule (3, True, True)
+                (\ @ c :: * -> *
+                   (w :: forall b r. Data.Data.Data b => c (b -> r) -> c r)
+                   (w1 :: forall r. r -> c r)
+                   (w2 :: Data.Data.Constr) ->
+                 Options.$w$cgunfold @ c w w1) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fDataOptions_$ctoConstr :: Options.Options -> Data.Data.Constr
+  {- Arity: 1, Strictness: <S,1*H>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Options.Options) ->
+                 case ds of wild { Options.Options ds1 ds2 ds3 ->
+                 Options.$cOptions }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fShowOptions :: GHC.Show.Show Options.Options
+  DFunId
+  {- Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ Options.Options
+                  Options.$fShowOptions_$cshowsPrec
+                  Options.$fShowOptions_$cshow
+                  Options.$fShowOptions_$cshowList -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fShowOptions1 :: Options.Options -> GHC.Show.ShowS
+  {- Arity: 2, Strictness: <S,1*U(1*U(U),1*U(U),1*U(U))><L,U>,
+     Unfolding: (\ (w :: Options.Options) (w1 :: GHC.Base.String) ->
+                 case w of ww { Options.Options ww1 ww2 ww3 ->
+                 Options.$w$cshowsPrec 0# ww1 ww2 ww3 w1 }) -}
+cc0d0901bd790581582ac1e1480da6dc
+  $fShowOptions2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("}"#) -}
+9dd5299a490ee18d4209845b505a0278
+  $fShowOptions3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("fps = "#) -}
+7bc70073ba41d7e1c0e224b25bbb21c4
+  $fShowOptions4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("height = "#) -}
+694d5cf50c950c21c6162f2f6140ecfb
+  $fShowOptions5 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("width = "#) -}
+2f870252d1a14b3832980de861170cc3
+  $fShowOptions6 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Options {"#) -}
+64f72c44681b3ed4fc661fae3b5eb1c3
+  $fShowOptions7 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackAppendCString#
+                   Options.$fShowOptions2
+                   (GHC.Types.[] @ GHC.Types.Char)) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fShowOptions_$cshow :: Options.Options -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U(1*U(U),1*U(U),1*U(U))>,
+     Inline: [0],
+     Unfolding: InlineRule (1, True, False)
+                (\ (w :: Options.Options) ->
+                 case w of ww { Options.Options ww1 ww2 ww3 ->
+                 Options.$w$cshow ww1 ww2 ww3 }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fShowOptions_$cshowList :: [Options.Options] -> GHC.Show.ShowS
+  {- Arity: 2,
+     Unfolding: (GHC.Show.showList__
+                   @ Options.Options
+                   Options.$fShowOptions1) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $fShowOptions_$cshowsPrec ::
+    GHC.Types.Int -> Options.Options -> GHC.Show.ShowS
+  {- Arity: 3,
+     Strictness: <S(S),1*U(U)><S,1*U(1*U(U),1*U(U),1*U(U))><L,U>,
+     Inline: [0],
+     Unfolding: InlineRule (3, True, False)
+                (\ (w :: GHC.Types.Int)
+                   (w1 :: Options.Options)
+                   (w2 :: GHC.Base.String) ->
+                 case w of ww { GHC.Types.I# ww1 ->
+                 case w1 of ww2 { Options.Options ww3 ww4 ww5 ->
+                 Options.$w$cshowsPrec ww1 ww3 ww4 ww5 w2 } }) -}
+2dbeec92a8447e98ae813c0946764282
+  $tOptions :: Data.Data.DataType
+  {- Strictness: m,
+     Unfolding: (Data.Data.DataType
+                   Options.$fDataOptions6
+                   Options.$fDataOptions4) -}
+77a6685f58f3281d47c9cecacebfe229
+  $tc'Options :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   1559877576801489259##
+                   12588974984606398651##
+                   Options.$trModule
+                   Options.$tc'Options2
+                   0#
+                   Options.$tc'Options1) -}
+ef3133e7d62ac628c9d6d12ec430e63a
+  $tc'Options1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+b90d409a6baf5ce985fbbb645fadfd33
+  $tc'Options2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Options.$tc'Options3) -}
+8123ab606a70fb7d6667bb4a35021e23
+  $tc'Options3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Options"#) -}
+b1befbcad67a3e6f829122c2e3084d44
+  $tcOptions :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   14592147415178491644##
+                   13909223898442528862##
+                   Options.$trModule
+                   Options.$tcOptions1
+                   0#
+                   GHC.Types.krep$*) -}
+b0c1944b3d7ceea3a9e3d29eaf2bc9f7
+  $tcOptions1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Options.$fDataOptions7) -}
+3470062ef5d741a0b82909c23cf6f05f
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module
+                   Options.$trModule1
+                   Options.$tcOptions1) -}
+800ccb61da043116f22cf06c88180e4f
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Options.$trModule2) -}
+5bb9a34a6ecded88d16f2a61663d11ae
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("main"#) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $w$cgfoldl ::
+    (forall d b. Data.Data.Data d => c (d -> b) -> d -> c b)
+    -> (forall g. g -> c g)
+    -> Life.Width
+    -> Life.Height
+    -> GHC.Types.Int
+    -> c Options.Options
+  {- Arity: 5,
+     Strictness: <C(C(C(S))),C(C1(C1(U)))><L,1*C1(U)><L,U><L,U><L,U>,
+     Inline: [0],
+     Unfolding: (\ @ c :: * -> *
+                   (w :: forall d b. Data.Data.Data d => c (d -> b) -> d -> c b)
+                   (w1 :: forall g. g -> c g)
+                   (ww :: Life.Width)
+                   (ww1 :: Life.Height)
+                   (ww2 :: GHC.Types.Int) ->
+                 w @ GHC.Types.Int
+                   @ Options.Options
+                   Data.Data.$fDataInt
+                   (w @ Life.Height
+                      @ (GHC.Types.Int -> Options.Options)
+                      Data.Data.$fDataInt
+                      (w @ Life.Width
+                         @ (Life.Height -> GHC.Types.Int -> Options.Options)
+                         Data.Data.$fDataInt
+                         (w1
+                            @ (Life.Width -> Life.Height -> GHC.Types.Int -> Options.Options)
+                            Options.Options)
+                         ww)
+                      ww1)
+                   ww2) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $w$cgmapM ::
+    GHC.Base.Monad m =>
+    (forall d. Data.Data.Data d => d -> m d)
+    -> Life.Width -> Life.Height -> GHC.Types.Int -> m Options.Options
+  {- Arity: 5,
+     Strictness: <S(LC(C(S))LLL),U(A,C(C1(U)),A,C(U),A)><L,C(C1(U))><L,U><L,U><L,U>,
+     Inline: [0],
+     Unfolding: (\ @ m :: * -> *
+                   (w :: GHC.Base.Monad m)
+                   (w1 :: forall d. Data.Data.Data d => d -> m d)
+                   (ww :: Life.Width)
+                   (ww1 :: Life.Height)
+                   (ww2 :: GHC.Types.Int) ->
+                 let {
+                   $sk :: forall b. m (Life.Height -> b) -> Life.Height -> m b
+                     {- Arity: 2, Strictness: <L,U><L,U> -}
+                   = \ @ b (c :: m (Life.Height -> b)) (x :: Life.Height)[OneShot] ->
+                     let {
+                       lvl :: m Life.Height = w1 @ Life.Height Data.Data.$fDataInt x
+                     } in
+                     GHC.Base.>>=
+                       @ m
+                       w
+                       @ (Life.Height -> b)
+                       @ b
+                       c
+                       (\ (c' :: Life.Height -> b) ->
+                        GHC.Base.>>=
+                          @ m
+                          w
+                          @ Life.Height
+                          @ b
+                          lvl
+                          (\ (x' :: Life.Height) -> GHC.Base.return @ m w @ b (c' x')))
+                 } in
+                 $sk
+                   @ Options.Options
+                   ($sk
+                      @ (GHC.Types.Int -> Options.Options)
+                      ($sk
+                         @ (Life.Height -> GHC.Types.Int -> Options.Options)
+                         (GHC.Base.return
+                            @ m
+                            w
+                            @ (Life.Width -> Life.Height -> GHC.Types.Int -> Options.Options)
+                            Options.Options)
+                         ww)
+                      ww1)
+                   ww2) -}
+3e1fa69ba9979517de95cf35982439c8
+  $w$cgmapQi ::
+    GHC.Prim.Int#
+    -> (forall d. Data.Data.Data d => d -> u)
+    -> Life.Width
+    -> Life.Height
+    -> GHC.Types.Int
+    -> u
+  {- Arity: 5,
+     Strictness: <S,1*U><C(C(S)),1*C1(C1(U))><L,U><L,U><L,U>,
+     Inline: [0],
+     Unfolding: (\ @ u
+                   (ww :: GHC.Prim.Int#)
+                   (w :: forall d. Data.Data.Data d => d -> u)
+                   (ww1 :: Life.Width)
+                   (ww2 :: Life.Height)
+                   (ww3 :: GHC.Types.Int) ->
+                 case ww of wild {
+                   DEFAULT -> Data.Maybe.fromJust1 @ u
+                   0# -> w @ Life.Width Data.Data.$fDataInt ww1
+                   1# -> w @ Life.Height Data.Data.$fDataInt ww2
+                   2# -> w @ GHC.Types.Int Data.Data.$fDataInt ww3 }) -}
+73a80a90955e93d9ec2bae8e0891a80c
+  $w$cgmapQl ::
+    (r -> r' -> r)
+    -> r
+    -> (forall d. Data.Data.Data d => d -> r')
+    -> Life.Width
+    -> Life.Height
+    -> GHC.Types.Int
+    -> r
+  {- Arity: 6,
+     Strictness: <C(C(S)),C(C1(U))><L,U><L,C(C1(U))><L,U><L,U><L,U>,
+     Unfolding: (\ @ r
+                   @ r'
+                   (w :: r -> r' -> r)
+                   (w1 :: r)
+                   (w2 :: forall d. Data.Data.Data d => d -> r')
+                   (ww :: Life.Width)
+                   (ww1 :: Life.Height)
+                   (ww2 :: GHC.Types.Int) ->
+                 w (w (w w1 (w2 @ Life.Width Data.Data.$fDataInt ww))
+                      (w2 @ Life.Height Data.Data.$fDataInt ww1))
+                   (w2 @ GHC.Types.Int Data.Data.$fDataInt ww2)) -}
+6fc98ca66a1e2197ca365cb0ebc865c4
+  $w$cgmapQr ::
+    (r' -> r -> r)
+    -> r
+    -> (forall d. Data.Data.Data d => d -> r')
+    -> Life.Width
+    -> Life.Height
+    -> GHC.Types.Int
+    -> r
+  {- Arity: 6,
+     Strictness: <C(C(S)),C(C1(U))><L,U><L,C(C1(U))><L,U><L,U><L,U>,
+     Inline: [0],
+     Unfolding: (\ @ r
+                   @ r'
+                   (w :: r' -> r -> r)
+                   (w1 :: r)
+                   (w2 :: forall d. Data.Data.Data d => d -> r')
+                   (ww :: Life.Width)
+                   (ww1 :: Life.Height)
+                   (ww2 :: GHC.Types.Int) ->
+                 w (w2 @ Life.Width Data.Data.$fDataInt ww)
+                   (w (w2 @ Life.Height Data.Data.$fDataInt ww1)
+                      (w (w2 @ GHC.Types.Int Data.Data.$fDataInt ww2) w1))) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  $w$cgunfold ::
+    (forall b r. Data.Data.Data b => c (b -> r) -> c r)
+    -> (forall r. r -> c r) -> c Options.Options
+  {- Arity: 2, Strictness: <C(C(S)),C(C1(U))><L,1*C1(U)>,
+     Inline: [0],
+     Unfolding: (\ @ c :: * -> *
+                   (w :: forall b r. Data.Data.Data b => c (b -> r) -> c r)
+                   (w1 :: forall r. r -> c r) ->
+                 w @ GHC.Types.Int
+                   @ Options.Options
+                   Data.Data.$fDataInt
+                   (w @ Life.Height
+                      @ (GHC.Types.Int -> Options.Options)
+                      Data.Data.$fDataInt
+                      (w @ Life.Width
+                         @ (Life.Height -> GHC.Types.Int -> Options.Options)
+                         Data.Data.$fDataInt
+                         (w1
+                            @ (Life.Width -> Life.Height -> GHC.Types.Int -> Options.Options)
+                            Options.Options)))) -}
+bb0ff6a065e960d4058d380efadc2368
+  $w$cshow ::
+    Life.Width -> Life.Height -> GHC.Types.Int -> GHC.Base.String
+  {- Arity: 3, Strictness: <L,1*U(U)><L,1*U(U)><L,1*U(U)>,
+     Inline: [0],
+     Unfolding: (\ (ww :: Life.Width)
+                   (ww1 :: Life.Height)
+                   (ww2 :: GHC.Types.Int) ->
+                 GHC.CString.unpackAppendCString#
+                   Options.$fShowOptions6
+                   (GHC.CString.unpackAppendCString#
+                      Options.$fShowOptions5
+                      (case ww of ww3 { GHC.Types.I# ww4 ->
+                       case GHC.Show.$wshowSignedInt
+                              0#
+                              ww4
+                              (GHC.Base.++
+                                 @ GHC.Types.Char
+                                 GHC.Show.showCommaSpace1
+                                 (GHC.CString.unpackAppendCString#
+                                    Options.$fShowOptions4
+                                    (case ww1 of ww5 { GHC.Types.I# ww6 ->
+                                     case GHC.Show.$wshowSignedInt
+                                            0#
+                                            ww6
+                                            (GHC.Base.++
+                                               @ GHC.Types.Char
+                                               GHC.Show.showCommaSpace1
+                                               (GHC.CString.unpackAppendCString#
+                                                  Options.$fShowOptions3
+                                                  (case ww2 of ww7 { GHC.Types.I# ww8 ->
+                                                   case GHC.Show.$wshowSignedInt
+                                                          0#
+                                                          ww8
+                                                          Options.$fShowOptions7 of ww9 { (#,#) ww10 ww11 ->
+                                                   GHC.Types.:
+                                                     @ GHC.Types.Char
+                                                     ww10
+                                                     ww11 } }))) of ww7 { (#,#) ww8 ww9 ->
+                                     GHC.Types.:
+                                       @ GHC.Types.Char
+                                       ww8
+                                       ww9 } }))) of ww5 { (#,#) ww6 ww7 ->
+                       GHC.Types.: @ GHC.Types.Char ww6 ww7 } }))) -}
+94b1688f2cae48bc1bb5ebd9d8022fe3
+  $w$cshowsPrec ::
+    GHC.Prim.Int#
+    -> Life.Width
+    -> Life.Height
+    -> GHC.Types.Int
+    -> GHC.Base.String
+    -> GHC.Base.String
+  {- Arity: 5, Strictness: <S,U><L,1*U(U)><L,1*U(U)><L,1*U(U)><L,U>,
+     Inline: [0],
+     Unfolding: (\ (ww :: GHC.Prim.Int#)
+                   (ww1 :: Life.Width)
+                   (ww2 :: Life.Height)
+                   (ww3 :: GHC.Types.Int)
+                   (w :: GHC.Base.String) ->
+                 let {
+                   p :: GHC.Show.ShowS {- Arity: 1, Strictness: <L,U> -}
+                   = \ (x :: GHC.Base.String)[OneShot] ->
+                     GHC.CString.unpackAppendCString#
+                       Options.$fShowOptions6
+                       (GHC.CString.unpackAppendCString#
+                          Options.$fShowOptions5
+                          (case ww1 of ww4 { GHC.Types.I# ww5 ->
+                           case GHC.Show.$wshowSignedInt
+                                  0#
+                                  ww5
+                                  (GHC.Base.++
+                                     @ GHC.Types.Char
+                                     GHC.Show.showCommaSpace1
+                                     (GHC.CString.unpackAppendCString#
+                                        Options.$fShowOptions4
+                                        (case ww2 of ww6 { GHC.Types.I# ww7 ->
+                                         case GHC.Show.$wshowSignedInt
+                                                0#
+                                                ww7
+                                                (GHC.Base.++
+                                                   @ GHC.Types.Char
+                                                   GHC.Show.showCommaSpace1
+                                                   (GHC.CString.unpackAppendCString#
+                                                      Options.$fShowOptions3
+                                                      (case ww3 of ww8 { GHC.Types.I# ww9 ->
+                                                       case GHC.Show.$wshowSignedInt
+                                                              0#
+                                                              ww9
+                                                              (GHC.CString.unpackAppendCString#
+                                                                 Options.$fShowOptions2
+                                                                 x) of ww10 { (#,#) ww11 ww12 ->
+                                                       GHC.Types.:
+                                                         @ GHC.Types.Char
+                                                         ww11
+                                                         ww12 } }))) of ww8 { (#,#) ww9 ww10 ->
+                                         GHC.Types.:
+                                           @ GHC.Types.Char
+                                           ww9
+                                           ww10 } }))) of ww6 { (#,#) ww7 ww8 ->
+                           GHC.Types.: @ GHC.Types.Char ww7 ww8 } }))
+                 } in
+                 case GHC.Prim.tagToEnum#
+                        @ GHC.Types.Bool
+                        (GHC.Prim.>=# ww 11#) of wild {
+                   GHC.Types.False -> p w
+                   GHC.Types.True
+                   -> GHC.Types.:
+                        @ GHC.Types.Char
+                        GHC.Show.$fShow(,)4
+                        (p (GHC.Types.: @ GHC.Types.Char GHC.Show.$fShow(,)2 w)) }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  data Options
+    = Options {width :: Life.Width,
+               height :: Life.Height,
+               fps :: GHC.Types.Int}
+a479d20a7214ba5139b2d7bdc2788ba4
+  fps :: Options.Options -> GHC.Types.Int
+  RecSel Left Options.Options
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(LLS),1*U(A,A,1*U(U))>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Options.Options) ->
+                 case ds of wild { Options.Options ds1 ds2 ds3 -> ds3 }) -}
+a0808563310c313b0471ddee71e7b75f
+  getOpts :: GHC.Types.IO Options.Options
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Options.getOpts1
+                  `cast`
+                (Sym (GHC.Types.N:IO[0] <Options.Options>_R)) -}
+1cc6f966c5273daa9b7459308b0d46db
+  getOpts1 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, Options.Options #)
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: (\ (s :: GHC.Prim.State# GHC.Prim.RealWorld) ->
+                 case System.Console.CmdArgs.Explicit.processArgs1
+                        @ (System.Console.CmdArgs.Implicit.Type.CmdArgs Options.Options)
+                        (case System.Console.CmdArgs.Implicit.$wcmdArgsCapture
+                                @ Options.Options
+                                Options.$fDataOptions
+                                Options.getOpts2 of ww { (#,,,,,,,,,#) ww1 ww2 ww3 ww4 ww5 ww6 ww7 ww8 ww9 ww10 ->
+                         System.Console.CmdArgs.Explicit.Type.Mode
+                           @ (System.Console.CmdArgs.Implicit.Type.CmdArgs Options.Options)
+                           ww1
+                           ww2
+                           ww3
+                           ww4
+                           ww5
+                           ww6
+                           ww7
+                           ww8
+                           ww9
+                           ww10 })
+                        s of ds1 { (#,#) ipv ipv1 ->
+                 System.Console.CmdArgs.Implicit.cmdArgs2
+                   @ Options.Options
+                   ipv1
+                   ipv }) -}
+cec411a566606c0c259897caebb99787
+  getOpts10 :: System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Unfolding: (case GHC.List.reverse1
+                        @ GHC.Types.Char
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        (GHC.Types.[] @ GHC.Types.Char) of wild { DEFAULT ->
+                 Options.getOpts11 }) -}
+155492fcc643662331c0cfa7e02552dd
+  getOpts11 :: System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Strictness: m13,
+     Unfolding: (System.Console.CmdArgs.Implicit.Ann.ProgProgram
+                   Options.getOpts12) -}
+db9a233679db0498f9895cdaaa612d0c
+  getOpts12 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Options.getOpts13) -}
+715715914ad07518b59767f20d496bc7
+  getOpts13 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("gameoflife"#) -}
+9d8858c8ace342c428f8dffe0f060843
+  getOpts14 :: Options.Options
+  {- Unfolding: (case GHC.List.reverse1
+                        @ GHC.Types.Char
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        (GHC.Types.[] @ GHC.Types.Char) of wild { DEFAULT ->
+                 Options.getOpts15 }) -}
+68a5a065e8b774709248058910ab33fa
+  getOpts15 :: Options.Options
+  {- Strictness: m,
+     Unfolding: (Options.Options
+                   Options.getOpts30
+                   Options.getOpts23
+                   Options.getOpts16) -}
+257fd0fef18749cb925fcf1dd98ef8e1
+  getOpts16 :: GHC.Types.Int
+  {- Unfolding: (System.Console.CmdArgs.Annotate.$waddAnn
+                   @ GHC.Types.Int
+                   @ System.Console.CmdArgs.Implicit.Ann.Ann
+                   System.Console.CmdArgs.Implicit.Ann.$fDataAnn
+                   Options.getOpts21
+                   Options.getOpts17) -}
+28247c65f47cbf869c8d89de2f17418b
+  getOpts17 :: System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Unfolding: (case GHC.List.reverse1
+                        @ GHC.Types.Char
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        (GHC.Types.[] @ GHC.Types.Char) of wild { DEFAULT ->
+                 Options.getOpts18 }) -}
+95474ac4db12e0551d2d6e267bfd56df
+  getOpts18 :: System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Strictness: m1,
+     Unfolding: (System.Console.CmdArgs.Implicit.Ann.Help
+                   Options.getOpts19) -}
+7e620f3f750e583bd8f263724844bacb
+  getOpts19 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Options.getOpts20) -}
+6dad5a10bf8f8757a50cc12d8480daa7
+  getOpts2 ::
+    System.Console.CmdArgs.Annotate.Capture
+      System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Unfolding: (System.Console.CmdArgs.Annotate.capture
+                   @ Options.Options
+                   @ System.Console.CmdArgs.Implicit.Ann.Ann
+                   Options.$fDataOptions
+                   System.Console.CmdArgs.Implicit.Ann.$fDataAnn
+                   Options.getOpts3) -}
+af7438da4e3cc5a4e2ea8084f2a25601
+  getOpts20 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Display speed (default: 30)"#) -}
+18b6942e0ead9001ba7cda8fc7f62da1
+  getOpts21 :: GHC.Types.Int
+  {- Unfolding: (case GHC.List.reverse1
+                        @ GHC.Types.Char
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        (GHC.Types.[] @ GHC.Types.Char) of wild { DEFAULT ->
+                 Options.getOpts22 }) -}
+1bef5337ef52806b0240d2d3e52b5898
+  getOpts22 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 30#) -}
+01abc3baec611f9d0d63b8f708b3eb81
+  getOpts23 :: Life.Height
+  {- Unfolding: (System.Console.CmdArgs.Annotate.$waddAnn
+                   @ Life.Height
+                   @ System.Console.CmdArgs.Implicit.Ann.Ann
+                   System.Console.CmdArgs.Implicit.Ann.$fDataAnn
+                   Options.getOpts28
+                   Options.getOpts24) -}
+2f98d69f170e8fa6048cbce453c6b0e7
+  getOpts24 :: System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Unfolding: (case GHC.List.reverse1
+                        @ GHC.Types.Char
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        (GHC.Types.[] @ GHC.Types.Char) of wild { DEFAULT ->
+                 Options.getOpts25 }) -}
+fdf9c894d873966e995b61960006b6e7
+  getOpts25 :: System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Strictness: m1,
+     Unfolding: (System.Console.CmdArgs.Implicit.Ann.Help
+                   Options.getOpts26) -}
+d1db6f1d277d74ec104e7328f2c465ca
+  getOpts26 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Options.getOpts27) -}
+1d5849b9e87a2c2f9046766aa7e98129
+  getOpts27 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Display height (default: 40)"#) -}
+4b71e9f014b01584efe7cb279a3be77a
+  getOpts28 :: Life.Height
+  {- Unfolding: (case GHC.List.reverse1
+                        @ GHC.Types.Char
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        (GHC.Types.[] @ GHC.Types.Char) of wild { DEFAULT ->
+                 Options.getOpts29 }) -}
+e73ae9daa9860c306f8592737abd52db
+  getOpts29 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 40#) -}
+bbb3754cfd0b73f9c4900da788162366
+  getOpts3 :: Options.Options
+  {- Unfolding: (System.Console.CmdArgs.Annotate.$waddAnn
+                   @ Options.Options
+                   @ System.Console.CmdArgs.Implicit.Ann.Ann
+                   System.Console.CmdArgs.Implicit.Ann.$fDataAnn
+                   Options.getOpts9
+                   Options.getOpts4) -}
+ca345e2bbca69cd97a51935712ece345
+  getOpts30 :: Life.Width
+  {- Unfolding: (System.Console.CmdArgs.Annotate.$waddAnn
+                   @ Life.Width
+                   @ System.Console.CmdArgs.Implicit.Ann.Ann
+                   System.Console.CmdArgs.Implicit.Ann.$fDataAnn
+                   Options.getOpts35
+                   Options.getOpts31) -}
+c9ccb53237a164e843db74440cdc5853
+  getOpts31 :: System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Unfolding: (case GHC.List.reverse1
+                        @ GHC.Types.Char
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        (GHC.Types.[] @ GHC.Types.Char) of wild { DEFAULT ->
+                 Options.getOpts32 }) -}
+1d23df212782c4af8d42ce567194b081
+  getOpts32 :: System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Strictness: m1,
+     Unfolding: (System.Console.CmdArgs.Implicit.Ann.Help
+                   Options.getOpts33) -}
+e5c973aee09ce74b4962663d208127d2
+  getOpts33 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Options.getOpts34) -}
+a9498bdee1ebf144b340655aacd05c84
+  getOpts34 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Display width (default: 80)"#) -}
+76cd7bc204792ce3d4f7503e936cf925
+  getOpts35 :: Life.Width
+  {- Unfolding: (case GHC.List.reverse1
+                        @ GHC.Types.Char
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        (GHC.Types.[] @ GHC.Types.Char) of wild { DEFAULT ->
+                 Options.getOpts36 }) -}
+aac0576c4c72e3994c228ba024540576
+  getOpts36 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 80#) -}
+992290b626ba1289e73d7df989e8e48a
+  getOpts4 :: System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Unfolding: (case GHC.List.reverse1
+                        @ GHC.Types.Char
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        (GHC.Types.[] @ GHC.Types.Char) of wild { DEFAULT ->
+                 Options.getOpts5 }) -}
+7aee2dca0e7ca4703089d2a44e5a23e4
+  getOpts5 :: System.Console.CmdArgs.Implicit.Ann.Ann
+  {- Strictness: m12,
+     Unfolding: (System.Console.CmdArgs.Implicit.Ann.ProgSummary
+                   Options.getOpts6) -}
+a32b953dc4bf7063595dec25f21c64d4
+  getOpts6 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackAppendCString#
+                   Options.getOpts8
+                   Options.getOpts7) -}
+b743ec82846c95f5106846088b9a7e4e
+  getOpts7 :: GHC.Base.String
+  {- Unfolding: (Data.Version.$wshowVersion
+                   Paths_gameoflife.version1
+                   (GHC.Types.[] @ GHC.Base.String)) -}
+4f195b59c0ef354eb13c3568d08cc6b8
+  getOpts8 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("gameoflife v"#) -}
+149177bff79858607d3bff7854f5a5b8
+  getOpts9 :: Options.Options
+  {- Unfolding: (case GHC.List.reverse1
+                        @ GHC.Types.Char
+                        (GHC.Types.[] @ GHC.Types.Char)
+                        (GHC.Types.[] @ GHC.Types.Char) of wild { DEFAULT ->
+                 System.Console.CmdArgs.Annotate.$waddAnn
+                   @ Options.Options
+                   @ System.Console.CmdArgs.Implicit.Ann.Ann
+                   System.Console.CmdArgs.Implicit.Ann.$fDataAnn
+                   Options.getOpts14
+                   Options.getOpts10 }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  height :: Options.Options -> Life.Height
+  RecSel Left Options.Options
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(LSL),1*U(A,1*U(U),A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Options.Options) ->
+                 case ds of wild { Options.Options ds1 ds2 ds3 -> ds2 }) -}
+a479d20a7214ba5139b2d7bdc2788ba4
+  width :: Options.Options -> Life.Width
+  RecSel Left Options.Options
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(SLL),1*U(1*U(U),A,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Options.Options) ->
+                 case ds of wild { Options.Options ds1 ds2 ds3 -> ds1 }) -}
+instance Data.Data.Data [Options.Options] = Options.$fDataOptions
+instance GHC.Show.Show [Options.Options] = Options.$fShowOptions
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: none
+require own pkg trusted: False
+
