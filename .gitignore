@@ -284,6 +284,7 @@ paket-files/
 # Haskell objects
 *.o
 *.hi
+.stack-work
 
 # Haskell cabal results
 */dist/*
